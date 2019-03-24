@@ -34,6 +34,7 @@ public class Cuenta {
         this.nickname = nickname;
     }
 
+
     public String getCorreo() {
         return correo;
     }

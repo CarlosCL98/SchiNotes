@@ -42,7 +42,7 @@ public class Usuario {
     private String intereses;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
+    @JoinColumn(name = "cuenta_correo", unique = true)
     private Cuenta cuentaCorreo;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -59,13 +59,20 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Nota> notas;
 
-    public Usuario(String nombre, String apellido, Byte[] foto, String intereses, Cuenta cuentaCorreo) {
+    /*public Usuario(String nombre, String apellido, Byte[] foto, String intereses, Cuenta cuentaCorreo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.foto = foto;
         this.intereses = intereses;
         this.cuentaCorreo = cuentaCorreo;
-    }   
+    }  */
+
+    
+    public Usuario(String nombre, String apellido, Cuenta cuentaCorreo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cuentaCorreo = cuentaCorreo;
+    }  
 
     public int getIdentificacion() {
         return identificacion;

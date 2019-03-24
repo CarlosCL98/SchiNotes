@@ -20,7 +20,7 @@ public interface SchiNotesService {
 
     void modificarUsuario(Usuario usuario) throws SchiNotesException;
 
-    Usuario consultarUsuario(Usuario usuario) throws SchiNotesException;
+    Usuario consultarUsuario(int identificacion) throws SchiNotesException;
 
     void crearCuenta(Cuenta cuenta) throws SchiNotesException;
 
