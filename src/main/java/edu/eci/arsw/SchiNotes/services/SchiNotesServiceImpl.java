@@ -26,33 +26,30 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Autowired
     private HorarioRepository horarioRepository;
+    
     @Autowired
     private ActividadRepository actividadRepository;
+
     @Autowired
     private CuentaRepository cuentaRepository;
+
     @Autowired
     private GrupoRepository grupoRepository;
+
     @Autowired
     private NotaRepository notaRepository;
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
-
     @Override
     public void registrarUsuario(Usuario usuario)  {
-        
         usuarioRepository.save(usuario);
     }
 
     @Override
     public void modificarUsuario(Usuario usuario) throws SchiNotesException {
 
-    }
-
-    @Override
-    public Usuario consultarUsuario(int identificacion) throws SchiNotesException {
-        return null;
     }
 
     @Override
@@ -98,6 +95,11 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public void modificarActividad(Actividad actividad) throws SchiNotesException {
 
+    }
+
+    @Override
+    public Optional<Cuenta> consultarCuenta(String correo) {
+        return cuentaRepository.findById(correo);
     }
     
     

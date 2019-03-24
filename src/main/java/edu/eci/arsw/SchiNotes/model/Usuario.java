@@ -66,13 +66,15 @@ public class Usuario {
         this.intereses = intereses;
         this.cuentaCorreo = cuentaCorreo;
     }  */
+    public Usuario(){
+        
+    }
 
-    
     public Usuario(String nombre, String apellido, Cuenta cuentaCorreo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cuentaCorreo = cuentaCorreo;
-    }  
+    }
 
     public int getIdentificacion() {
         return identificacion;
@@ -112,10 +114,6 @@ public class Usuario {
 
     public void setIntereses(String intereses) {
         this.intereses = intereses;
-    }
-
-    public Cuenta getCuentaCorreo() {
-        return cuentaCorreo;
     }
 
     public void setCuentaCorreo(Cuenta cuentaCorreo) {

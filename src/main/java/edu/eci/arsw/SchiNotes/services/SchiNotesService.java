@@ -1,6 +1,7 @@
 package edu.eci.arsw.SchiNotes.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,6 @@ public interface SchiNotesService {
 
     void modificarUsuario(Usuario usuario) throws SchiNotesException;
 
-    Usuario consultarUsuario(int identificacion) throws SchiNotesException;
-
     void crearCuenta(Cuenta cuenta) throws SchiNotesException;
 
     void modificarCuenta(Cuenta cuenta) throws SchiNotesException;
@@ -39,5 +38,7 @@ public interface SchiNotesService {
     void agregarActividad(Actividad actividad) throws SchiNotesException;
 
     void modificarActividad(Actividad actividad) throws SchiNotesException;
+
+	Optional<Cuenta> consultarCuenta(String correo);
     
 }

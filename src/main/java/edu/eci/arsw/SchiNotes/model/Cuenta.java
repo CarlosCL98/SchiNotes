@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  *
- *  @author Daniel Rosales
+ * @author Daniel Rosales
  * @author Carlos Medina
  */
 @Entity
@@ -20,7 +20,7 @@ public class Cuenta {
     private String correo;
 
     @Column(name = "contraseña")
-    private String contraseña;
+    private String contrasena;
 
     @Column(name = "nickname")
     private String nickname;
@@ -28,12 +28,15 @@ public class Cuenta {
     @OneToOne(mappedBy = "cuentaCorreo", cascade = CascadeType.ALL)
     private Usuario usuario;
 
-    public Cuenta(String correo, String contraseña, String nickname) {
-        this.correo = correo;
-        this.contraseña = contraseña;
-        this.nickname = nickname;
+    public Cuenta() {
+        
     }
 
+    public Cuenta(String correo, String contrasena, String nickname) {
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.nickname = nickname;
+    }
 
     public String getCorreo() {
         return correo;
@@ -43,12 +46,12 @@ public class Cuenta {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getNickname() {
@@ -58,4 +61,14 @@ public class Cuenta {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+     
 }
+

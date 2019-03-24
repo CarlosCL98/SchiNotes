@@ -12,7 +12,7 @@
 	<artifactId>SchiNotes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SchiNotes</name>
-	<description>Demo project for Spring Boot</description>
+	<description>SchiNotes</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -47,6 +47,23 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>0.36</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

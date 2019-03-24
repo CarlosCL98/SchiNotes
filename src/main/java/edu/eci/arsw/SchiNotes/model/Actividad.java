@@ -38,6 +38,10 @@ public class Actividad {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "actividades")
     private List<Horario> horarios;
 
+    public Actividad() {
+
+    }
+    
     public Actividad(int id, String nombre, String descripcion, Date fecha) {
         this.id = id;
         this.nombre = nombre;
