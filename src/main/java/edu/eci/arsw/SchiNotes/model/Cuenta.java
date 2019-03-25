@@ -19,7 +19,7 @@ public class Cuenta {
     @Id            
     private String correo;
 
-    @Column(name = "contraseña")
+    @Column(name = "contrasena")
     private String contrasena;
 
     @Column(name = "nickname")

@@ -39,6 +39,17 @@ public class SchiNotesController {
 	    } catch (Exception ex) {	        
 	        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
 	    }        
+	}
+	
+	@RequestMapping(value ="/usuario/{correo}", method = RequestMethod.GET)
+	public ResponseEntity<?> recursoConsultarUser(@PathVariable String correo){
+	    try {	    
+			System.out.println(correo);	
+	        Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
+			return new ResponseEntity<>(usuario,HttpStatus.ACCEPTED);
+	    } catch (Exception ex) {	        
+	        return new ResponseEntity<>("El usuario no existe.", HttpStatus.NOT_FOUND);
+	    }        
     }
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -50,7 +61,19 @@ public class SchiNotesController {
 			//ex.printStackTrace();	        
 	        return new ResponseEntity<>("Error no fue posible crear el usuario", HttpStatus.FORBIDDEN);
 	    }        
-    }
+	}
+	
+	@RequestMapping(value = "/{correo}/horario", method = RequestMethod.POST)
+	public ResponseEntity<?> recursoRegisterUser(@PathVariable String correo,@RequestBody Horario horario){
+	    try {	    	
+			schiNotesService.crearHorario(horario);
+			//System.out.println(horario.ge);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+	    } catch (Exception ex) {
+			//ex.printStackTrace();	        
+	        return new ResponseEntity<>("Error no fue posible crear el usuario", HttpStatus.FORBIDDEN);
+	    }        
+	}
 
 
 	

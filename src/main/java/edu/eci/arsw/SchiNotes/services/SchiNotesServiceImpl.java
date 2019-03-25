@@ -43,6 +43,11 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     private UsuarioRepository usuarioRepository;
 
     @Override
+    public Usuario consultarUsuarioPorCorreo(String correo) throws SchiNotesException {
+        return usuarioRepository.findUserByEmail(correo);
+    }
+
+    @Override
     public void registrarUsuario(Usuario usuario)  {
         usuarioRepository.save(usuario);
     }
@@ -64,7 +69,7 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public void crearHorario(Horario horario) throws SchiNotesException {
-
+        horarioRepository.save(horario);
     }
 
     @Override
@@ -100,7 +105,6 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public Optional<Cuenta> consultarCuenta(String correo) {
         return cuentaRepository.findById(correo);
-    }
-    
+    }    
     
 }

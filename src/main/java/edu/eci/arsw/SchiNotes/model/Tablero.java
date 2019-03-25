@@ -30,6 +30,10 @@ public class Tablero {
     @OneToOne(mappedBy = "tableroNombre")
     private Grupo grupo;
 
+    public Tablero() {
+
+    }
+    
     public Tablero(String nombre, Byte[] template) {
         this.nombre = nombre;
         this.template = template;

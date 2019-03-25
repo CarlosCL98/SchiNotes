@@ -41,6 +41,10 @@ public class Nota {
     @JoinColumn
     private Grupo grupo;
 
+    public Nota() {
+
+    }
+    
     public Nota(int id, String color, Byte[] template, Date fechaCreacion, Usuario usuario, Grupo grupo) {
         this.id = id;
         this.color = color;

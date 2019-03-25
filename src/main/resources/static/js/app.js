@@ -1,34 +1,39 @@
-var app = (function() {
+var app = (function () {
+    
+    
 
-    var UsuarioActual = {};
-
-    var verificarUsuario = function(cuenta) {
-        var contrasena = $("#ContraseñaInput").val(); 
-        UsuarioActual = cuenta.usuario;
+    var verificarUsuario = function (cuenta) {
+        var contrasena = $("#ContraseñaInput").val();
         if (cuenta.contrasena == contrasena) {
-            $(location).attr("href", "../index.html");
+            Cookies.set('username', cuenta.correo,{ expires: 7});
+            $(location).attr("href", "../home.html");
+            
         } else {
             alert("Credenciales inválidas. No puede ingresar.");
         }
     };
 
-    var mostrarPerfil = function() {
-        console.log(UsuarioActual);
-        $(location).attr("href", "../perfil.html");
-        $("#nombre").find("output").attr("name",UsuarioActual.nombre);
-    }
+    var mostrarPerfil = function (cuenta) {        
+        console.log(cuenta);
+        $("#perfilNombre").text(cuenta.usuario.nombre);
+        $("#perfilApellido").text(cuenta.usuario.apellido);
+        $("#perfilCorreo").text(cuenta.correo);
+        console.log();
+    };
 
     return {
-        agregarUsuario:function() {
+        agregarUsuario: function () {
             apiUser.postUser();
         },
-        autenticarUsuario:function() {
-            var correo = $("#UsuarioInput").val(); 
+        autenticarUsuario: function () {
+            correo = $("#UsuarioInput").val();
             apiUser.getUser(correo, verificarUsuario);
+            
         },
-        consultarPerfil:function() {
-            mostrarPerfil();
+        consultarPerfil: function () {            
+            var correoCookie = Cookies.get('username');
+            apiUser.getUser(correoCookie, mostrarPerfil);
         }
     }
-}       
+}
 )();

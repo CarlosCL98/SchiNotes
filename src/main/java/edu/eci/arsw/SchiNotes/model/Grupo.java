@@ -46,6 +46,10 @@ public class Grupo {
     @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
     private List<Nota> notas;
 
+    public Grupo() {
+
+    }
+    
     public Grupo(int identificacion, String nombre, String descripcion, Horario horarioNombre, Tablero tableroNombre) {
         this.identificacion = identificacion;
         this.nombre = nombre;

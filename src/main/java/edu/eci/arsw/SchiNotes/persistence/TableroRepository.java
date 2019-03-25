@@ -7,5 +7,5 @@ import edu.eci.arsw.SchiNotes.model.Tablero;
 
 @Repository
 public interface TableroRepository extends JpaRepository<Tablero, String> {
-
+   
 }

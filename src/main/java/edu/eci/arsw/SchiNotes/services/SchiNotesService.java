@@ -17,6 +17,8 @@ import edu.eci.arsw.SchiNotes.model.Usuario;
 @Component
 public interface SchiNotesService {
 
+    Usuario consultarUsuarioPorCorreo(String correo) throws SchiNotesException;
+
     void registrarUsuario(Usuario usuario) throws SchiNotesException;
 
     void modificarUsuario(Usuario usuario) throws SchiNotesException;

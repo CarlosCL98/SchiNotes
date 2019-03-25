@@ -59,13 +59,9 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Nota> notas;
 
-    /*public Usuario(String nombre, String apellido, Byte[] foto, String intereses, Cuenta cuentaCorreo) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.foto = foto;
-        this.intereses = intereses;
-        this.cuentaCorreo = cuentaCorreo;
-    }  */
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
+    private List<Horario> horarios;
+
     public Usuario(){
         
     }
