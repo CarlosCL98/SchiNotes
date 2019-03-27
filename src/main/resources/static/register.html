@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <title>SchiNotes Registro</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <script src="/js/app.js"></script>
-    <script src="/js/apiUser.js"></script>
-    <link href="/css/app.css" type="text/css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <title>SchiNotes Registro</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <script src="/js/app.js"></script>
+        <script src="/js/apiUsuario.js"></script>
+        <link href="/css/app.css" type="text/css" rel="stylesheet">
     </head>
-<body>
-    <div class="signup-form">
-        <form method="post">
-            <h2>Register</h2>
-            <p class="hint-text">Create your account. It's free and only takes a minute.</p>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <input id = "nombreInput" type="text" class="form-control" name="first_name" placeholder="First Name" required="required">
-                    </div>
-                    <div class="col-xs-6">
-                        <input id = "apellidoInput" type="text" class="form-control" name="last_name" placeholder="Last Name" required="required">
-                    </div>
-                </div>        	
-            </div>
-            <div class="form-group">
-                <input id="emailInput" type="email" class="form-control" name="email" placeholder="Email" required="required">
-            </div>
-            <div class="form-group">
-                <input id ="passwordInput" type="password" class="form-control" name="password" placeholder="Password" required="required">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-            </div>        
-            <div class="form-group">
-                <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
-            </div>
-            <div class="form-group">
-                <input type="button" value="Register Now" class="btn btn-success btn-lg btn-block" onclick="app.agregarUsuario()">
-            </div>
-        </form>
-        <div class="text-center">Already have an account? <a href="#">Sign in</a></div>
-    </div>
-</body>
+    <body>
+        <div class="signup-form">
+            <form method="post">
+                <h2>Register</h2>
+                <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input id = "nombreInput" type="text" class="form-control" name="first_name" placeholder="First Name" required="required">
+                        </div>
+                        <div class="col-xs-6">
+                            <input id = "apellidoInput" type="text" class="form-control" name="last_name" placeholder="Last Name" required="required">
+                        </div>
+                    </div>        	
+                </div>
+                <div class="form-group">
+                    <input id="emailInput" type="email" class="form-control" name="email" placeholder="Email" required="required">
+                </div>
+                <div class="form-group">
+                    <input id ="passwordInput" type="password" class="form-control" name="password" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+                </div>        
+                <div class="form-group">
+                    <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+                </div>
+                <div class="form-group">
+                    <input type="button" value="Register Now" class="btn btn-success btn-lg btn-block" onclick="app.agregarUsuario()">
+                </div>
+            </form>
+            <div class="text-center">Already have an account? <a href="#">Sign in</a></div>
+        </div>
+    </body>
 </html>                            

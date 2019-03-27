@@ -1,39 +1,56 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-  <title>SchiNotes Perfil</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="/webjars/jquery/jquery.min.js"></script>
-  <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-  <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <script src="/js/app.js"></script>
-  <script src="/js/apiUser.js"></script>
-  <script src="/js/cookies.js"></script>
-  <link href="/css/app.css" type="text/css" rel="stylesheet">
-  <script>
-    app.consultarPerfil();
-  </script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <title>SchiNotes Perfil</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <script src="/js/app.js"></script>
+        <script src="/js/apiUsuario.js"></script>
+        <link href="/css/app.css" type="text/css" rel="stylesheet">
+        <script>
+            app.consultarPerfil();
+        </script>
+    </head>
 
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs">
-        <label for="perfilNombre">Nombre:</label>
-        <p id="perfilNombre"></p>
-        <label for="perfilApellido">Apellido:</label>
-        <p id="perfilApellido"></p>
-        <label for="perfilCorreo">Correo:</label>
-        <p id="perfilCorreo"></p>
-      </div>
-    </div>
-  </div>
-</body>   
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs">
+                    <div class="row">
+                        <div class="col-xs">
+                            <label>Nombre: </label>
+                        </div>
+                        <div class="col-xs">
+                            <p id="perfilNombre"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs">
+                            <label>Apellido: </label>
+                        </div>
+                        <div class="col-xs">
+                            <p id="perfilApellido"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs">
+                            <label>Correo: </label>
+                        </div>
+                        <div class="col-xs">
+                            <p id="perfilCorreo"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>   
 
 </html>

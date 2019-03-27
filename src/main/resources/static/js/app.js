@@ -1,39 +1,35 @@
+/* global Cookies, apiUsuario */
+
 var app = (function () {
-    
-    
 
     var verificarUsuario = function (cuenta) {
         var contrasena = $("#ContraseñaInput").val();
         if (cuenta.contrasena == contrasena) {
-            Cookies.set('username', cuenta.correo,{ expires: 7});
+            Cookies.set('username', cuenta.correo, {expires: 7});
             $(location).attr("href", "../home.html");
-            
+
         } else {
             alert("Credenciales inválidas. No puede ingresar.");
         }
     };
 
-    var mostrarPerfil = function (cuenta) {        
-        console.log(cuenta);
-        $("#perfilNombre").text(cuenta.usuario.nombre);
-        $("#perfilApellido").text(cuenta.usuario.apellido);
-        $("#perfilCorreo").text(cuenta.correo);
-        console.log();
+    var mostrarPerfil = function (usuario) {
+        $("#perfilNombre").text(usuario.nombre);
+        $("#perfilApellido").text(usuario.apellido);
+        $("#perfilCorreo").text(usuario.cuentaCorreo.correo);
     };
 
     return {
         agregarUsuario: function () {
-            apiUser.postUser();
+            apiUsuario.postUser();
         },
         autenticarUsuario: function () {
-            correo = $("#UsuarioInput").val();
-            apiUser.getUser(correo, verificarUsuario);
-            
+            var correo = $("#UsuarioInput").val();
+            apiUsuario.getCuenta(correo, verificarUsuario);
         },
-        consultarPerfil: function () {            
-            var correoCookie = Cookies.get('username');
-            apiUser.getUser(correoCookie, mostrarPerfil);
+        consultarPerfil: function () {
+            var correo = Cookies.get('username');
+            apiUsuario.getUsuario(correo, mostrarPerfil);
         }
-    }
-}
-)();
+    };
+})();
