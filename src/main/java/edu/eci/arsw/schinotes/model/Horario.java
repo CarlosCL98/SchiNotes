@@ -23,43 +23,61 @@ public class Horario {
     private List<Actividad> actividades;
     private List<DiaDeLaSemana> diasDeLaSemana;
     private List<Hora> horas;
+    private int intervaloHoras;
+    private int numeroDias;
     
     public Horario() {
 
     }
 
-    public Horario(Usuario usuario,String nombre, int intervalo,int numeroDias) {
+    public Horario(Usuario usuario,String nombre) {
         this.nombre = nombre;
-        this.horas = calcularHoras(intervalo);
-        this.diasDeLaSemana = calcularDias(numeroDias);
+        //this.horas = this.calcularHoras(intervalo);
+        //this.diasDeLaSemana = this.calcularDias(numeroDias);
         this.usuario = usuario;
+        //this.intervaloHoras = intervalo;
+        //this.numeroDias = numeroDias;
+        
     }
 
-    private List<Hora> calcularHoras(int intervalo){
+    public List<Hora> calcularHoras(int intervalo){
         List<Hora> horas = new ArrayList<>();
         int currentHora = 1;
         int currentMin = 0;
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         Calendar cal = Calendar.getInstance();
+        int i = 0;
         while(currentHora < HORA_LIMITE){
+            if(i > 25) break;
+            
             cal.set(Calendar.HOUR_OF_DAY,currentHora);
             cal.set(Calendar.MINUTE,currentMin);
             cal.add(Calendar.HOUR, intervalo/100);
             cal.add(Calendar.MINUTE, (intervalo%100));
             Date d = cal.getTime();
+            //System.out.println(d.toString());
             horas.add(new Hora(dateFormat.format(d)));
             currentHora = d.getHours();
             currentMin = d.getMinutes();
+            i++;
         }
         return horas;
     }
 
-    private List<DiaDeLaSemana> calcularDias(int numeroDias){
+    public List<DiaDeLaSemana> calcularDias(int numeroDias){
         List<DiaDeLaSemana> dias = new ArrayList<>();
         for (int i = 0; i < numeroDias; i++) {
             dias.add(new DiaDeLaSemana(DIAS[i]));
         }
         return dias;
+    }
+
+    public int getIntervaloHoras(){
+        return this.intervaloHoras;
+    }
+
+    public int gerNumeroDias(){
+        return this.numeroDias;
     }
 
     /**
@@ -146,6 +164,8 @@ public class Horario {
         this.horas = horas;
     }
 
-    
+    public void setIntervaloHoras(List<Hora> horas){
+        this.intervaloHoras = intervaloHoras;
+    }
     
 }

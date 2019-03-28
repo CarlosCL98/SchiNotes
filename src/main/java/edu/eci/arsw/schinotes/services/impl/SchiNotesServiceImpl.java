@@ -1,9 +1,14 @@
 package edu.eci.arsw.schinotes.services.impl;
 
 import edu.eci.arsw.schinotes.dao.CuentaDAO;
+import edu.eci.arsw.schinotes.dao.DiasPorHorarioDAO;
+import edu.eci.arsw.schinotes.dao.HoraDao;
+import edu.eci.arsw.schinotes.dao.HorarioDao;
 import edu.eci.arsw.schinotes.dao.UsuarioDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Cuenta;
+import edu.eci.arsw.schinotes.model.Hora;
+import edu.eci.arsw.schinotes.model.Horario;
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.services.SchiNotesService;
 
@@ -24,7 +29,15 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Autowired
     private CuentaDAO cuentaDAO;
     
+    @Autowired
+    private HorarioDao horarioDAO;
     
+    @Autowired
+    private HoraDao horaDAO;
+
+    @Autowired
+    private DiasPorHorarioDAO DiasPorHorarioDAO;
+
     @Override
     public List<Usuario> consultarUsuarios() throws SchiNotesException {
         return usuarioDAO.loadAll();
@@ -48,6 +61,34 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public Cuenta consultarCuentaPorCorreo(String correo) throws SchiNotesException {
         return cuentaDAO.loadCuentaByEmail(correo);
+    }
+
+    @Override
+    public void crearHorario(Horario horario) throws SchiNotesException{
+
+        System.out.println(horario.gerNumeroDias());
+        System.out.println(horario.getHoras());
+        horario.setDiasDeLaSemana(horario.calcularDias(5));
+        horario.setHoras(horario.calcularHoras(120));
+
+        horarioDAO.saveHorario(horario);
+        System.out.println("primer save");
+
+        DiasPorHorarioDAO.saveDiasPorHorario(horario);
+        System.out.println("segundo save");
+        for(Hora h:horario.getHoras()){
+            horaDAO.saveHora(h,horario.getNombre());
+        }
+        System.out.println("segundo save");
+    }
+
+    @Override
+    public Horario consultarHorario(String correo,String nombre) throws SchiNotesException {
+        Horario horario = horarioDAO.getHorario(correo,nombre);
+        horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDias(nombre));        
+        return horario;
+        
+        
     }
     
 }

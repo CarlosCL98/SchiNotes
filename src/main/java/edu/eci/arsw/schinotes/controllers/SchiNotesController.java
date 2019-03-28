@@ -4,6 +4,7 @@ import edu.eci.arsw.schinotes.exceptions.FoundException;
 import edu.eci.arsw.schinotes.exceptions.NotFoundException;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Cuenta;
+import edu.eci.arsw.schinotes.model.Horario;
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.services.SchiNotesService;
 
@@ -69,19 +70,36 @@ public class SchiNotesController {
             throw new FoundException(ex.getMessage());
         }
     }
-/*
+    
+    
+
     @RequestMapping(value = "/{correo}/horario", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegisterUser(@PathVariable String correo, @RequestBody Horario horario) {
         try {
+            Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
+            horario.setUsuario(usuario);
             schiNotesService.crearHorario(horario);
             //System.out.println(horario.ge);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex) {
-            //ex.printStackTrace();	        
+            ex.printStackTrace();	        
             return new ResponseEntity<>("Error no fue posible crear el usuario", HttpStatus.FORBIDDEN);
         }
     }
 
-*/
+
+    @RequestMapping(value = "/{correo}/{nombre}", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarHorario(@PathVariable String correo, @PathVariable String nombre) {
+        try {
+            Horario horario = schiNotesService.consultarHorario(correo,nombre);
+            return new ResponseEntity<>(horario,HttpStatus.CREATED);
+        } catch (Exception ex) {
+            ex.printStackTrace();	        
+            return new ResponseEntity<>("Error no fue posible crear el usuario", HttpStatus.FORBIDDEN);
+        }
+    }
+
+    
+
 
 }

@@ -38,5 +38,9 @@ public class Hora {
     public void setHora(Date hora) {
         this.hora = hora;
     }
+
+    public Horario obtenerHorario(){
+        return this.horario;
+    }
     
 }

@@ -5,7 +5,6 @@ import java.util.List;
 public class DiaDeLaSemana  {
 
     private String nombre;
-    private List<Horario> horarios;
 
     public DiaDeLaSemana(){
 
