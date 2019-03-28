@@ -14,8 +14,11 @@ La aplicación la pueden encontrar en heroku:
 
 > [https://schinotes.herokuapp.com/index.html](https://schinotes.herokuapp.com/index.html)
 
-#### Badges
+Git book: [https://schinotes.gitbook.io/schinotes/](https://schinotes.gitbook.io/schinotes/)
+
+## Badges
 
 CircleCI: [![CircleCI](https://circleci.com/gh/CarlosCL98/SchiNotes.svg?style=svg)](https://circleci.com/gh/CarlosCL98/SchiNotes)
 
 Codacy: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5043a2c9c0ac4fb39a25c9abfc9dc01a)](https://www.codacy.com/app/CarlosCL98/SchiNotes?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CarlosCL98/SchiNotes&amp;utm_campaign=Badge_Grade)
+
