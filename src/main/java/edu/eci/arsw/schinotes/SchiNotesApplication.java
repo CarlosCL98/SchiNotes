@@ -11,9 +11,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+/**
+ *
+ * @author carlo
+ */
 @SpringBootApplication
 @ComponentScan(basePackages = "edu.eci.arsw.schinotes")
+@RestController
 public class SchiNotesApplication implements CommandLineRunner {
     
     @Autowired
@@ -24,6 +31,11 @@ public class SchiNotesApplication implements CommandLineRunner {
     
     public static void main(String[] args) {
         SpringApplication.run(SchiNotesApplication.class, args);
+    }
+    
+    @RequestMapping(value = "/")
+    public String index() {
+        return "index";
     }
 
     @Override
@@ -41,5 +53,7 @@ public class SchiNotesApplication implements CommandLineRunner {
         System.out.println(schiNotesService.consultarUsuarioPorCorreo("camer.cl98@gmail.com"));
         */
     }
+    
+    
 
 }

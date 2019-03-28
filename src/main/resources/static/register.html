@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <link rel="icon" href="images/iconoHead.ico" type="image/x-icon" />
         <title>SchiNotes Registro</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/webjars/jquery/jquery.min.js"></script>
@@ -14,20 +15,14 @@
         <script src="/js/apiUsuario.js"></script>
         <link href="/css/app.css" type="text/css" rel="stylesheet">
     </head>
-    <body>
+    <body class="bg">
         <div class="signup-form">
             <form method="post">
-                <h2>Register</h2>
+                <h2>Registro</h2>
                 <p class="hint-text">Create your account. It's free and only takes a minute.</p>
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <input id = "nombreInput" type="text" class="form-control" name="first_name" placeholder="First Name" required="required">
-                        </div>
-                        <div class="col-xs-6">
-                            <input id = "apellidoInput" type="text" class="form-control" name="last_name" placeholder="Last Name" required="required">
-                        </div>
-                    </div>        	
+                    <input id = "nombreInput" type="text" class="form-control" name="first_name" placeholder="First Name" required="required">
+                    <input id = "apellidoInput" type="text" class="form-control" name="last_name" placeholder="Last Name" required="required">
                 </div>
                 <div class="form-group">
                     <input id="emailInput" type="email" class="form-control" name="email" placeholder="Email" required="required">
@@ -42,10 +37,23 @@
                     <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
                 </div>
                 <div class="form-group">
-                    <input type="button" value="Register Now" class="btn btn-success btn-lg btn-block" onclick="app.agregarUsuario()">
+                    <input type="button" value="Register Now" class="btn btn-primary btn-lg btn-block" onclick="app.agregarUsuario()">
                 </div>
             </form>
-            <div class="text-center">Already have an account? <a href="#">Sign in</a></div>
+            <div class="text-center">Already have an account? <a href="login.html">Sign in</a></div>
         </div>
+        <br><br><br><br><br>
+        <footer class="mainfooter">
+            <div class="footer-bottom">
+                <div class="container">
+                    <p>Creado por: Daniel Rosales & Carlos Medina</p>
+                    <p>Email de contacto:
+                        <a class="email" href="mailto:daniel.rosales@mail.escuelaing.edu.co">Daniel</a> &
+                        <a class="email" href="mailto:carlos.medina-ri@mail.escuelaing.edu.co">Carlos</a>
+                    </p>
+                    <p>&copy; Copyright 2019</p>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>                            
