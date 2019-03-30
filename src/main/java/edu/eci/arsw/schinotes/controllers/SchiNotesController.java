@@ -73,7 +73,7 @@ public class SchiNotesController {
     
     
 
-    @RequestMapping(value = "/{correo}/horario", method = RequestMethod.POST)
+    @RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegisterUser(@PathVariable String correo, @RequestBody Horario horario) {
         try {
             Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
@@ -88,7 +88,7 @@ public class SchiNotesController {
     }
 
 
-    @RequestMapping(value = "/{correo}/{nombre}", method = RequestMethod.GET)
+    @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarHorario(@PathVariable String correo, @PathVariable String nombre) {
         try {
             Horario horario = schiNotesService.consultarHorario(correo,nombre);

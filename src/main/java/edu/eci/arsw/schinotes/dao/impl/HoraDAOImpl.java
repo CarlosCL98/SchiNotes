@@ -29,11 +29,12 @@ public class HoraDAOImpl implements HoraDao {
    
     
     @Override
-    public void saveHora(Hora hora,String horario) throws SchiNotesException {
+    public void saveHora(Hora hora,String horario,String dia) throws SchiNotesException {
         System.out.println(hora.getHora().toString());
-        String query = "INSERT INTO thoras(hora,horario_nombre) VALUES(?,?)";
+        
+        String query = "INSERT INTO hora(hora,dias_por_horario_horario_nombre,dias_por_horario_dia_nombre) VALUES(TO_TIMESTAMP(?,'HH24:MI:SS'),?,?)";
         jdbcTemplate.update(query, new Object[]{
-            hora.getHora(),horario
+            hora.getHora(),horario,dia
         });
         
     }

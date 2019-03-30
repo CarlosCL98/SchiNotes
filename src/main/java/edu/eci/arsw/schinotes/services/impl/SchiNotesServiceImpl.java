@@ -7,6 +7,7 @@ import edu.eci.arsw.schinotes.dao.HorarioDao;
 import edu.eci.arsw.schinotes.dao.UsuarioDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Cuenta;
+import edu.eci.arsw.schinotes.model.DiaDeLaSemana;
 import edu.eci.arsw.schinotes.model.Hora;
 import edu.eci.arsw.schinotes.model.Horario;
 import edu.eci.arsw.schinotes.model.Usuario;
@@ -66,20 +67,20 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public void crearHorario(Horario horario) throws SchiNotesException{
 
-        System.out.println(horario.gerNumeroDias());
-        System.out.println(horario.getHoras());
+       
         horario.setDiasDeLaSemana(horario.calcularDias(5));
         horario.setHoras(horario.calcularHoras(120));
 
         horarioDAO.saveHorario(horario);
-        System.out.println("primer save");
-
+        
         DiasPorHorarioDAO.saveDiasPorHorario(horario);
-        System.out.println("segundo save");
-        for(Hora h:horario.getHoras()){
-            horaDAO.saveHora(h,horario.getNombre());
-        }
-        System.out.println("segundo save");
+       
+        for (DiaDeLaSemana diaSemana : horario.getDiasDeLaSemana()) {
+            System.out.println(horario.getDiasDeLaSemana().size());
+            for(Hora h:horario.getHoras()){
+                horaDAO.saveHora(h,horario.getNombre(),diaSemana.getNombre());
+            }
+        } 
     }
 
     @Override

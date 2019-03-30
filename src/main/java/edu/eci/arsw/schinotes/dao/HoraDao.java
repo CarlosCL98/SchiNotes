@@ -10,6 +10,6 @@ import edu.eci.arsw.schinotes.model.Hora;
 public interface HoraDao {
     
 
-    public void saveHora(Hora hora,String horario) throws SchiNotesException;
+    public void saveHora(Hora hora,String horario,String dia) throws SchiNotesException;
 
 }

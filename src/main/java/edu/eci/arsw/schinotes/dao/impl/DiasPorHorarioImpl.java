@@ -34,7 +34,7 @@ public class DiasPorHorarioImpl implements DiasPorHorarioDAO {
     public void saveDiasPorHorario(Horario horario) throws SchiNotesException {
         System.out.println(horario.getDiasDeLaSemana());
         for(DiaDeLaSemana ddls:horario.getDiasDeLaSemana()){
-            String query = "INSERT INTO diasPorhorario (horario_nombre,diasdelasemana_nombre) VALUES(?,?)";
+            String query = "INSERT INTO dias_Por_horario (horario_nombre,dia_nombre) VALUES(?,?)";
             jdbcTemplate.update(query, new Object[]{
             horario.getNombre(),ddls.getNombre()
         });
@@ -43,7 +43,7 @@ public class DiasPorHorarioImpl implements DiasPorHorarioDAO {
 
     @Override
     public List<DiaDeLaSemana> getDias(String nomString) throws SchiNotesException {
-        String sql = "SELECT * FROM diasporhorario d JOIN horario h ON(h.nombre = d.horario_nombre) WHERE d.horario_nombre = ?";
+        String sql = "SELECT * FROM dias_Por_horario d JOIN horario h ON(h.nombre = d.horario_nombre) WHERE d.horario_nombre = ?";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql,new Object[]{
             nomString
         });
@@ -51,7 +51,7 @@ public class DiasPorHorarioImpl implements DiasPorHorarioDAO {
         List<DiaDeLaSemana> ddls = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             DiaDeLaSemana dia = new DiaDeLaSemana();
-            dia.setNombre((String)row.get("diasdelasemana_nombre"));
+            dia.setNombre((String) row.get("dia_nombre"));
             ddls.add(dia);
         }
         if (ddls.isEmpty()) {

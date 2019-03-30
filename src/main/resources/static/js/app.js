@@ -21,7 +21,7 @@ var app = (function () {
 
     return {
         agregarUsuario: function () {
-            apiUsuario.postUser();
+            apiUsuario.postUsuario();
         },
         autenticarUsuario: function () {
             var correo = $("#UsuarioInput").val();
