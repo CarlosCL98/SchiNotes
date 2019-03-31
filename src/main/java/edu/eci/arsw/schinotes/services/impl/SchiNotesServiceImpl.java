@@ -87,6 +87,8 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     public Horario consultarHorario(String correo, String nombre) throws SchiNotesException {
         Horario horario = horarioDAO.getHorario(correo, nombre);
         horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDias(nombre));
+        horario.setHoras(horaDAO.getHoras(nombre));
+        
         return horario;
     }
 

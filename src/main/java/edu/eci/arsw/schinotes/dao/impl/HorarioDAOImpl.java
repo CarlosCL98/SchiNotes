@@ -50,7 +50,6 @@ public class HorarioDAOImpl implements HorarioDAO {
                 usuario.setIdentificacion(rs.getInt("identificacion"));
                 usuario.setNombre(rs.getString("unombre"));
                 usuario.setApellido(rs.getString("apellido"));
-                
                 horario.setUsuario(usuario);
                 return horario;
             }
