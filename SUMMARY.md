@@ -1,5 +1,5 @@
 # Table of contents
 
 * [SchiNotes](README.md)
-* [Diagramas](untitled.md)
+* [Diagramas](diagramas.md)
 

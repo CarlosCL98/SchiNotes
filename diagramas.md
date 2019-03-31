@@ -4,13 +4,13 @@ Para entender mejor la herramienta, diseñamos los modelos de componentes, de da
 
 * Diagrama de Componentes:
 
-![Diagrama de Componentes](.gitbook/assets/modelocomponentes.PNG)
+![Componente-Conector](.gitbook/assets/modelocomponentes.PNG)
 
 * Modelo de datos:
 
-![](.gitbook/assets/modelodedatos.PNG)
+![Conceptos](.gitbook/assets/modelodedatos.PNG)
 
 * Diagrama de clases:
 
-![](.gitbook/assets/modelodeclases.PNG)
+![Clases-Interfaces](.gitbook/assets/modelodeclases.PNG)
 
