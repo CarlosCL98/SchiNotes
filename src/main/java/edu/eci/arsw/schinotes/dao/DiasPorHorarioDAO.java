@@ -13,8 +13,21 @@ import edu.eci.arsw.schinotes.model.Horario;
  */
 public interface DiasPorHorarioDAO {
 
+    /**
+     * Se construye un horario con sus dias respectivos.
+     *
+     * @param horario
+     * @throws SchiNotesException
+     */
     public void saveDiasPorHorario(Horario horario) throws SchiNotesException;
 
+    /**
+     * Se obtienen los dias de la semana de un horario especifico.
+     *
+     * @param nombre
+     * @return una lista con los dias de la semana del horario.
+     * @throws SchiNotesException
+     */
     public List<DiaDeLaSemana> getDias(String nombre) throws SchiNotesException;
 
 }

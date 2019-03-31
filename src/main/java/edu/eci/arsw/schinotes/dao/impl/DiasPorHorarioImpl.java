@@ -2,7 +2,6 @@ package edu.eci.arsw.schinotes.dao.impl;
 
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.dao.DiasPorHorarioDAO;
-import edu.eci.arsw.schinotes.dao.HorarioDao;
 import edu.eci.arsw.schinotes.dao.UsuarioDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Cuenta;
@@ -19,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import edu.eci.arsw.schinotes.dao.HorarioDAO;
 
 /**
  *

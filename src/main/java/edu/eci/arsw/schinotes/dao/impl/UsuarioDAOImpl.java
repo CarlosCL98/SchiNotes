@@ -90,7 +90,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 }
             }
         }
-        String sql1 = "SELECT MAX(u.identificacion) FROM usuario u";
+        String sql1 = "SELECT CASE WHEN MAX(u.identificacion) is NULL THEN 0 ELSE MAX(u.identificacion) END FROM usuario u";
         int id = jdbcTemplate.queryForObject(sql1, Integer.class);
         String sql2 = "INSERT INTO usuario (identificacion,nombre,apellido,foto,intereses,cuenta_correo) VALUES (?,?,?,?,?,?)";
         jdbcTemplate.update(sql2, new Object[]{

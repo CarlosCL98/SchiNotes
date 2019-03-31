@@ -32,11 +32,6 @@ public class SchiNotesApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(SchiNotesApplication.class, args);
     }
-    
-    @RequestMapping(value = "/")
-    public String index() {
-        return "index";
-    }
 
     @Override
     public void run(String... args) throws Exception {

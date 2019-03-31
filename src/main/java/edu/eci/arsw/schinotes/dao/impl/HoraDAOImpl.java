@@ -1,7 +1,6 @@
 package edu.eci.arsw.schinotes.dao.impl;
 
 import edu.eci.arsw.schinotes.dao.CuentaDAO;
-import edu.eci.arsw.schinotes.dao.HoraDao;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Cuenta;
 import edu.eci.arsw.schinotes.model.Hora;
@@ -15,13 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import edu.eci.arsw.schinotes.dao.HoraDAO;
 
 /**
  *
  * @author carloscl
  */
 @Repository
-public class HoraDAOImpl implements HoraDao {
+public class HoraDAOImpl implements HoraDAO {
     
     @Autowired
     private JdbcTemplate jdbcTemplate;

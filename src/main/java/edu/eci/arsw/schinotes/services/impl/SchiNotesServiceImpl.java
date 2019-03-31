@@ -1,11 +1,11 @@
 package edu.eci.arsw.schinotes.services.impl;
 
+import edu.eci.arsw.schinotes.dao.ActividadDAO;
 import edu.eci.arsw.schinotes.dao.CuentaDAO;
 import edu.eci.arsw.schinotes.dao.DiasPorHorarioDAO;
-import edu.eci.arsw.schinotes.dao.HoraDao;
-import edu.eci.arsw.schinotes.dao.HorarioDao;
 import edu.eci.arsw.schinotes.dao.UsuarioDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
+import edu.eci.arsw.schinotes.model.Actividad;
 import edu.eci.arsw.schinotes.model.Cuenta;
 import edu.eci.arsw.schinotes.model.DiaDeLaSemana;
 import edu.eci.arsw.schinotes.model.Hora;
@@ -17,33 +17,38 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import edu.eci.arsw.schinotes.dao.HoraDAO;
+import edu.eci.arsw.schinotes.dao.HorarioDAO;
 
 /**
  * HorarioServiceImpl
  */
 @Service
 public class SchiNotesServiceImpl implements SchiNotesService {
-    
+
     @Autowired
     private UsuarioDAO usuarioDAO;
-    
+
     @Autowired
     private CuentaDAO cuentaDAO;
-    
+
     @Autowired
-    private HorarioDao horarioDAO;
-    
+    private HorarioDAO horarioDAO;
+
     @Autowired
-    private HoraDao horaDAO;
+    private HoraDAO horaDAO;
 
     @Autowired
     private DiasPorHorarioDAO DiasPorHorarioDAO;
+    
+    @Autowired
+    private ActividadDAO actividadDAO;
 
     @Override
     public List<Usuario> consultarUsuarios() throws SchiNotesException {
         return usuarioDAO.loadAll();
     }
-    
+
     @Override
     public Usuario consultarUsuarioPorCorreo(String correo) throws SchiNotesException {
         return usuarioDAO.loadUsuarioByEmail(correo);
@@ -65,31 +70,29 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     }
 
     @Override
-    public void crearHorario(Horario horario) throws SchiNotesException{
-
-       
+    public void crearHorario(Horario horario) throws SchiNotesException {
         horario.setDiasDeLaSemana(horario.calcularDias(5));
         horario.setHoras(horario.calcularHoras(120));
-
         horarioDAO.saveHorario(horario);
-        
         DiasPorHorarioDAO.saveDiasPorHorario(horario);
-       
         for (DiaDeLaSemana diaSemana : horario.getDiasDeLaSemana()) {
             System.out.println(horario.getDiasDeLaSemana().size());
-            for(Hora h:horario.getHoras()){
-                horaDAO.saveHora(h,horario.getNombre(),diaSemana.getNombre());
+            for (Hora h : horario.getHoras()) {
+                horaDAO.saveHora(h, horario.getNombre(), diaSemana.getNombre());
             }
-        } 
+        }
     }
 
     @Override
-    public Horario consultarHorario(String correo,String nombre) throws SchiNotesException {
-        Horario horario = horarioDAO.getHorario(correo,nombre);
-        horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDias(nombre));        
+    public Horario consultarHorario(String correo, String nombre) throws SchiNotesException {
+        Horario horario = horarioDAO.getHorario(correo, nombre);
+        horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDias(nombre));
         return horario;
-        
-        
     }
-    
+
+    @Override
+    public void agregarActividad(Actividad actividad) throws SchiNotesException {
+        actividadDAO.saveActividad(actividad);
+    }
+
 }
