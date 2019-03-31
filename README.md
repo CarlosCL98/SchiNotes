@@ -14,7 +14,9 @@ La aplicación la pueden encontrar en heroku:
 
 > [https://schinotes.herokuapp.com/index.html](https://schinotes.herokuapp.com/index.html)
 
-Git book: [https://schinotes.gitbook.io/schinotes/](https://schinotes.gitbook.io/schinotes/)
+Para conocer más sobre SchiNotes como su estructura y más información, pueden ver nuestro git-book:
+
+> [https://schinotes.gitbook.io/schinotes/](https://schinotes.gitbook.io/schinotes/)
 
 ## Badges
 
