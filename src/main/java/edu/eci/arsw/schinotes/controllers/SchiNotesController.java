@@ -97,8 +97,9 @@ public class SchiNotesController {
     }
     
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades", method = RequestMethod.POST)
-    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable String nombre, Actividad actividad) {
+    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable String nombre, @RequestBody Actividad actividad) {
         try {
+            System.out.println(actividad.toString());
             schiNotesService.agregarActividad(actividad);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex) {
