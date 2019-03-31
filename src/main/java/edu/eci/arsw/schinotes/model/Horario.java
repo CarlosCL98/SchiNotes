@@ -25,7 +25,7 @@ public class Horario {
     private Grupo grupo;
     private List<Actividad> actividades;
     private List<DiaDeLaSemana> diasDeLaSemana;
-    private Set<Hora> horas;
+    private List<Hora> horas;
     private int intervaloHoras;
     private int numeroDias;
     private Set<String> horasRepetidas;
@@ -33,7 +33,7 @@ public class Horario {
     public Horario() {
         this.actividades = new ArrayList<>();
         this.diasDeLaSemana = new ArrayList<>();
-        this.horas = new HashSet<>();
+        this.horas = new ArrayList<>();
         this.horasRepetidas = new HashSet<>();
     }
 
@@ -46,11 +46,11 @@ public class Horario {
         // this.numeroDias = numeroDias;
         this.actividades = new ArrayList<>();
         this.diasDeLaSemana = new ArrayList<>();
-        this.horas = new HashSet<>();
+        this.horas = new ArrayList<>();
         this.horasRepetidas = new HashSet<>();
     }
 
-    public Set<Hora> calcularHoras(int intervalo) {
+    public List<Hora> calcularHoras(int intervalo) {
         this.intervaloHoras = intervalo;
         int currentHora = 1;
         int currentMin = 0;
@@ -168,14 +168,14 @@ public class Horario {
     /**
      * @return the horas
      */
-    public Set<Hora> getHoras() {
+    public List<Hora> getHoras() {
         return horas;
     }
 
     /**
      * @param horas the horas to set
      */
-    public void setHoras(Set<Hora> horas) {
+    public void setHoras(List<Hora> horas) {
         this.horas = horas;
     }
 

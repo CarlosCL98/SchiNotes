@@ -25,7 +25,7 @@ import edu.eci.arsw.schinotes.dao.HorarioDAO;
  * @author carloscl
  */
 @Repository
-public class DiasPorHorarioImpl implements DiasPorHorarioDAO {
+public class DiasPorHorarioDAOImpl implements DiasPorHorarioDAO {
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -43,6 +43,7 @@ public class DiasPorHorarioImpl implements DiasPorHorarioDAO {
 
     @Override
     public List<DiaDeLaSemana> getDias(String nomString) throws SchiNotesException {
+        System.out.println("holaaa getDias");
         String sql = "SELECT * FROM dias_Por_horario d JOIN horario h ON(h.nombre = d.horario_nombre) WHERE d.horario_nombre = ?";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql,new Object[]{
             nomString

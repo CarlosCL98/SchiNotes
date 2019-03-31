@@ -33,6 +33,7 @@ public class SchiNotesController {
 
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public ResponseEntity<List<Usuario>> recursoConsultarUsuarios() throws NotFoundException {
+        System.out.println("soy el controller");
         try {
             List<Usuario> usuarios = schiNotesService.consultarUsuarios();
             return new ResponseEntity<>(usuarios, HttpStatus.OK);
@@ -60,11 +61,22 @@ public class SchiNotesController {
             throw new NotFoundException(ex.getMessage());
         }
     }
+
+    @RequestMapping(value = "/cuentas/{correo}/horarios/{nombre}", method = RequestMethod.GET)
+    public ResponseEntity<Horario> recursoConsultarHorarioPorNombre(@PathVariable String correo, @PathVariable String nombre) throws NotFoundException {
+        try {
+            Horario horario = schiNotesService.consultarHorario(correo, nombre);
+            return new ResponseEntity<>(horario, HttpStatus.OK);
+        } catch (SchiNotesException ex) {
+            throw new NotFoundException(ex.getMessage());
+        }
+    }
     
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarHorario(@PathVariable String correo, @PathVariable String nombre) {
         try {
             Horario horario = schiNotesService.consultarHorario(correo, nombre);
+            
             return new ResponseEntity<>(horario, HttpStatus.CREATED);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -86,9 +98,11 @@ public class SchiNotesController {
     @RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.POST)
     public ResponseEntity<?> recursoCrearHorario(@PathVariable String correo, @RequestBody Horario horario) {
         try {
+            System.out.println("holaaaaaaaaaaa");
             Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
             horario.setUsuario(usuario);
             schiNotesService.crearHorario(horario);
+            
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex) {
             ex.printStackTrace();
