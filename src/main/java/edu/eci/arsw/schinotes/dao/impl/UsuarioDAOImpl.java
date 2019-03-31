@@ -8,6 +8,7 @@ import edu.eci.arsw.schinotes.model.Cuenta;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -96,6 +97,50 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         jdbcTemplate.update(sql2, new Object[]{
             id+1, usuario.getNombre(), usuario.getApellido(), usuario.getFoto(), usuario.getIntereses(), usuario.getCuentaCorreo().getCorreo()
         });
+    }
+
+    @Override
+    public void saveAmigos(int id1,int id2) throws SchiNotesException {
+        String sql ="INSERT INTO amigo(usuario_identificacion,usuario_2_identificacion,fecha) VALUES(?,?,?)";
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        jdbcTemplate.update(sql, new Object[]{
+            id1,id2,date
+        });
+        
+    }
+
+    @Override
+    public List<Usuario> getAmigos(int identificacion) throws SchiNotesException {
+        String sql = "select * from amigo,usuario where amigo.usuario_2_identificacion = usuario.identificacion and usuario_identificacion = ?;";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql,new Object[]{
+            identificacion
+        });
+        List<Usuario> usuarios = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Usuario usuario = new Usuario();
+            usuario.setIdentificacion((int) row.get("identificacion"));
+            usuario.setNombre((String) row.get("nombre"));
+            usuario.setApellido((String) row.get("apellido"));
+            usuario.setFoto((Byte[]) row.get("foto"));
+            usuario.setIntereses((String) row.get("intereses"));
+            Cuenta cuenta = new Cuenta();
+            cuenta.setCorreo((String) row.get("cuenta_correo"));
+            cuenta.setContrasena((String) row.get("contrasena"));
+            cuenta.setNickname((String) row.get("cuenta_correo"));
+            usuario.setCuentaCorreo(cuenta);
+            usuarios.add(usuario);
+        }
+        if (usuarios.isEmpty()) {
+            throw new SchiNotesException("No hay usuarios existentes.");
+        }
+        return usuarios;
+    }
+
+    
+
+    @Override
+    public List<Usuario> deleteAmigos(String correo) throws SchiNotesException {
+        return null;
     }
 
 }

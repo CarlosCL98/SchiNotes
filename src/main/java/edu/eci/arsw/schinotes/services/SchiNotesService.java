@@ -30,6 +30,11 @@ public interface SchiNotesService {
     public Horario consultarHorario(String correo, String nombre) throws SchiNotesException;
 
     public void agregarActividad(Actividad actividad) throws SchiNotesException;
+
+    public void agregarAmigo(String correo1,String correo2) throws SchiNotesException;
+
+    public List<Usuario> consultarAmigos(String correo) throws SchiNotesException;
+
     /*
     void modificarCuenta(Cuenta cuenta) throws SchiNotesException;
 

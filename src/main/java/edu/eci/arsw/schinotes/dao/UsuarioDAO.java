@@ -36,4 +36,8 @@ public interface UsuarioDAO {
      */
     public void saveUsuario(Usuario usuario) throws SchiNotesException;
 
+    public List<Usuario> getAmigos (int identificacion) throws SchiNotesException;
+    public void saveAmigos (int id1,int id2) throws SchiNotesException;
+    public List<Usuario> deleteAmigos (String correo) throws SchiNotesException;
+
 }

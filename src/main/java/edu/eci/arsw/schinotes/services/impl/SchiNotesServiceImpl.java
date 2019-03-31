@@ -97,4 +97,19 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         actividadDAO.saveActividad(actividad);
     }
 
+    @Override
+    public void agregarAmigo(String correo1, String correo2) throws SchiNotesException {
+        Usuario usuario1 = usuarioDAO.loadUsuarioByEmail(correo1);
+        Usuario usuario2 = usuarioDAO.loadUsuarioByEmail(correo2);
+        usuarioDAO.saveAmigos(usuario1.getIdentificacion(), usuario2.getIdentificacion());
+    }
+
+    @Override
+    public List<Usuario> consultarAmigos(String correo) throws SchiNotesException {
+        
+        return usuarioDAO.getAmigos(usuarioDAO.loadUsuarioByEmail(correo).getIdentificacion());
+    }
+
+    
+
 }

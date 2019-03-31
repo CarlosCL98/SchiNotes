@@ -84,6 +84,17 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/usuarios/{correo}/amigos", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoRegistrarAmigo(@PathVariable String correo) {
+        try {
+            
+            return new ResponseEntity<>(schiNotesService.consultarAmigos(correo),HttpStatus.CREATED);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     @RequestMapping(value = "/usuarios/registrar", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarUsuario(@RequestBody Usuario usuario) throws FoundException {
         try {
@@ -115,6 +126,17 @@ public class SchiNotesController {
         try {
             System.out.println(actividad.toString());
             schiNotesService.agregarActividad(actividad);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/usuarios/{correo}/amigos", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoRegistrarAmigo(@PathVariable String correo, @RequestBody Usuario amigo) {
+        try {
+            schiNotesService.agregarAmigo(correo, amigo.getCuentaCorreo().getCorreo());
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex) {
             ex.printStackTrace();
