@@ -96,6 +96,16 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     public void agregarActividad(Actividad actividad) throws SchiNotesException {
         actividadDAO.saveActividad(actividad);
     }
+    
+    @Override
+    public Actividad consultarActividad(String correo, String nombre, String actividad) throws SchiNotesException {
+        return actividadDAO.loadActividad(correo, nombre, actividad);
+    }
+    
+    @Override
+    public List<Actividad> consultarActividades(String correo, String nombre) throws SchiNotesException {
+        return actividadDAO.loadAll(correo, nombre);
+    }
 
     @Override
     public void agregarAmigo(String correo1, String correo2) throws SchiNotesException {
@@ -109,7 +119,5 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         
         return usuarioDAO.getAmigos(usuarioDAO.loadUsuarioByEmail(correo).getIdentificacion());
     }
-
-    
 
 }

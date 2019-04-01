@@ -75,22 +75,38 @@ public class SchiNotesController {
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarHorario(@PathVariable String correo, @PathVariable String nombre) {
         try {
-            Horario horario = schiNotesService.consultarHorario(correo, nombre);
-            
-            return new ResponseEntity<>(horario, HttpStatus.CREATED);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            Horario horario = schiNotesService.consultarHorario(correo, nombre);            
+            return new ResponseEntity<>(horario, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+    
+    @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades/{actividad}", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarActividad(@PathVariable String correo, @PathVariable String nombre, @PathVariable String actividad) {
+        try {
+            Actividad actividadConsultada = schiNotesService.consultarActividad(correo, nombre, actividad);            
+            return new ResponseEntity<>(actividadConsultada, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+    
+    @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarActividades(@PathVariable String correo, @PathVariable String nombre) {
+        try {
+            List<Actividad> actividades = schiNotesService.consultarActividades(correo, nombre);
+            return new ResponseEntity<>(actividades, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
 
     @RequestMapping(value = "/usuarios/{correo}/amigos", method = RequestMethod.GET)
-    public ResponseEntity<?> recursoRegistrarAmigo(@PathVariable String correo) {
-        try {
-            
-            return new ResponseEntity<>(schiNotesService.consultarAmigos(correo),HttpStatus.CREATED);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+    public ResponseEntity<?> recursoConsultarAmigo(@PathVariable String correo) {
+        try {            
+            return new ResponseEntity<>(schiNotesService.consultarAmigos(correo),HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
@@ -115,8 +131,7 @@ public class SchiNotesController {
             schiNotesService.crearHorario(horario);
             
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
@@ -127,8 +142,7 @@ public class SchiNotesController {
             System.out.println(actividad.toString());
             schiNotesService.agregarActividad(actividad);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
@@ -138,8 +152,7 @@ public class SchiNotesController {
         try {
             schiNotesService.agregarAmigo(correo, amigo.getCuentaCorreo().getCorreo());
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }

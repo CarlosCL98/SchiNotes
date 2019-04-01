@@ -1,7 +1,6 @@
 package edu.eci.arsw.schinotes.model;
 
 import java.sql.Date;
-import java.util.List;
 
 /**
  *
