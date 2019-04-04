@@ -1,64 +1,151 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title>SchiNotes Login</title>
-        <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-        <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
-        <link href="css/app.css" type="text/css" rel="stylesheet" />
-        <script src="/webjars/jquery/jquery.min.js"></script>
-        <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/apiUsuario.js"></script>
-    </head>
-    <body class="bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    <div class="card card-signin my-5">
-                        <div class="card-body">
-                            <div class="imgcontainer">
-                                <img src="images/avatar.png" alt="Avatar" class="avatar">
-                            </div>
-                            <h5 class="card-title text-center">Ingresar a SchiNotes</h5>
-                            <form class="form-signin">
-                                <div class="form-label-group">
-                                    <input id="UsuarioInput" type="text" class="form-control" placeholder="Ingrese su correo" autofocus>
-                                    <label for="UsuarioInput"><b>Usuario</b></label>
-                                </div>
-                                <div class="form-label-group">
-                                    <input id="ContraseñaInput" type="password" class="form-control" placeholder="Ingrese su contraseña">
-                                    <label for="ContraseñaInput"><b>Constraseña</b></label>
-                                </div>
-                                <div>
-                                    <span class="psw">¿Olvidó su <a href="#">contraseña</a>?</span>
-                                </div>
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Recordar contraseña</label>
-                                </div>
-                                <input class="btn btn-lg btn-primary btn-block text-uppercase" type="button" value="Ingresar" onclick="app.autenticarUsuario()">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>SchiNotes Inicio de Sesión</title>
+  <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="css/app.css" type="text/css" rel="stylesheet" />
+  <link href="css/footer.css" type="text/css" rel="stylesheet" />
+
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/apiUsuario.js"></script>
+
+</head>
+
+<body class="bg">
+  <nav class="navbar navbar-expand navbar-dark static-top" style="background-color: #002D67">
+    <a class="navbar-brand mr-1" href="login.html">
+      <img src="images/tituloNavBar.png">
+    </a>
+    <ul class="navbar-nav ml-auto ml-md-0">
+      <li class="nav-item no-arrow mr-auto active">
+        <a class="nav-link" href="index.html" role="button">Inicio</a>
+      </li>
+    </ul>
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="¿Quieres buscar algo?" aria-label="Search"
+          aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
-        <br>
-        <footer class="mainfooter">
-            <div class="footer-bottom">
-                <div class="container">
-                    <p>Creado por: Daniel Rosales & Carlos Medina</p>
-                    <p>Email de contacto:
-                        <a class="email" href="mailto:daniel.rosales@mail.escuelaing.edu.co">Daniel</a> &
-                        <a class="email" href="mailto:carlos.medina-ri@mail.escuelaing.edu.co">Carlos</a>
-                    </p>
-                    <p>&copy; Copyright 2019</p>
-                </div>
+      </div>
+    </form>
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto ml-md-0">
+      <li class="nav-item no-arrow">
+        <button class="btn btn-primary" type="button" onclick="window.location.href='login.html'">
+          <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+        </button>
+      </li>
+      <li class="nav-item no-arrow mx-3">
+        <button class="btn btn-primary" type="button" onclick="window.location.href='register.html'">
+          <i class="fas fa-user-plus"></i> Registrarse
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Iniciar Sesión</div>
+      <div class="card-body">
+        <div class="imgcontainer">
+          <img src="images/avatar.png" alt="Avatar" class="avatar">
+        </div>
+        <form>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="email" id="UsuarioInput" class="form-control" placeholder="Email address" required="required"
+                autofocus="autofocus">
+              <label for="UsuarioInput"><i class="fas fa-at"></i> Correo</label>
             </div>
-        </footer>
-    </body>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="password" id="ContraseñaInput" class="form-control" placeholder="Password" required="required">
+              <label for="ContraseñaInput"><i class="fas fa-key"></i> Contraseña</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me">
+                Recordar Contraseña
+              </label>
+            </div>
+          </div>
+          <input type="button" class="btn btn-primary btn-block" value="Iniciar Sesión" onclick="app.autenticarUsuario()">
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="register.html">Registrar una cuenta</a>
+          <a class="d-block small" href="forgot-password.html">¿Olvidó su contraseña?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer id="myFooter">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <h2 class="logo"><a href="#"><img src="images/tituloFooter.png"></a></h2>
+        </div>
+        <div class="col-sm-2">
+          <h5>Empieza</h5>
+          <ul>
+            <li><a href="login.html">- Inicio</a></li>
+            <li><a href="register.html">- Registrate</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-2">
+          <h5>Conócenos</h5>
+          <ul>
+            <li><a href="#">- Información desarrolladores</a></li>
+            <li><a href="#">- Contáctanos</a></li>
+            <li>- Realizado por: Daniel Rosales & Carlos Medina</li>
+          </ul>
+        </div>
+        <div class="col-sm-2">
+          <h5>Ayuda</h5>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3">
+          <div class="social-networks">
+            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+          </div>
+          <button type="button" class="btn btn-default">Contact us</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <p>&copy; Copyright 2019</p>
+    </div>
+  </footer>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+</body>
+
 </html>
