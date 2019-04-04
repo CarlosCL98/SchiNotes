@@ -12,7 +12,7 @@ Estas notas, podrán ser priorizadas con etiquetas que las personas pueden crear
 
 La aplicación la pueden encontrar en heroku:
 
-> [https://schinotes.herokuapp.com/index.html](https://schinotes.herokuapp.com/index.html)
+> [https://schinotes.herokuapp.com](https://schinotes.herokuapp.com)
 
 Para conocer más sobre SchiNotes como su estructura y más información, pueden ver nuestro git-book:
 
