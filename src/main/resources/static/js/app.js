@@ -12,10 +12,11 @@ var app = (function () {
     };
 
     var mostrarPerfil = function (usuario) {
-        console.log(usuario.nombre);
-        $("#perfilNombre").text(usuario.nombre);
-        $("#perfilApellido").text(usuario.apellido);
-        $("#perfilCorreo").text(usuario.cuentaCorreo.correo);
+        console.log(usuario);
+        $("#perfilCard").find("h1").text(""+usuario.nombre+" "+usuario.apellido+" ");
+        $("#perfilCard").find("p:last").text("correo: "+usuario.cuentaCorreo.correo)
+        $("#perfilCard").append("<p style =\"font-size: 20px\"> nickname: "+usuario.cuentaCorreo.nickname+"</p>");
+       
     };
 
     var mostrarHorario = function (horario) {
