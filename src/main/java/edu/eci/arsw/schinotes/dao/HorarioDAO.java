@@ -1,5 +1,7 @@
 package edu.eci.arsw.schinotes.dao;
 
+import java.util.List;
+
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Horario;
 
@@ -27,5 +29,7 @@ public interface HorarioDAO {
      * @throws SchiNotesException
      */
     public void saveHorario(Horario horario) throws SchiNotesException;
+
+	public List<Horario> getHorarios(String correo)throws SchiNotesException;
 
 }

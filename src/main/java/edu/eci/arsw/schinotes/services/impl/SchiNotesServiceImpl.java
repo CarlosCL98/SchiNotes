@@ -71,8 +71,8 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public void crearHorario(Horario horario) throws SchiNotesException {
-        horario.setDiasDeLaSemana(horario.calcularDias(5));
-        horario.setHoras(horario.calcularHoras(120));
+        horario.setDiasDeLaSemana(horario.calcularDias(horario.getNumeroDias()));
+        horario.setHoras(horario.calcularHoras(horario.getIntervaloHoras()));
         horarioDAO.saveHorario(horario);
         DiasPorHorarioDAO.saveDiasPorHorario(horario);
         for (DiaDeLaSemana diaSemana : horario.getDiasDeLaSemana()) {
@@ -118,6 +118,11 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     public List<Usuario> consultarAmigos(String correo) throws SchiNotesException {
         
         return usuarioDAO.getAmigos(usuarioDAO.loadUsuarioByEmail(correo).getIdentificacion());
+    }
+
+    @Override
+    public List<Horario> consultarHorarios(String correo) throws SchiNotesException{
+        return horarioDAO.getHorarios(correo);
     }
 
 }

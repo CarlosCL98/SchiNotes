@@ -8,6 +8,7 @@ import edu.eci.arsw.schinotes.model.Horario;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -38,6 +39,8 @@ public interface SchiNotesService {
     public void agregarAmigo(String correo1,String correo2) throws SchiNotesException;
 
     public List<Usuario> consultarAmigos(String correo) throws SchiNotesException;
+
+	public List<Horario> consultarHorarios(String correo) throws SchiNotesException;
 
     /*
     void modificarCuenta(Cuenta cuenta) throws SchiNotesException;

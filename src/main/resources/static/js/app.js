@@ -20,21 +20,47 @@ var app = (function () {
     };
 
     var mostrarHorario = function (horario) {
+        $("#schedule").empty();
         console.log(horario);
         var dias = horario.diasDeLaSemana;
-        
-        for (var i = 0; i < dias.length; i++) {
-            $("#PerfilHorario").find("thead tr").append("<th scope='col'>" + dias[i].nombre + "</th>");
-            console.log(i);
-        }
         var horas = horario.horas;
+        $("#schedule").append("<div class='timeline'><ul></ul></div>");
+
         for (var i = 0; i < horas.length; i++) {
-            $("#PerfilHorario").find("tbody").append("<tr><th scope='row'>" + horas[i].hora + "</th></tr>");
-            for (var j = 0; j < dias.length; j++) {
-                $("#PerfilHorario").find("tbody tr:last").append("<td><button><img src='../images/mas.png' style='width: 20px'></button></td>");
-            }            
+            $("#schedule").find("ul").append("<li><span>"+horas[i].hora+"</span></li>");
         }
+        $("#schedule").append("<div class='events'><ul></ul></div>");
+
+        for (var i = 0; i < dias.length; i++) {
+            $("#schedule").find("ul:last").append("<li class='events-group'><div class='top-info'><span>" + dias[i].nombre + "</span></div></li>");
+        }
+        
     };
+
+    var creacionDeHorario = function (){
+        alert("su horario ha sido creado exitosamanete");
+    };
+
+
+    var agregarOpcionesHorarios = function(data){
+        
+        $("#deployHorariosButton").empty();
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+            $("#deployHorariosButton").append("<a class='dropdown-item' href='#' data-horario="+data[i].nombre+">"+data[i].nombre+"</a>");
+        }
+        $("#deployHorariosButton").on("click", "a", function (event){
+            cambiarHorario(event.target.dataset.horario);
+            console.log(event.target.dataset.horario);
+        });
+
+    }
+
+    var cambiarHorario = function(nombre){
+        
+        apiHorario.getHorario(Cookies.get('username'), nombre, mostrarHorario);
+    }
+    
 
     return {
         agregarUsuario: function () {
@@ -68,9 +94,19 @@ var app = (function () {
             }
             return infoCompleta;
         },
-        mostrarHorario: function () {
-            var nombre = $("#PerfilHorarioNombre").val();
-            apiHorario.getHorario(Cookies.get('username'), nombre, mostrarHorario);
+        
+        agregarHorario: function(){
+            var data = {
+                nombre: $('#horarioNombre').val(),
+                intervaloHoras: $('#intervaloHoras').val(),
+                numeroDias: $('#horarioNumDias').val()
+            }
+            apiHorario.postHorario(data,Cookies.get('username'));
+        },
+        consultarMisHorarios: function(){
+            var usuario = Cookies.get('username');
+            apiHorario.getHorarios(usuario,agregarOpcionesHorarios);
         }
+        
     };
 })();

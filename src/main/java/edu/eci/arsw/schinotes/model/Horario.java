@@ -37,8 +37,10 @@ public class Horario {
         this.horasRepetidas = new HashSet<>();
     }
 
-    public Horario(String nombre) {
+    public Horario(String nombre,int intervaloHoras,int numeroDias) {
         this.nombre = nombre;
+        this.intervaloHoras = intervaloHoras;
+        this.numeroDias = numeroDias;
         // this.horas = this.calcularHoras(intervalo);
         // this.diasDeLaSemana = this.calcularDias(numeroDias);
         //this.usuario = usuario;
@@ -87,11 +89,14 @@ public class Horario {
         return dias;
     }
 
+
+    
+
     public int getIntervaloHoras(){
         return this.intervaloHoras;
     }
 
-    public int geTNumeroDias(){
+    public int getNumeroDias(){
         return this.numeroDias;
     }
 
@@ -178,6 +183,8 @@ public class Horario {
     public void setHoras(List<Hora> horas) {
         this.horas = horas;
     }
+
+    
 
 }
 

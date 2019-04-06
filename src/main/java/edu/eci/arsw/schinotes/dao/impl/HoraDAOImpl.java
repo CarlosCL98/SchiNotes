@@ -48,7 +48,7 @@ public class HoraDAOImpl implements HoraDAO {
     @Override
     public List<Hora> getHoras(String nombreHorario) throws SchiNotesException {
         System.out.println("holaaa");
-        String query = "SELECT hora FROM hora,dias_por_horario WHERE dias_por_horario_horario_nombre = ? GROUP BY hora;";
+        String query = "SELECT hora FROM hora,dias_por_horario WHERE dias_por_horario_horario_nombre = ? GROUP BY hora ORDER BY hora;";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] {
             nombreHorario
         });
