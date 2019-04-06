@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.0.BUILD-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>edu.eci.arsw</groupId>
     <artifactId>schinotes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>SchiNotes</name>
     <description>Demo project for Spring Boot</description>
-	
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +20,6 @@
         <webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
         <webjars-jquery.version>3.3.1-1</webjars-jquery.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -62,7 +59,11 @@
             <artifactId>spring-test</artifactId>
             <type>jar</type>
         </dependency>
-        
+        <!-- ################# Mail ################# -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <!-- ################# WEB ################# -->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -84,7 +85,6 @@
             <artifactId>jquery-ui</artifactId>
             <version>${webjars-jquery-ui.version}</version>
         </dependency>
-        
         <!-- ################# Base de Datos ################# -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -99,7 +99,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
         </dependency>
-        
         <!-- ################# Pruebas ################# -->
         <dependency>
             <groupId>junit</groupId>
@@ -107,7 +106,6 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -135,11 +133,10 @@
                 <version>3.0.0-M1</version>
                 <configuration>
                     <useSystemClassLoader>false</useSystemClassLoader>
-                </configuration>       	 		
-            </plugin>			
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
     <repositories>
         <repository>
             <id>spring-snapshots</id>
@@ -170,5 +167,4 @@
             <url>https://repo.spring.io/milestone</url>
         </pluginRepository>
     </pluginRepositories>
-
 </project>

@@ -24,3 +24,13 @@ CircleCI: [![CircleCI](https://circleci.com/gh/CarlosCL98/SchiNotes.svg?style=sv
 
 Codacy: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5043a2c9c0ac4fb39a25c9abfc9dc01a)](https://www.codacy.com/app/CarlosCL98/SchiNotes?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CarlosCL98/SchiNotes&amp;utm_campaign=Badge_Grade)
 
+## Sobre nuestro desarrollo
+
+Si quieres ver nuestro progreso, puedes entrar al siguiente link y conocer el burn down chart de nuestro proyecto:
+
+> [BurnDownChart](https://docs.google.com/spreadsheets/d/1Ea6rBm_NtAgKJO0ptcEyOttuZSNk7aUwCMdnkW3BFUU/edit#gid=1952855537)
+
+También puedes entrar a nuestro Taiga:
+
+> [Taiga SchiNotes](https://tree.taiga.io/project/carloscl98-schinotes/timeline)
+
