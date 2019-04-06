@@ -1,15 +1,15 @@
 package edu.eci.arsw.schinotes.controllers;
 
-import edu.eci.arsw.schinotes.exceptions.FoundException;
-import edu.eci.arsw.schinotes.exceptions.NotFoundException;
-import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
+import edu.eci.arsw.schinotes.exceptions.*;
 import edu.eci.arsw.schinotes.model.Actividad;
 import edu.eci.arsw.schinotes.model.Cuenta;
 import edu.eci.arsw.schinotes.model.Horario;
 import edu.eci.arsw.schinotes.model.Usuario;
+import edu.eci.arsw.schinotes.services.EmailService;
 import edu.eci.arsw.schinotes.services.SchiNotesService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +31,9 @@ public class SchiNotesController {
     @Autowired
     SchiNotesService schiNotesService;
 
+    @Autowired
+    EmailService emailService;
+
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public ResponseEntity<List<Usuario>> recursoConsultarUsuarios() throws NotFoundException {
         System.out.println("soy el controller");
@@ -43,7 +46,8 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/usuarios/{correo}", method = RequestMethod.GET)
-    public ResponseEntity<Usuario> recursoConsultarUsuarioPorCorreo(@PathVariable String correo) throws NotFoundException {
+    public ResponseEntity<Usuario> recursoConsultarUsuarioPorCorreo(@PathVariable String correo)
+            throws NotFoundException {
         try {
             Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
             return new ResponseEntity<>(usuario, HttpStatus.OK);
@@ -53,7 +57,8 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/cuentas/{correo}", method = RequestMethod.GET)
-    public ResponseEntity<Cuenta> recursoConsultarCuentaPorCorreo(@PathVariable String correo) throws NotFoundException {
+    public ResponseEntity<Cuenta> recursoConsultarCuentaPorCorreo(@PathVariable String correo)
+            throws NotFoundException {
         try {
             Cuenta cuenta = schiNotesService.consultarCuentaPorCorreo(correo);
             return new ResponseEntity<>(cuenta, HttpStatus.OK);
@@ -63,7 +68,8 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/cuentas/{correo}/horarios/{nombre}", method = RequestMethod.GET)
-    public ResponseEntity<Horario> recursoConsultarHorarioPorNombre(@PathVariable String correo, @PathVariable String nombre) throws NotFoundException {
+    public ResponseEntity<Horario> recursoConsultarHorarioPorNombre(@PathVariable String correo,
+            @PathVariable String nombre) throws NotFoundException {
         try {
             Horario horario = schiNotesService.consultarHorario(correo, nombre);
             return new ResponseEntity<>(horario, HttpStatus.OK);
@@ -71,27 +77,28 @@ public class SchiNotesController {
             throw new NotFoundException(ex.getMessage());
         }
     }
-    
+
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarHorario(@PathVariable String correo, @PathVariable String nombre) {
         try {
-            Horario horario = schiNotesService.consultarHorario(correo, nombre);            
+            Horario horario = schiNotesService.consultarHorario(correo, nombre);
             return new ResponseEntity<>(horario, HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
-    
+
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades/{actividad}", method = RequestMethod.GET)
-    public ResponseEntity<?> recursoConsultarActividad(@PathVariable String correo, @PathVariable String nombre, @PathVariable String actividad) {
+    public ResponseEntity<?> recursoConsultarActividad(@PathVariable String correo, @PathVariable String nombre,
+            @PathVariable String actividad) {
         try {
-            Actividad actividadConsultada = schiNotesService.consultarActividad(correo, nombre, actividad);            
+            Actividad actividadConsultada = schiNotesService.consultarActividad(correo, nombre, actividad);
             return new ResponseEntity<>(actividadConsultada, HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
-    
+
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarActividades(@PathVariable String correo, @PathVariable String nombre) {
         try {
@@ -104,8 +111,8 @@ public class SchiNotesController {
 
     @RequestMapping(value = "/usuarios/{correo}/amigos", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarAmigo(@PathVariable String correo) {
-        try {            
-            return new ResponseEntity<>(schiNotesService.consultarAmigos(correo),HttpStatus.ACCEPTED);
+        try {
+            return new ResponseEntity<>(schiNotesService.consultarAmigos(correo), HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
@@ -114,9 +121,18 @@ public class SchiNotesController {
     @RequestMapping(value = "/usuarios/registrar", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarUsuario(@RequestBody Usuario usuario) throws FoundException {
         try {
+            SchiNotesThread enviarCorreo = new SchiNotesThread(usuario.getCuentaCorreo().getCorreo(),
+                    "Usuario creado exitosamente",
+                    "Hola " + usuario.getCuentaCorreo().getNickname() + ".\n"
+                            + "Su usuario de SchiNotes ha sido creado satisfactoriamente.\n"
+                            + "Ahora puede ingresar a http://schinotes.herokuapp.com/ y aprovechar la herramienta.\n\n"
+                            + "Si tienes alguna inquietud, puedes comunicarte a schinotes2019dc@gmail.com\n\n"
+                            + "Atentamente,\nEl staff de SchiNotes",
+                    emailService);
+            enviarCorreo.start();
             schiNotesService.crearCuenta(usuario.getCuentaCorreo());
             schiNotesService.registrarUsuario(usuario);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             throw new FoundException(ex.getMessage());
         }
@@ -129,15 +145,16 @@ public class SchiNotesController {
             Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
             horario.setUsuario(usuario);
             schiNotesService.crearHorario(horario);
-            
+
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
-    
+
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades", method = RequestMethod.POST)
-    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable String nombre, @RequestBody Actividad actividad) {
+    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable String nombre,
+            @RequestBody Actividad actividad) {
         try {
             System.out.println(actividad.toString());
             schiNotesService.agregarActividad(actividad);

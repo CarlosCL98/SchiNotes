@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.FOUND)
 public class FoundException extends Exception {
 
+    private static final long serialVersionUID = 1L;
+
     public FoundException(String mensaje) {
         super(mensaje);
     }

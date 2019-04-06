@@ -8,8 +8,6 @@ import edu.eci.arsw.schinotes.model.Horario;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 /**
  * La clase SchiNotesService representa los servicios que se pueden ofrecer.
  */
