@@ -4,7 +4,7 @@ var app = (function () {
     var verificarUsuario = function (cuenta) {
         var contrasena = $("#ContraseñaInput").val();
         if (cuenta.contrasena === contrasena) {
-            Cookies.set('username', cuenta.correo, { expires: 2 });
+            Cookies.set('username', cuenta.correo, { expires: 1, path: '/' });
             $(location).attr("href", "../home.html");
         } else {
             alert("Credenciales inválidas. No puede ingresar.");
