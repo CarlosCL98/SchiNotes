@@ -25,14 +25,12 @@ var app = (function () {
     };
 
     var mostrarHorario = function (horario) {
+        console.log(horario);
         $("#schedule").empty();
         
         var dias = horario.diasDeLaSemana;
 
-        for (var i = 0; i < dias.length; i++) {
-            $("#PerfilHorario").find("thead tr").append("<th scope='col'>" + dias[i].nombre + "</th>");
-            
-        }
+        
         var horas = horario.horas;
         $("#schedule").append("<div class='timeline'><ul></ul></div>");
 

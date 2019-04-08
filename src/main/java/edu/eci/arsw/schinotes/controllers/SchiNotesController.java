@@ -171,7 +171,7 @@ public class SchiNotesController {
             }
         }
 
-    @RequestMapping(value = "   ", method = RequestMethod.POST)
+    @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable String nombre,
             @RequestBody Actividad actividad) {
         try {
