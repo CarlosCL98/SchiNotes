@@ -87,7 +87,11 @@
                 aria-haspopup="true" aria-expanded="false" onclick="app.consultarMisHorarios()"><i
                   class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Ver horarios
               </a>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad"><i
+                  class="fas fa-calendar-plus"></i>&nbsp;&nbsp; Crear actividad</a>
               <div id="deployHorariosButton" class="dropdown-menu" aria-labelledby="dropdownHorariosUsuario">
+
+
               </div>
             </li>
           </ul>
@@ -135,13 +139,124 @@
               </div>
             </div>
           </div>
-        </div>
-      </nav>
-      <!-- Main contenido al lado del slidebar-->
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
-        <div id="schedule" class="cd-schedule loading">
 
-          <!--
+          <!-- Modal para la creacion de una actividad-->
+          <div class="modal fade" id="modalCrearActividad" tabindex="-1" role="dialog"
+            aria-labelledby="modalLabelHorario" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabelHorario">Crear un horario</h5>
+                  <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+
+                    <div class="form-group row">
+                      <label for="actividadNombre" class="col-md-2 col-form-label">Nombre</label>
+                      <div class="col-md-10">
+                        <input id="actividadNombre" type="text" class="form-control"
+                          placeholder="Ingrese el nombre de la actividad"></input>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="actividadDescripcion" class="col-md-2 col-form-label">Descripcion</label>
+                      <div class="col-md-10">
+                        <textarea id="actividadDescripcion" type="text" class="form-control"
+                          placeholder="Ingrese La descripcion de la actividad"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" onclick="app.consultarMisHorariosParaActividades()">
+                        Seleccione su horario
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                        id="opcionesHorarioCrearActividad"></div>
+                      <!--
+                          
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                        
+                        -->
+                    </div>
+
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Seleccione el dia
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonDias"
+                        id="opcionesHorarioCrearActividadDias"></div>
+                      <!--
+                            
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          
+                          -->
+                    </div>
+
+
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Seleccione la hora
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonHoras"
+                        id="opcionesHorarioCrearActividadHoras"></div>
+                      <!--
+                              
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            
+                            -->
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary btnNav" onclick="app.agregarActividad()"><i
+                          class="fas fa-calendar-alt"></i> Crear</button>
+                      <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+                        aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
+                    </div>
+                </div>
+
+                <!--<div class="form-group row">
+                      <label for="actividadHorario" class="col-md-2 col-form-label">Horario</label>
+                      <div class="col-md-10">
+                        <input id="actividadHorario" type="text" class="form-control"
+                          placeholder="Ingrese a que horario pertenece su activiadad"></input>
+                      </div>
+                    </div>
+                        -------------------------------
+                    <label class="radio-inline"><input type="radio" name="optradio" checked>Lunes</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">Martes</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">Miercoles</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">Jueves</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">Viernes</label>  
+                    <label class="radio-inline"><input type="radio" name="optradio">Sabado</label>
+                    <label class="radio-inline"><input type="radio" name="optradio">Domingo</label> -->
+
+
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+    </nav>
+    <!-- Main contenido al lado del slidebar-->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
+      <div id="schedule" class="cd-schedule loading">
+
+        <!--
                 <div class="timeline">
                 <ul>
                   <li><span>09:00</span></li>
@@ -353,9 +468,9 @@
               -->
 
 
-        </div> <!-- .cd-schedule -->
-      </main>
-    </div>
+      </div> <!-- .cd-schedule -->
+    </main>
+  </div>
   </div>
   <!-- Scroll to Top Button-->
   <a id="btnGoTop" class="scroll-to-top rounded btn btn-secondary btnNav" href="#" onclick="appFunctions.subirAlTop()">

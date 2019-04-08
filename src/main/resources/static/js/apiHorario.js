@@ -24,6 +24,19 @@ var apiHorario = (function () {
                 alert("El horario no se pudo crear. Intentelo nuevamente.");
             });
             //$(location).attr("href", "../login.html");
+        },
+postActividad: function (data,correo,nombreHorario){
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/schinotes/usuarios/"+correo+"/horarios/"+nombreHorario+"/actividades",
+                data: JSON.stringify(data)
+            }).done(function () {
+                alert("La Actividad se creo exitosamente");
+            }).fail(function () {
+                alert("La Actividad no se pudo crear. Intentelo nuevamente.");
+            });
+            
         }
     };
 
