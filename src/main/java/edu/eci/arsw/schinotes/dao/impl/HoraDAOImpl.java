@@ -54,7 +54,6 @@ public class HoraDAOImpl implements HoraDAO {
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] { idHorario });
 
         List<Hora> ddls = new ArrayList<>();
-        System.out.println(rows.size());
         for (Map<String, Object> row : rows) {
             Hora dia = new Hora();
             dia.setHora(row.get("hora").toString());

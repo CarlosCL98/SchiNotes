@@ -6,15 +6,19 @@ var apiHorario = (function () {
                 callback(data);
             });
         },
-        getHorario: function (usuario, nombreHorario, callback) {
+        getHorarioByName: function (usuario, nombreHorario, callback) {
             $.get("/schinotes/usuarios/" + usuario + "/horarios/" + nombreHorario, function (data) {
                 callback(data);
             });
         },
-
-        getActividades: function(usuario,horario,callback){
+        getHorarioById: function (usuario, idHorario, callback) {
+            $.get("/schinotes/usuarios/" + usuario + "/horarios/id/" + idHorario, function (data) {
+                callback(data);
+            });
+        },
+        getActividades: function (usuario, horario, callback) {
             console.log(usuario);
-            $.get("/schinotes/usuarios/"+usuario+"/horarios/"+horario+"/actividades", function (data) {
+            $.get("/schinotes/usuarios/" + usuario + "/horarios/" + horario + "/actividades", function (data) {
                 callback(data);
             });
         },

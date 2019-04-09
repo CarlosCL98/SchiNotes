@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
- * @author cristian
+ * @author Daniel Rosales
+ * @author Carlos Medina
  */
 @RestController
 @RequestMapping(value = "/schinotes")

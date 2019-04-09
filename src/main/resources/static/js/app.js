@@ -56,15 +56,16 @@ var app = (function () {
     var agregarOpcionesHorarios = function (data) {
         $("#deployHorariosButton").empty();
         for (var i = 0; i < data.length; i++) {
-            $("#deployHorariosButton").append("<a class='dropdown-item' href='#' data-horarioId="+data[i].id+" data-horario=" + data[i].nombre + ">" + data[i].nombre + "</a>");
+            $("#deployHorariosButton").append("<a class='dropdown-item' href='#' data-horario-id="+data[i].id+" data-horario-nombre=" + data[i].nombre + ">" + data[i].nombre + "</a>");
         }
         $("#deployHorariosButton").on("click", "a", function (event) {
-            cambiarHorario(event.target.dataset.horario);
+            cambiarHorario(event.target.dataset.horarioNombre);
+            appStomp.init(event.target.dataset.horarioId);
         });
     }
 
     var cambiarHorario = function (nombre) {
-        apiHorario.getHorario(Cookies.get('username'), nombre, mostrarHorario);
+        apiHorario.getHorarioByName(Cookies.get('username'), nombre, mostrarHorario);
     }
 
     var agregaropcionesHorariosActividades = function (data) {
@@ -77,7 +78,7 @@ var app = (function () {
             var idHorario = event.target.dataset.horarioId;
             actividadHorarioId = idHorario;
             actividadHorario = nombreHorario;
-            apiHorario.getHorario(Cookies.get('username'), nombreHorario, cambiarOpcionesCreacionActividad);
+            apiHorario.getHorarioByName(Cookies.get('username'), nombreHorario, cambiarOpcionesCreacionActividad);
             $("#labelHorario").text("Horario seleccionado: "+nombreHorario);
         });
     };
@@ -191,6 +192,11 @@ var app = (function () {
             }
             apiHorario.postActividad(data, Cookies.get('username'), data.horario_id);
             cambiarHorario(actividadHorario);
+            appStomp.cambiarHorarioConActividades(data);
+        },
+        recargarHorario: function (horario) {
+            console.log(horario);
+            cambiarHorario(horario.nombre);
         }
     };
 

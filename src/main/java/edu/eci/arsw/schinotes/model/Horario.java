@@ -62,18 +62,14 @@ public class Horario {
             cal.add(Calendar.HOUR, intervalo / 100);
             cal.add(Calendar.MINUTE, (intervalo % 100));
             Date d = cal.getTime();
-            System.out.println("soy la horaaa a ingresar " + d.toString().substring(10,19));
             horaString = d.toString().substring(10,19);
             
             currentHora = d.getHours();
             currentMin = d.getMinutes();
-            System.out.println("soy la currentHora"+currentHora);
-            System.out.println("por aqui deberia terminar");
         }
         for (String ho: horasRepetidas) {
             horas.add(new Hora(ho));
         }
-        System.out.println(horasRepetidas.size());
         return horas;
     }
 
