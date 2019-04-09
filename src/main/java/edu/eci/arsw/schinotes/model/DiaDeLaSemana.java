@@ -5,7 +5,6 @@ public class DiaDeLaSemana {
     private String nombre;
 
     public DiaDeLaSemana() {
-
     }
 
     public DiaDeLaSemana(String nombre) {
