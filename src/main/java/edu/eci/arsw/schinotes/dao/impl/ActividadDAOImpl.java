@@ -72,11 +72,11 @@ public class ActividadDAOImpl implements ActividadDAO {
 
     @Override
     public List<Actividad> loadAll(String correo, String nombre) throws SchiNotesException {
-        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id\n"
+        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha_creacion,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id,to_char(a.hora_fin, 'HH12:MI:SS') as hora_fin\n"
                 + "FROM usuario u JOIN horario h ON (u.identificacion=h.usuario_identificacion) \n"
                 + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
                 + "JOIN actividad a ON (a.id=aph.actividad_id)\n"
-                + "WHERE u.cuenta_correo = ? AND h.nombre = ?";
+                + "WHERE u.cuenta_correo = ? AND h.nombre = ? order by a.hora_dias_por_horario_dia_nombre";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{
             correo, nombre
         });
@@ -89,8 +89,10 @@ public class ActividadDAOImpl implements ActividadDAO {
             actividad.setFecha((String) row.get("fecha"));
             actividad.setHorario_id((int) row.get("hora_dias_por_horario_horario_id"));
             actividad.setDia((String) row.get("hora_dias_por_horario_dia_nombre"));
+            System.out.println("soy la hora ini "+(String) row.get("hora_hora"));
+            System.out.println("soy la hora fin "+(String) row.get("hora_fin"));
             actividad.setHora_ini((String) row.get("hora_hora"));
-            actividad.setHora_ini((String) row.get("hora_fin"));
+            actividad.setHora_fin((String) row.get("hora_fin"));
             actividades.add(actividad);
         }
         if (actividades.isEmpty()) {

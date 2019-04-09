@@ -31,6 +31,7 @@ var app = (function () {
     };
 
     var mostrarHorario = function (horario) {
+        console.log(horario);
         $("#schedule").empty();
         var dias = horario.diasDeLaSemana;
         var horas = horario.horas;
@@ -40,7 +41,18 @@ var app = (function () {
         }
         $("#schedule").append("<div class='events'><ul></ul></div>");
         for (var i = 0; i < dias.length; i++) {
-            $("#schedule").find("ul:last").append("<li class='events-group'><div class='top-info'><span>" + dias[i].nombre + "</span></div></li>");
+            $("#schedule").find("ul:last").append("<li class='events-group' id="+dias[i].nombre+"><div class='top-info'><span>" + dias[i].nombre + "</span></div></li>");
+        }
+        
+        apiHorario.getActividades(Cookies.get('username'),horario.nombre,mostrarActividadesHorario);
+        
+    };
+
+    var mostrarActividadesHorario = function(actividades){
+        
+        for (var i = 0; i < actividades.length; i++){
+            $("#"+actividades[i].dia).append("<ul></ul>");
+            $("#"+actividades[i].dia).find("ul").append(" <li class='single-event' data-start="+actividades[i].hora_ini+" data-end="+actividades[i].hora_fin+" data-content='event-abs-circuit'data-event='event-1'><a href='#0'><em class='event-name'>"+actividades[i].nombre+"</em></a></li>");
         }
     };
 
@@ -170,6 +182,7 @@ var app = (function () {
         consultarMisHorarios: function () {
             var usuario = Cookies.get('username');
             apiHorario.getHorarios(usuario, agregarOpcionesHorarios);
+            
         },
         consultarMisHorariosParaActividades: function () {
             var usuario = Cookies.get('username');

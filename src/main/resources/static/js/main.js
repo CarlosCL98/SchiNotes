@@ -12,6 +12,7 @@ jQuery(document).ready(function($){
 		this.timelineItems = this.timeline.find('li');
 		this.timelineItemsNumber = this.timelineItems.length;
 		this.timelineStart = getScheduleTimestamp(this.timelineItems.eq(0).text());
+		console.log(this.timelineItems.eq(1).text());
 		//need to store delta (in our case half hour) timestamp
 		this.timelineUnitDuration = getScheduleTimestamp(this.timelineItems.eq(1).text()) - getScheduleTimestamp(this.timelineItems.eq(0).text());
 

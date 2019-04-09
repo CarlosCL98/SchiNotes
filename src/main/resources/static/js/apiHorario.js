@@ -11,6 +11,13 @@ var apiHorario = (function () {
                 callback(data);
             });
         },
+
+        getActividades: function(usuario,horario,callback){
+            console.log(usuario);
+            $.get("/schinotes/usuarios/"+usuario+"/horarios/"+horario+"/actividades", function (data) {
+                callback(data);
+            });
+        },
         postHorario: function (data, correo) {
             console.log(data)
             $.ajax({

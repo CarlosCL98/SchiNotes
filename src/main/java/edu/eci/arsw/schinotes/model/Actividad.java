@@ -21,8 +21,7 @@ public class Actividad {
     public Actividad() {
     }
 
-    public Actividad(int id, String nombre, String descripcion, String fecha, int horario_id, String dia, String hora_ini,
-            String hora_fin) {
+    public Actividad(int id, String nombre, String descripcion, String fecha, int horario_id, String dia, String hora_ini,String hora_fin) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
