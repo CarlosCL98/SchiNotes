@@ -1,16 +1,14 @@
 package edu.eci.arsw.schinotes.model;
 
-import java.util.List;
-
-public class DiaDeLaSemana  {
+public class DiaDeLaSemana {
 
     private String nombre;
 
-    public DiaDeLaSemana(){
+    public DiaDeLaSemana() {
 
     }
-    
-    public DiaDeLaSemana(String nombre){
+
+    public DiaDeLaSemana(String nombre) {
         this.nombre = nombre;
     }
 

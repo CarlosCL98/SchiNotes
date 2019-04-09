@@ -21,8 +21,10 @@ public interface HoraDAO {
      * @param dia
      * @throws SchiNotesException
      */
-    public void saveHora(Hora hora, String horario, String dia) throws SchiNotesException;
+    public void saveHora(Hora hora, int idHorario, String dia) throws SchiNotesException;
 
-	public  List<Hora> getHoras(String nombreHorario) throws SchiNotesException;
+    public List<Hora> getHorasByName(String nombreHorario) throws SchiNotesException;
+    
+    public List<Hora> getHorasById(int idHorario) throws SchiNotesException;
 
 }

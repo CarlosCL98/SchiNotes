@@ -1,10 +1,11 @@
 /* global Cookies, apiUsuario, apiHorario */
 var app = (function () {
 
-
-    var actividadHorario;
-    var actividadDia;
-    var actividadHora;
+    var actividadHorarioId = null;
+    var actividadHorario = null;
+    var actividadDia = null;
+    var actividadHoraInicio = null;
+    var actividadHoraFin = null;
 
     var verificarUsuario = function (cuenta) {
         var contrasena = $("#ContraseñaInput").val();
@@ -17,106 +18,97 @@ var app = (function () {
     };
 
     var mostrarPerfil = function (usuario) {
-        
-        $("#perfilCard").find("h1").text("" + usuario.nombre + " " + usuario.apellido + " ");
-        $("#perfilCard").find("p:last").text("correo: " + usuario.cuentaCorreo.correo)
+        $("#tituloPerfil").text("Perfil de "+usuario.nombre);
+        $("#nombrePerfil").text("" + usuario.nombre + " " + usuario.apellido + " ");
+        if (usuario.intereses === null) {
+            $("#interesesPerfil").text("Intereses: no se han descrito aún.");
+        } else {
+            $("#interesesPerfil").text("Intereses: "+usuario.intereses);
+        }
+        $("#nicknamePerfil").text("Nickname: "+usuario.cuentaCorreo.nickname);
+        $("").text("correo: " + usuario.cuentaCorreo.correo)
         $("#perfilCard").append("<p style =\"font-size: 20px\"> nickname: " + usuario.cuentaCorreo.nickname + "</p>");
-
     };
 
     var mostrarHorario = function (horario) {
-        console.log(horario);
         $("#schedule").empty();
-        
         var dias = horario.diasDeLaSemana;
-
-        
         var horas = horario.horas;
         $("#schedule").append("<div class='timeline'><ul></ul></div>");
-
         for (var i = 0; i < horas.length; i++) {
-            $("#schedule").find("ul").append("<li><span>"+horas[i].hora+"</span></li>");
+            $("#schedule").find("ul").append("<li><span>" + horas[i].hora + "</span></li>");
         }
         $("#schedule").append("<div class='events'><ul></ul></div>");
-
         for (var i = 0; i < dias.length; i++) {
             $("#schedule").find("ul:last").append("<li class='events-group'><div class='top-info'><span>" + dias[i].nombre + "</span></div></li>");
         }
-        
     };
 
-    var creacionDeHorario = function (){
+    var creacionDeHorario = function () {
         alert("su horario ha sido creado exitosamanete");
     };
 
-
-    var agregarOpcionesHorarios = function(data){
-        
+    var agregarOpcionesHorarios = function (data) {
         $("#deployHorariosButton").empty();
-        
         for (var i = 0; i < data.length; i++) {
-            $("#deployHorariosButton").append("<a class='dropdown-item' href='#' data-horario="+data[i].nombre+">"+data[i].nombre+"</a>");
+            $("#deployHorariosButton").append("<a class='dropdown-item' href='#' data-horarioId="+data[i].id+" data-horario=" + data[i].nombre + ">" + data[i].nombre + "</a>");
         }
-        $("#deployHorariosButton").on("click", "a", function (event){
+        $("#deployHorariosButton").on("click", "a", function (event) {
             cambiarHorario(event.target.dataset.horario);
-            
         });
-
     }
 
-    var cambiarHorario = function(nombre){
-        
+    var cambiarHorario = function (nombre) {
         apiHorario.getHorario(Cookies.get('username'), nombre, mostrarHorario);
     }
 
-    var agregaropcionesHorariosActividades = function(data){
+    var agregaropcionesHorariosActividades = function (data) {
+        console.log(data);
         $("#opcionesHorarioCrearActividad").empty();
-        
         for (var i = 0; i < data.length; i++) {
-            $("#opcionesHorarioCrearActividad").append("<a class='dropdown-item' href='#' data-horario="+data[i].nombre+">"+data[i].nombre+"</a>");
+            $("#opcionesHorarioCrearActividad").append("<a class='dropdown-item' href='#' data-horario-id="+data[i].id+" data-horario-nombre=" + data[i].nombre + ">" + data[i].nombre + "</a>");
         }
-        $("#opcionesHorarioCrearActividad").on("click", "a", function (event){
-            
-            var nombreHorario = event.target.dataset.horario;
+        $("#opcionesHorarioCrearActividad").on("click", "a", function (event) {
+            var nombreHorario = event.target.dataset.horarioNombre;
+            console.log(event.target.dataset.horarioId);
+            var idHorario = event.target.dataset.horarioId;
+            actividadHorarioId = idHorario;
             actividadHorario = nombreHorario;
-            console.log(actividadHorario);
-            apiHorario.getHorario(Cookies.get('username'),nombreHorario, cambiarOpcionesCreacionActividad);
-            
+            apiHorario.getHorario(Cookies.get('username'), nombreHorario, cambiarOpcionesCreacionActividad);
+            $("#labelHorario").text("Horario seleccionado: "+nombreHorario);
         });
     };
 
-    var cambiarOpcionesCreacionActividad = function(data){
+    var cambiarOpcionesCreacionActividad = function (data) {
         $("#opcionesHorarioCrearActividadDias").empty();
         diasDeLaSemana = data.diasDeLaSemana;
-        
         for (var i = 0; i < diasDeLaSemana.length; i++) {
-            $("#opcionesHorarioCrearActividadDias").append("<a class='dropdown-item' href='#' data-diaSemana="+diasDeLaSemana[i].nombre+">"+diasDeLaSemana[i].nombre+"</a>");
+            $("#opcionesHorarioCrearActividadDias").append("<a class='dropdown-item' href='#' data-dia-semana=" + diasDeLaSemana[i].nombre + ">" + diasDeLaSemana[i].nombre + "</a>");
         }
-        $("#opcionesHorarioCrearActividadDias").on("click", "a", function (event){
-            console.log(event);
-            var diaSemana = event.target.dataset.diasemana;
+        $("#opcionesHorarioCrearActividadDias").on("click", "a", function (event) {
+            var diaSemana = event.target.dataset.diaSemana;
             actividadDia = diaSemana;
-            console.log(event.target.dataset.diasemana);
+            $("#labelDias").text("Día seleccionado: "+diaSemana);
         });
-
-
-
-        $("#opcionesHorarioCrearActividadHoras").empty();
+        $("#opcionesHorarioCrearActividadHorasInicio").empty();
+        $("#opcionesHorarioCrearActividadHorasFin").empty();
         horasDelHorario = data.horas;
-        
         for (var i = 0; i < horasDelHorario.length; i++) {
-            $("#opcionesHorarioCrearActividadHoras").append("<a class='dropdown-item' href='#' data-hora="+horasDelHorario[i].hora+">"+horasDelHorario[i].hora+"</a>");
+            $("#opcionesHorarioCrearActividadHorasInicio").append("<a class='dropdown-item' href='#' data-hora=" + horasDelHorario[i].hora + ">" + horasDelHorario[i].hora + "</a>");
+            $("#opcionesHorarioCrearActividadHorasFin").append("<a class='dropdown-item' href='#' data-hora=" + horasDelHorario[i].hora + ">" + horasDelHorario[i].hora + "</a>");
         }
-        $("#opcionesHorarioCrearActividadHoras").on("click", "a", function (event){
+        $("#opcionesHorarioCrearActividadHorasInicio").on("click", "a", function (event) {
             var horaHorario = event.target.dataset.hora;
-            actividadHora = horaHorario;
-            console.log(actividadHora);
+            actividadHoraInicio = horaHorario;
+            $("#labelHorasIni").text("Hora inicial seleccionada: "+horaHorario);
         });
-
+        $("#opcionesHorarioCrearActividadHorasFin").on("click", "a", function (event) {
+            var horaHorario = event.target.dataset.hora;
+            actividadHoraFin = horaHorario;
+            $("#labelHorasFin").text("Hora final seleccionada: "+horaHorario);
+        });
     }
 
-    
-    
     var verificarDatos = function (data) {
         var infoCompleta = true;
         if (data.nombre === "" || data.apellido === "" || data.cuentaCorreo.correo === "" || data.cuentaCorreo.contrasena === "" || data.cuentaCorreo.nickname === "") {
@@ -166,37 +158,37 @@ var app = (function () {
             }
             return infoCompleta;
         },
-        
-        agregarHorario: function(){
+        agregarHorario: function () {
             var data = {
+                id: "1",
                 nombre: $('#horarioNombre').val(),
                 intervaloHoras: $('#intervaloHoras').val(),
                 numeroDias: $('#horarioNumDias').val()
             }
-            apiHorario.postHorario(data,Cookies.get('username'));
+            apiHorario.postHorario(data, Cookies.get('username'));
         },
-        consultarMisHorarios: function(){
+        consultarMisHorarios: function () {
             var usuario = Cookies.get('username');
-            apiHorario.getHorarios(usuario,agregarOpcionesHorarios);
+            apiHorario.getHorarios(usuario, agregarOpcionesHorarios);
         },
-        consultarMisHorariosParaActividades: function(){
-            console.log("aqui entre")
+        consultarMisHorariosParaActividades: function () {
             var usuario = Cookies.get('username');
-            apiHorario.getHorarios(usuario,agregaropcionesHorariosActividades);
+            apiHorario.getHorarios(usuario, agregaropcionesHorariosActividades);
         },
-        agregarActividad: function(){
-            var data ={
-                id:"1",
-                nombre:$('#actividadNombre').val(),
-                descripcion:$('#actividadDescripcion').val(),
-                fecha:"2019-02-98",
-                horario: actividadHorario,
+        agregarActividad: function () {
+            var data = {
+                id: "1",
+                nombre: $('#actividadNombre').val(),
+                descripcion: $('#actividadDescripcion').val(),
+                fecha: new Date(),
+                horario_id: actividadHorarioId,
                 dia: actividadDia,
-                hora: actividadHora
+                hora_ini: actividadHoraInicio,
+                hora_fin: actividadHoraFin
             }
             console.log(data)
-            apiHorario.postActividad(data,Cookies.get('username'),data.horario);
+            apiHorario.postActividad(data, Cookies.get('username'), data.horario_id);
         }
-        
     };
+
 })();

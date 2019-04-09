@@ -11,12 +11,12 @@ var apiHorario = (function () {
                 callback(data);
             });
         },
-        postHorario: function (data,correo) {
+        postHorario: function (data, correo) {
             console.log(data)
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/schinotes/usuarios/"+correo+"/horarios",
+                url: "/schinotes/usuarios/" + correo + "/horarios",
                 data: JSON.stringify(data)
             }).done(function () {
                 alert("El horario se creo exitosamente");
@@ -25,18 +25,17 @@ var apiHorario = (function () {
             });
             //$(location).attr("href", "../login.html");
         },
-postActividad: function (data,correo,nombreHorario){
+        postActividad: function (data, correo, idHorario) {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/schinotes/usuarios/"+correo+"/horarios/"+nombreHorario+"/actividades",
+                url: "/schinotes/usuarios/" + correo + "/horarios/" + idHorario + "/actividades",
                 data: JSON.stringify(data)
             }).done(function () {
                 alert("La Actividad se creo exitosamente");
             }).fail(function () {
                 alert("La Actividad no se pudo crear. Intentelo nuevamente.");
             });
-            
         }
     };
 

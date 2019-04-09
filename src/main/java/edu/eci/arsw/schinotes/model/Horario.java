@@ -1,8 +1,5 @@
 package edu.eci.arsw.schinotes.model;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,9 +14,9 @@ import java.util.Set;
  */
 public class Horario {
 
-    private final int HORA_LIMITE = 24;
     private final String[] DIAS = { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO" };
 
+    private int id;
     private String nombre;
     private Usuario usuario;
     private Grupo grupo;
@@ -37,7 +34,7 @@ public class Horario {
         this.horasRepetidas = new HashSet<>();
     }
 
-    public Horario(String nombre,int intervaloHoras,int numeroDias) {
+    public Horario(int id, String nombre, int intervaloHoras,int numeroDias) {
         this.nombre = nombre;
         this.intervaloHoras = intervaloHoras;
         this.numeroDias = numeroDias;
@@ -89,8 +86,19 @@ public class Horario {
         return dias;
     }
 
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-    
+    /**
+     * @param id the nombre to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getIntervaloHoras(){
         return this.intervaloHoras;

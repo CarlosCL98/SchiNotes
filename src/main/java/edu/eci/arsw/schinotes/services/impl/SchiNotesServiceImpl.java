@@ -71,6 +71,8 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public void crearHorario(Horario horario) throws SchiNotesException {
+        int id = horarioDAO.getMaxId();
+        horario.setId(id+1);
         horario.setDiasDeLaSemana(horario.calcularDias(horario.getNumeroDias()));
         horario.setHoras(horario.calcularHoras(horario.getIntervaloHoras()));
         horarioDAO.saveHorario(horario);
@@ -78,17 +80,24 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         for (DiaDeLaSemana diaSemana : horario.getDiasDeLaSemana()) {
             System.out.println(horario.getDiasDeLaSemana().size());
             for (Hora h : horario.getHoras()) {
-                horaDAO.saveHora(h, horario.getNombre(), diaSemana.getNombre());
+                horaDAO.saveHora(h, horario.getId(), diaSemana.getNombre());
             }
         }
     }
 
     @Override
-    public Horario consultarHorario(String correo, String nombre) throws SchiNotesException {
-        Horario horario = horarioDAO.getHorario(correo, nombre);
-        horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDias(nombre));
-        horario.setHoras(horaDAO.getHoras(nombre));
-        
+    public Horario consultarHorarioByName(String correo, String nombre) throws SchiNotesException {
+        Horario horario = horarioDAO.getHorarioByName(correo, nombre);
+        horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDiasByName(nombre));
+        horario.setHoras(horaDAO.getHorasByName(nombre));
+        return horario;
+    }
+
+    @Override
+    public Horario consultarHorarioById(String correo, int id) throws SchiNotesException {
+        Horario horario = horarioDAO.getHorarioById(correo, id);
+        horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDiasById(id));
+        horario.setHoras(horaDAO.getHorasById(id));
         return horario;
     }
 

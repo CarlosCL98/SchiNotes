@@ -1,198 +1,86 @@
 <!DOCTYPE html>
-<html lang="es" class="no-js">
+<html lang="es">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>SchiNotes Home</title>
+  <title>SchiNotes Perfil</title>
   <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
-  <!-- Custom fonts for this template-->
   <link href="/webjars/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
   <link href="css/app.css" type="text/css" rel="stylesheet" />
   <link href="css/footer.css" type="text/css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-  <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+  <link href="css/sidebar.css" type="text/css" rel="stylesheet" />
+  <link href="css/reset.css" type="text/css" rel="stylesheet" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
   <script src="/webjars/jquery/jquery.min.js"></script>
   <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/appFunctions.js"></script>
   <script src="js/apiUsuario.js"></script>
-
+  <script src="js/apiHorario.js"></script>
 </head>
 
-<body id="page-top" class="bg" onload="app.consultarPerfil()">
-
-  <nav class="navbar navbar-expand navbar-dark static-top" style="background-color: #002D67">
-
-    <a class="navbar-brand mr-1" href="home.html">
-      <img src="images/tituloNavBar.png">
+<body class="bg" onload="app.consultarPerfil()">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top" alt="">
     </a>
-
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="¿Quieres buscar algo?" aria-label="Search"
-          aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fas fa-search"></i>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <span class="narbar-text">
+        <div class="dropdown mx-3">
+          <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#" id="dropdownOpcionesUsuario"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="app.consultarMisHorarios()"><i
+              class="fas fa-user-circle fa-fw"></i>
           </button>
+          <div id="opcionesUsuario" class="dropdown-menu" aria-labelledby="dropdownOpcionesUsuario">
+            <a class='dropdown-item' href='perfil.html'>Mi perfil</a>
+          </div>
         </div>
-      </div>
-    </form>
-
-    <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <!--<li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bell fa-fw"></i>
-          <span class="badge badge-danger">9+</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>-->
-      <!--<li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-envelope fa-fw"></i>
-          <span class="badge badge-danger">7</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>-->
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-           <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Activity Log</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-        </div>
-      </li>
-    </ul>
-
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-secondary btnNav mx-0" type="button" onclick="appFunctions.cerrarSesion()">
+          <i class="fas fa-sign-out-alt"></i>&nbsp;Cerrar Sesión
+        </button>
+      </span>
+    </div>
   </nav>
-
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="login.html">Login</a>
-          <a class="dropdown-item" href="register.html">Register</a>
-          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-          <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header">Other Pages:</h6>
-          <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
-    </ul>
-
-    <div id="content-wrapper" style="align-self: auto">
-
-        <div class="container-fluid" align ="center">
-            <div style="padding: 3rem 1.5rem; text-align: center; font-size: 40px;">
-                    <h1>Perfil Usuario</h1>
-            </div>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <div class = "row">
-                    
-                <div  class = "col" style="width: 30%;margin: auto" align = "left">
-                    <div class = "row">
-                        <div class= "col" >
-                            <img src="images/avatar.png" alt="John" style="width:30%" >
-                        </div>
-                        <div class= "col"id = "perfilCard" >
-                                <h1 style="font-size: 20px"></h1>
-                                <p style="font-size: 20px"></p>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class = "col" id = "perfilCard">
-                    
-                </div>
-
-            </div>
-                
-        </div>
+  <!-- Contenido -->
+  <div class="container-fluid">
+    <div style="padding: 3rem 1.5rem; text-align: center; font-size: 40px;">
+      <h2 id="tituloPerfil"> </h2>
     </div>
-    <!-- /.container-fluid -->
-  </div>
-  <!-- /.content-wrapper -->
-  </div>
-  <!-- /#wrapper -->
+    <div id="cardPerfil" class="card" style="width: 18rem;">
+      <div class="card-header">
+        <img class="card-img-top" src="images/avatar.png" alt="FotoPerfil" style="width:50%">
+      </div>
+      <div class="card-body">
+        <h5 id="nombrePerfil" class="card-title"> </h5>
+        <h6 id="nicknamePerfil" class="card-subtitle mb-2 text-muted"> </h6>
+        <p id="interesesPerfil" class="card-text"> </p>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+      <div class="card-footer">
+        <div class="social-networks">
+          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
         </div>
       </div>
     </div>
   </div>
+  <!-- Footer -->
   <footer id="myFooter">
     <div class="container">
       <div class="row">
@@ -222,11 +110,11 @@
         </div>
         <div class="col-sm-3">
           <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
           </div>
-          <button type="button" class="btn btn-default">Contact us</button>
+          <button type="button" class="btn btn-secondary btnNav">Contact us</button>
         </div>
       </div>
     </div>
@@ -234,30 +122,6 @@
       <p>&copy; Copyright 2019</p>
     </div>
   </footer>
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin.min.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/modernizr.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-  <script>
-    if (!window.jQuery) document.write('<script src="js/jquery-3.0.0.min.js"><\/script>');
-  </script>
-  <script src="js/main.js"></script> <!-- Resource jQuery -->
 </body>
 
 </html>

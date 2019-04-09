@@ -30,21 +30,21 @@ public class ActividadDAOImpl implements ActividadDAO {
     public void saveActividad(Actividad actividad) throws SchiNotesException {
         String sql1 = "SELECT CASE WHEN MAX(id) is NULL THEN 0 ELSE MAX(id) END FROM Actividad";
         int id = jdbcTemplate.queryForObject(sql1, Integer.class);
-        String sql2 = "INSERT INTO Actividad (id,nombre,descripcion,fecha,hora_hora,hora_dias_por_horario_horario_nombre,Hora_Dias_Por_Horario_dia_nombre) VALUES (?,?,?,TO_DATE(?,'YYYY-MM-DD'),TO_TIMESTAMP(?,'HH24:MI:SS'),?,?)";
+        String sql2 = "INSERT INTO Actividad (id,nombre,descripcion,fecha_creacion,hora_hora,hora_fin,Hora_Dias_Por_Horario_Horario_id,hora_dias_por_horario_dia_nombre) VALUES (?,?,?,TO_DATE(?,'YYYY-MM-DD'),TO_TIMESTAMP(?,'HH24:MI:SS'),TO_TIMESTAMP(?,'HH24:MI:SS'),?,?)";
         jdbcTemplate.update(sql2, new Object[]{
-            id + 1, actividad.getNombre(), actividad.getDescripcion(), actividad.getFecha(), actividad.getHora(), actividad.getHorario(), actividad.getDia()
+            id + 1, actividad.getNombre(), actividad.getDescripcion(), actividad.getFecha(), actividad.getHora_ini(), actividad.getHora_fin(), actividad.getHorario_id(), actividad.getDia()
         });
-        String sql3 = "INSERT INTO actividad_por_horario (actividad_id,horario_nombre) VALUES (?,?)";
+        String sql3 = "INSERT INTO actividad_por_horario (actividad_id,horario_id) VALUES (?,?)";
         jdbcTemplate.update(sql3, new Object[]{
-            id + 1, actividad.getHorario()
+            id + 1, actividad.getHorario_id()
         });
     }
 
     @Override
     public Actividad loadActividad(String correo, String nombre, String actividad) throws SchiNotesException {
-        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_nombre\n"
+        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id\n"
                 + "FROM usuario u JOIN horario h ON (u.identificacion=h.usuario_identificacion) \n"
-                + "JOIN actividad_por_horario aph ON (h.nombre=aph.horario_nombre)\n"
+                + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
                 + "JOIN actividad a ON (a.id=aph.actividad_id)\n"
                 + "WHERE u.cuenta_correo = ? AND h.nombre = ? AND a.nombre = ?;";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{
@@ -60,10 +60,11 @@ public class ActividadDAOImpl implements ActividadDAO {
                 actividad.setId(rs.getInt("id"));
                 actividad.setNombre(rs.getString("nombre"));
                 actividad.setDescripcion(rs.getString("descripcion"));
-                actividad.setFecha((Date) rs.getObject("fecha"));
-                actividad.setHorario(rs.getString("hora_dias_por_horario_horario_nombre"));
+                actividad.setFecha((String) rs.getObject("fecha"));
+                actividad.setHorario_id(rs.getInt("hora_dias_por_horario_horario_id"));
                 actividad.setDia(rs.getString("hora_dias_por_horario_dia_nombre"));
-                actividad.setHora(rs.getString("hora_hora"));
+                actividad.setHora_ini(rs.getString("hora_hora"));
+                actividad.setHora_fin(rs.getString("hora_fin"));
                 return actividad;
             }
         });
@@ -71,9 +72,9 @@ public class ActividadDAOImpl implements ActividadDAO {
 
     @Override
     public List<Actividad> loadAll(String correo, String nombre) throws SchiNotesException {
-        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_nombre\n"
+        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id\n"
                 + "FROM usuario u JOIN horario h ON (u.identificacion=h.usuario_identificacion) \n"
-                + "JOIN actividad_por_horario aph ON (h.nombre=aph.horario_nombre)\n"
+                + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
                 + "JOIN actividad a ON (a.id=aph.actividad_id)\n"
                 + "WHERE u.cuenta_correo = ? AND h.nombre = ?";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{
@@ -85,10 +86,11 @@ public class ActividadDAOImpl implements ActividadDAO {
             actividad.setId((int) row.get("id"));
             actividad.setNombre((String) row.get("nombre"));
             actividad.setDescripcion((String) row.get("descripcion"));
-            actividad.setFecha((Date) row.get("fecha"));
-            actividad.setHorario((String) row.get("hora_dias_por_horario_horario_nombre"));
+            actividad.setFecha((String) row.get("fecha"));
+            actividad.setHorario_id((int) row.get("hora_dias_por_horario_horario_id"));
             actividad.setDia((String) row.get("hora_dias_por_horario_dia_nombre"));
-            actividad.setHora((String) row.get("hora_hora"));
+            actividad.setHora_ini((String) row.get("hora_hora"));
+            actividad.setHora_ini((String) row.get("hora_fin"));
             actividades.add(actividad);
         }
         if (actividades.isEmpty()) {

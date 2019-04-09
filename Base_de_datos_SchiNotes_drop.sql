@@ -1,12 +1,15 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2019-03-26 06:03:13.792
+-- Last modification date: 2019-04-09 00:06:18.896
 
 -- foreign keys
-ALTER TABLE ActividadPorHorario
-    DROP CONSTRAINT ActividadPorHorario_Actividad;
+ALTER TABLE Actividad
+    DROP CONSTRAINT Actividad_Hora;
 
-ALTER TABLE ActividadPorHorario
-    DROP CONSTRAINT ActividadPorHorario_Horario;
+ALTER TABLE Actividad_Por_Horario
+    DROP CONSTRAINT Actividad_Por_Horario_Actividad;
+
+ALTER TABLE Actividad_Por_Horario
+    DROP CONSTRAINT Actividad_Por_Horario_Horario;
 
 ALTER TABLE Amigo
     DROP CONSTRAINT Amigo_Usuario;
@@ -14,16 +17,16 @@ ALTER TABLE Amigo
 ALTER TABLE Amigo
     DROP CONSTRAINT Amigo_Usuario_2;
 
-ALTER TABLE DiasPorHorario
-    DROP CONSTRAINT DiasPorHorario_DiasDeLaSemana;
+ALTER TABLE Dias_Por_Horario
+    DROP CONSTRAINT Dias_Por_Horario_Dia;
 
-ALTER TABLE DiasPorHorario
-    DROP CONSTRAINT DiasPorHorario_Horario;
+ALTER TABLE Dias_Por_Horario
+    DROP CONSTRAINT Dias_Por_Horario_Horario;
 
-ALTER TABLE GrupoDeTrabajo
+ALTER TABLE Grupo_De_Trabajo
     DROP CONSTRAINT GrupoDeTrabajo_Grupo;
 
-ALTER TABLE GrupoDeTrabajo
+ALTER TABLE Grupo_De_Trabajo
     DROP CONSTRAINT GrupoDeTrabajo_Usuario;
 
 ALTER TABLE Grupo
@@ -31,6 +34,9 @@ ALTER TABLE Grupo
 
 ALTER TABLE Grupo
     DROP CONSTRAINT Grupo_Tablero;
+
+ALTER TABLE Hora
+    DROP CONSTRAINT Hora_Dias_Por_Horario;
 
 ALTER TABLE Horario
     DROP CONSTRAINT Horario_Usuario;
@@ -41,34 +47,31 @@ ALTER TABLE Nota
 ALTER TABLE Nota
     DROP CONSTRAINT Nota_Usuario;
 
-ALTER TABLE THoras
-    DROP CONSTRAINT THoras_Horario;
-
 ALTER TABLE Usuario
     DROP CONSTRAINT Usuario_Cuenta;
 
 -- tables
 DROP TABLE Actividad;
 
-DROP TABLE ActividadPorHorario;
+DROP TABLE Actividad_Por_Horario;
 
 DROP TABLE Amigo;
 
 DROP TABLE Cuenta;
 
-DROP TABLE DiasDeLaSemana;
+DROP TABLE Dia;
 
-DROP TABLE DiasPorHorario;
+DROP TABLE Dias_Por_Horario;
 
 DROP TABLE Grupo;
 
-DROP TABLE GrupoDeTrabajo;
+DROP TABLE Grupo_De_Trabajo;
+
+DROP TABLE Hora;
 
 DROP TABLE Horario;
 
 DROP TABLE Nota;
-
-DROP TABLE THoras;
 
 DROP TABLE Tablero;
 

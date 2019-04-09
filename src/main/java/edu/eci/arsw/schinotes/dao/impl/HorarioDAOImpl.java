@@ -27,16 +27,16 @@ public class HorarioDAOImpl implements HorarioDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
 
     @Override
     public List<Horario> getHorarios(String correo) throws SchiNotesException {
-        String query = "SELECT h.nombre as hnombre,h.usuario_identificacion,u.identificacion,u.nombre as unombre,u.apellido,u.cuenta_correo FROM horario h JOIN usuario u ON(h.usuario_identificacion = u.identificacion) WHERE u.cuenta_correo = ?";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] {correo});
+        String query = "SELECT h.id as hid,h.nombre as hnombre,h.usuario_identificacion,u.identificacion,u.nombre as unombre,u.apellido,u.cuenta_correo FROM horario h JOIN usuario u ON(h.usuario_identificacion = u.identificacion) WHERE u.cuenta_correo = ?";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, new Object[] { correo });
         List<Horario> horarios = new ArrayList<>();
-        
+
         for (Map<String, Object> row : rows) {
             Horario horario = new Horario();
+            horario.setId((int) row.get("hid"));
             horario.setNombre((String) row.get("hnombre"));
             Usuario usuario = new Usuario();
             usuario.setIdentificacion((int) row.get("identificacion"));
@@ -47,19 +47,40 @@ public class HorarioDAOImpl implements HorarioDAO {
             horarios.add(horario);
         }
         if (horarios.isEmpty()) {
-            throw new SchiNotesException("No hay usuarios existentes.");
+            throw new SchiNotesException("No hay horarios existentes.");
         }
         return horarios;
     }
-    
+
     @Override
-    public Horario getHorario(String correo, String nombre) throws SchiNotesException {
-        String query = "SELECT h.nombre as hnombre,h.usuario_identificacion,u.identificacion,u.nombre as unombre,u.apellido,u.cuenta_correo FROM horario h JOIN usuario u ON(h.usuario_identificacion = u.identificacion) WHERE h.nombre = ? and u.cuenta_correo = ?";
+    public Horario getHorarioByName(String correo, String nombre) throws SchiNotesException {
+        String query = "SELECT h.id as hid,h.nombre as hnombre,h.usuario_identificacion,u.identificacion,u.nombre as unombre,u.apellido,u.cuenta_correo FROM horario h JOIN usuario u ON(h.usuario_identificacion = u.identificacion) WHERE h.nombre = ? and u.cuenta_correo = ?";
 
         return (Horario) jdbcTemplate.queryForObject(query, new Object[] { nombre, correo }, new RowMapper<Horario>() {
             @Override
             public Horario mapRow(ResultSet rs, int rwNumber) throws SQLException {
                 Horario horario = new Horario();
+                horario.setId(rs.getInt("hid"));
+                horario.setNombre(rs.getString("hnombre"));
+                Usuario usuario = new Usuario();
+                usuario.setIdentificacion(rs.getInt("identificacion"));
+                usuario.setNombre(rs.getString("unombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                horario.setUsuario(usuario);
+                return horario;
+            }
+        });
+    }
+
+    @Override
+    public Horario getHorarioById(String correo, int id) throws SchiNotesException {
+        String query = "SELECT h.id as hid,h.nombre as hnombre,h.usuario_identificacion,u.identificacion,u.nombre as unombre,u.apellido,u.cuenta_correo FROM horario h JOIN usuario u ON(h.usuario_identificacion = u.identificacion) WHERE h.id = ? and u.cuenta_correo = ?";
+
+        return (Horario) jdbcTemplate.queryForObject(query, new Object[] { id, correo }, new RowMapper<Horario>() {
+            @Override
+            public Horario mapRow(ResultSet rs, int rwNumber) throws SQLException {
+                Horario horario = new Horario();
+                horario.setId(rs.getInt("hid"));
                 horario.setNombre(rs.getString("hnombre"));
                 Usuario usuario = new Usuario();
                 usuario.setIdentificacion(rs.getInt("identificacion"));
@@ -73,12 +94,19 @@ public class HorarioDAOImpl implements HorarioDAO {
 
     @Override
     public void saveHorario(Horario horario) throws SchiNotesException {
-        String query = "INSERT INTO horario (nombre,usuario_identificacion) VALUES(?,?)";
+        int id = getMaxId();
+        String query = "INSERT INTO horario (id,nombre,usuario_identificacion) VALUES(?,?,?)";
 
-        jdbcTemplate.update(query, new Object[] { horario.getNombre(), horario.getUsuario().getIdentificacion() });
+        jdbcTemplate.update(query, new Object[] { 
+            id+1, horario.getNombre(), horario.getUsuario().getIdentificacion() 
+        });
     }
 
-
-    
+    @Override
+    public int getMaxId() {
+        String maxIdQuery = "SELECT CASE WHEN MAX(h.id) is NULL THEN 0 ELSE MAX(h.id) END FROM horario h";
+        int id = jdbcTemplate.queryForObject(maxIdQuery, Integer.class);
+        return id;
+    }
 
 }

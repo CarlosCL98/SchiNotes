@@ -28,6 +28,8 @@ public interface DiasPorHorarioDAO {
      * @return una lista con los dias de la semana del horario.
      * @throws SchiNotesException
      */
-    public List<DiaDeLaSemana> getDias(String nombre) throws SchiNotesException;
+    public List<DiaDeLaSemana> getDiasByName(String nombre) throws SchiNotesException;
+
+    public List<DiaDeLaSemana> getDiasById(int id) throws SchiNotesException;
 
 }

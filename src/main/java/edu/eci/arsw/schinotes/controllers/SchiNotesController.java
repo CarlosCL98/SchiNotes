@@ -71,7 +71,7 @@ public class SchiNotesController {
     public ResponseEntity<Horario> recursoConsultarHorarioPorNombre(@PathVariable String correo,
             @PathVariable String nombre) throws NotFoundException {
         try {
-            Horario horario = schiNotesService.consultarHorario(correo, nombre);
+            Horario horario = schiNotesService.consultarHorarioByName(correo, nombre);
             return new ResponseEntity<>(horario, HttpStatus.OK);
         } catch (SchiNotesException ex) {
             throw new NotFoundException(ex.getMessage());
@@ -79,11 +79,33 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}", method = RequestMethod.GET)
-    public ResponseEntity<?> recursoConsultarHorario(@PathVariable String correo, @PathVariable String nombre) {
+    public ResponseEntity<?> recursoConsultarHorarioUsuarioByName(@PathVariable String correo, @PathVariable String nombre) {
         try {
-            Horario horario = schiNotesService.consultarHorario(correo, nombre);
+            Horario horario = schiNotesService.consultarHorarioByName(correo, nombre);
             return new ResponseEntity<>(horario, HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/usuarios/{correo}/horarios/id/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarHorarioById(@PathVariable String correo, @PathVariable int id) {
+        try {
+            Horario horario = schiNotesService.consultarHorarioById(correo, id);
+            return new ResponseEntity<>(horario, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarHorarios(@PathVariable String correo) {
+        try {
+
+            List<Horario> horarios = schiNotesService.consultarHorarios(correo);
+            return new ResponseEntity<>(horarios, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            ex.printStackTrace();
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
@@ -118,22 +140,6 @@ public class SchiNotesController {
         }
     }
 
-
-@RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.GET)
-    public ResponseEntity<?> recursoConsultarHorarios(@PathVariable String correo) {
-        try {
-            
-            List<Horario> horarios = schiNotesService.consultarHorarios(correo);            
-            return new ResponseEntity<>(horarios, HttpStatus.ACCEPTED);
-        } catch (SchiNotesException ex) {
-            ex.printStackTrace();
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
-        }
-    }
-    
-
-
-
     @RequestMapping(value = "/usuarios/registrar", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarUsuario(@RequestBody Usuario usuario) throws FoundException {
         try {
@@ -157,26 +163,23 @@ public class SchiNotesController {
     @RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.POST)
     public ResponseEntity<?> recursoCrearHorario(@PathVariable String correo, @RequestBody Horario horario) {
         try {
-                
-                System.out.println("numero de dias: "+horario.getNumeroDias());
-                System.out.println("intervalo horas: "+horario.getIntervaloHoras());
-                Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
-                horario.setUsuario(usuario);
-                schiNotesService.crearHorario(horario);
-
-                
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            } catch (SchiNotesException ex) {
-                return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
-            }
+            System.out.println("numero de dias: " + horario.getNumeroDias());
+            System.out.println("intervalo horas: " + horario.getIntervaloHoras());
+            Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
+            horario.setUsuario(usuario);
+            schiNotesService.crearHorario(horario);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
+    }
 
-    @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}/actividades", method = RequestMethod.POST)
-    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable String nombre,
+    @RequestMapping(value = "/usuarios/{correo}/horarios/{id}/actividades", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable int id,
             @RequestBody Actividad actividad) {
         try {
             System.out.println(actividad.toString());
-            actividad.setHorario(nombre);
+            actividad.setHorario_id(id);
             schiNotesService.agregarActividad(actividad);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (SchiNotesException ex) {

@@ -26,28 +26,23 @@ import edu.eci.arsw.schinotes.dao.HorarioDAO;
  */
 @Repository
 public class DiasPorHorarioDAOImpl implements DiasPorHorarioDAO {
-    
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public void saveDiasPorHorario(Horario horario) throws SchiNotesException {
         System.out.println(horario.getDiasDeLaSemana());
-        for(DiaDeLaSemana ddls:horario.getDiasDeLaSemana()){
-            String query = "INSERT INTO dias_Por_horario (horario_nombre,dia_nombre) VALUES(?,?)";
-            jdbcTemplate.update(query, new Object[]{
-            horario.getNombre(),ddls.getNombre()
-        });
+        for (DiaDeLaSemana ddls : horario.getDiasDeLaSemana()) {
+            String query = "INSERT INTO dias_Por_horario (horario_id,dia_nombre) VALUES(?,?)";
+            jdbcTemplate.update(query, new Object[] { horario.getId(), ddls.getNombre() });
         }
     }
 
     @Override
-    public List<DiaDeLaSemana> getDias(String nomString) throws SchiNotesException {
-        System.out.println("holaaa getDias");
-        String sql = "SELECT * FROM dias_Por_horario d JOIN horario h ON(h.nombre = d.horario_nombre) WHERE d.horario_nombre = ?";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql,new Object[]{
-            nomString
-        });
+    public List<DiaDeLaSemana> getDiasByName(String nomString) throws SchiNotesException {
+        String sql = "SELECT * FROM dias_Por_horario d JOIN horario h ON(h.id = d.horario_id) WHERE h.nombre = ?";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { nomString });
 
         List<DiaDeLaSemana> ddls = new ArrayList<>();
         for (Map<String, Object> row : rows) {
@@ -56,7 +51,24 @@ public class DiasPorHorarioDAOImpl implements DiasPorHorarioDAO {
             ddls.add(dia);
         }
         if (ddls.isEmpty()) {
-            throw new SchiNotesException("No hay usuarios existentes.");
+            throw new SchiNotesException("No hay días existentes.");
+        }
+        return ddls;
+    }
+
+    @Override
+    public List<DiaDeLaSemana> getDiasById(int id) throws SchiNotesException {
+        String sql = "SELECT * FROM dias_Por_horario d JOIN horario h ON(h.id = d.horario_id) WHERE d.horario_id = ?";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { id });
+
+        List<DiaDeLaSemana> ddls = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            DiaDeLaSemana dia = new DiaDeLaSemana();
+            dia.setNombre((String) row.get("dia_nombre"));
+            ddls.add(dia);
+        }
+        if (ddls.isEmpty()) {
+            throw new SchiNotesException("No hay días existentes.");
         }
         return ddls;
     }

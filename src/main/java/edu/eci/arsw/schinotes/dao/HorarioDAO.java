@@ -20,7 +20,18 @@ public interface HorarioDAO {
      * @return el horario consultado por el correo y el nombre.
      * @throws SchiNotesException
      */
-    public Horario getHorario(String correo, String nombre) throws SchiNotesException;
+    public Horario getHorarioByName(String correo, String nombre) throws SchiNotesException;
+
+    /**
+     * Se obtiene el horario de un usuario dado el correo de su cuenta y el
+     * id del horario.
+     *
+     * @param correo
+     * @param id
+     * @return el horario consultado por el correo y el id.
+     * @throws SchiNotesException
+     */
+    public Horario getHorarioById(String correo, int id) throws SchiNotesException;
 
     /**
      * Se guarda un horario cuando un usuario lo crea.
@@ -31,5 +42,7 @@ public interface HorarioDAO {
     public void saveHorario(Horario horario) throws SchiNotesException;
 
 	public List<Horario> getHorarios(String correo)throws SchiNotesException;
+
+	public int getMaxId();
 
 }

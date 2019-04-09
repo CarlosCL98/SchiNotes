@@ -28,7 +28,9 @@ public interface SchiNotesService {
 
     public void crearHorario(Horario horario) throws SchiNotesException;
 
-    public Horario consultarHorario(String correo, String nombre) throws SchiNotesException;
+    public Horario consultarHorarioByName(String correo, String nombre) throws SchiNotesException;
+
+    public Horario consultarHorarioById(String correo, int id) throws SchiNotesException;
 
     public void agregarActividad(Actividad actividad) throws SchiNotesException;
     
