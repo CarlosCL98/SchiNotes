@@ -59,7 +59,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         if (rows.isEmpty()) {
             throw new SchiNotesException("El usuario con correo '" + correo + "' no existe.");
         }
-        return (Usuario) jdbcTemplate.queryForObject(sql, new Object[]{correo}, new RowMapper<Usuario>() {
+
+        Usuario usuario = (Usuario)jdbcTemplate.queryForObject(sql, new Object[]{correo}, new RowMapper<Usuario>() {
             @Override
             public Usuario mapRow(ResultSet rs, int rwNumber) throws SQLException {
                 Usuario usuario = new Usuario();
@@ -75,7 +76,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario.setCuentaCorreo(cuenta);
                 return usuario;
             }
-        });
+        }); 
+        return usuario;
     }
 
     @Override
@@ -141,6 +143,33 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public List<Usuario> deleteAmigos(String correo) throws SchiNotesException {
         return null;
+    }
+
+    @Override
+    public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException {
+        String sql ="SELECT * FROM usuario u JOIN cuenta cu ON(u.cuenta_correo = cu.correo) WHERE u.cuenta_correo LIKE('%"+correoPersonas+"%');";
+
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+        
+        List<Usuario> usuarios = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Usuario usuario = new Usuario();
+            usuario.setIdentificacion((int) row.get("identificacion"));
+            usuario.setNombre((String) row.get("nombre"));
+            usuario.setApellido((String) row.get("apellido"));
+            usuario.setFoto((Byte[]) row.get("foto"));
+            usuario.setIntereses((String) row.get("intereses"));
+            Cuenta cuenta = new Cuenta();
+            cuenta.setCorreo((String) row.get("cuenta_correo"));
+            cuenta.setContrasena((String) row.get("contrasena"));
+            cuenta.setNickname((String) row.get("cuenta_correo"));
+            usuario.setCuentaCorreo(cuenta);
+            usuarios.add(usuario);
+        }
+        if (usuarios.isEmpty()) {
+            throw new SchiNotesException("No hay usuarios existentes.");
+        }
+        return usuarios;
     }
 
 }

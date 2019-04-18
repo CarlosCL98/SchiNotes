@@ -40,4 +40,6 @@ public interface UsuarioDAO {
     public void saveAmigos (int id1,int id2) throws SchiNotesException;
     public List<Usuario> deleteAmigos (String correo) throws SchiNotesException;
 
+    public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException;
+
 }

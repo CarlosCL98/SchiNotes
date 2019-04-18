@@ -134,4 +134,10 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         return horarioDAO.getHorarios(correo);
     }
 
+    @Override
+    public List<Usuario> consultarPersonasIncompleta(String correoPersona) throws SchiNotesException {
+
+        return usuarioDAO.loadUsuarioIncomplete(correoPersona);
+    }
+
 }

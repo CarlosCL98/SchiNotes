@@ -29,6 +29,24 @@ var apiUsuario = (function () {
             $.get("/schinotes/cuentas/" + correo, function (data) {
                 callback(data);
             });
+        },
+        getUsuarioIncompleto: function (emailFragment, callback) {
+            $.get("/schinotes/usuarios/busqueda/" + emailFragment, function (data) {
+                callback(data);
+            });
+        },
+        postAmigo: function (correo, data, callback) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/schinotes/usuarios/" + correo + "/amigos",
+                data: JSON.stringify(data)
+            }).done(function () {
+                alert("amigo registrado exitosamente");
+            }).fail(function (data1) {
+                alert("no se pudo registrar tu amigo T.T");
+            });
+            callback(data);
         }
     };
 
