@@ -31,13 +31,12 @@ public class ActividadDAOImpl implements ActividadDAO {
         String sql1 = "SELECT CASE WHEN MAX(id) is NULL THEN 0 ELSE MAX(id) END FROM Actividad";
         int id = jdbcTemplate.queryForObject(sql1, Integer.class);
         String sql2 = "INSERT INTO Actividad (id,nombre,descripcion,fecha_creacion,hora_hora,hora_fin,Hora_Dias_Por_Horario_Horario_id,hora_dias_por_horario_dia_nombre) VALUES (?,?,?,TO_DATE(?,'YYYY-MM-DD'),TO_TIMESTAMP(?,'HH24:MI:SS'),TO_TIMESTAMP(?,'HH24:MI:SS'),?,?)";
-        jdbcTemplate.update(sql2, new Object[]{
-            id + 1, actividad.getNombre(), actividad.getDescripcion(), actividad.getFecha(), actividad.getHora_ini(), actividad.getHora_fin(), actividad.getHorario_id(), actividad.getDia()
-        });
+        jdbcTemplate.update(sql2,
+                new Object[] { id + 1, actividad.getNombre(), actividad.getDescripcion(), actividad.getFecha(),
+                        actividad.getHora_ini(), actividad.getHora_fin(), actividad.getHorario_id(),
+                        actividad.getDia() });
         String sql3 = "INSERT INTO actividad_por_horario (actividad_id,horario_id) VALUES (?,?)";
-        jdbcTemplate.update(sql3, new Object[]{
-            id + 1, actividad.getHorario_id()
-        });
+        jdbcTemplate.update(sql3, new Object[] { id + 1, actividad.getHorario_id() });
     }
 
     @Override
@@ -47,27 +46,27 @@ public class ActividadDAOImpl implements ActividadDAO {
                 + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
                 + "JOIN actividad a ON (a.id=aph.actividad_id)\n"
                 + "WHERE u.cuenta_correo = ? AND h.nombre = ? AND a.nombre = ?;";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{
-            correo, nombre, actividad
-        });
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { correo, nombre, actividad });
         if (rows.isEmpty()) {
-            throw new SchiNotesException("La actividad '" + actividad + "' del usuario con correo '" + correo + "' y en el horario '" + nombre + "' no existe.");
+            throw new SchiNotesException("La actividad '" + actividad + "' del usuario con correo '" + correo
+                    + "' y en el horario '" + nombre + "' no existe.");
         }
-        return (Actividad) jdbcTemplate.queryForObject(sql, new Object[]{correo, nombre, actividad}, new RowMapper<Actividad>() {
-            @Override
-            public Actividad mapRow(ResultSet rs, int rwNumber) throws SQLException {
-                Actividad actividad = new Actividad();
-                actividad.setId(rs.getInt("id"));
-                actividad.setNombre(rs.getString("nombre"));
-                actividad.setDescripcion(rs.getString("descripcion"));
-                actividad.setFecha((String) rs.getObject("fecha"));
-                actividad.setHorario_id(rs.getInt("hora_dias_por_horario_horario_id"));
-                actividad.setDia(rs.getString("hora_dias_por_horario_dia_nombre"));
-                actividad.setHora_ini(rs.getString("hora_hora"));
-                actividad.setHora_fin(rs.getString("hora_fin"));
-                return actividad;
-            }
-        });
+        return (Actividad) jdbcTemplate.queryForObject(sql, new Object[] { correo, nombre, actividad },
+                new RowMapper<Actividad>() {
+                    @Override
+                    public Actividad mapRow(ResultSet rs, int rwNumber) throws SQLException {
+                        Actividad actividad = new Actividad();
+                        actividad.setId(rs.getInt("id"));
+                        actividad.setNombre(rs.getString("nombre"));
+                        actividad.setDescripcion(rs.getString("descripcion"));
+                        actividad.setFecha((String) rs.getObject("fecha"));
+                        actividad.setHorario_id(rs.getInt("hora_dias_por_horario_horario_id"));
+                        actividad.setDia(rs.getString("hora_dias_por_horario_dia_nombre"));
+                        actividad.setHora_ini(rs.getString("hora_hora"));
+                        actividad.setHora_fin(rs.getString("hora_fin"));
+                        return actividad;
+                    }
+                });
     }
 
     @Override
@@ -77,9 +76,7 @@ public class ActividadDAOImpl implements ActividadDAO {
                 + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
                 + "JOIN actividad a ON (a.id=aph.actividad_id)\n"
                 + "WHERE u.cuenta_correo = ? AND h.nombre = ? order by a.hora_dias_por_horario_dia_nombre";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{
-            correo, nombre
-        });
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { correo, nombre });
         List<Actividad> actividades = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             Actividad actividad = new Actividad();
@@ -89,14 +86,15 @@ public class ActividadDAOImpl implements ActividadDAO {
             actividad.setFecha((String) row.get("fecha"));
             actividad.setHorario_id((int) row.get("hora_dias_por_horario_horario_id"));
             actividad.setDia((String) row.get("hora_dias_por_horario_dia_nombre"));
-            System.out.println("soy la hora ini "+(String) row.get("hora_hora"));
-            System.out.println("soy la hora fin "+(String) row.get("hora_fin"));
+            System.out.println("soy la hora ini " + (String) row.get("hora_hora"));
+            System.out.println("soy la hora fin " + (String) row.get("hora_fin"));
             actividad.setHora_ini((String) row.get("hora_hora"));
             actividad.setHora_fin((String) row.get("hora_fin"));
             actividades.add(actividad);
         }
         if (actividades.isEmpty()) {
-            throw new SchiNotesException("El usuario con correo '" + correo + "' y en el horario '" + nombre + "' no tiene actividades.");
+            throw new SchiNotesException(
+                    "El usuario con correo '" + correo + "' y en el horario '" + nombre + "' no tiene actividades.");
         }
         return actividades;
     }

@@ -80,7 +80,8 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/usuarios/{correo}/horarios/{nombre}", method = RequestMethod.GET)
-    public ResponseEntity<?> recursoConsultarHorarioUsuarioByName(@PathVariable String correo, @PathVariable String nombre) {
+    public ResponseEntity<?> recursoConsultarHorarioUsuarioByName(@PathVariable String correo,
+            @PathVariable String nombre) {
         try {
             Horario horario = schiNotesService.consultarHorarioByName(correo, nombre);
             return new ResponseEntity<>(horario, HttpStatus.ACCEPTED);
@@ -144,7 +145,8 @@ public class SchiNotesController {
     @RequestMapping(value = "/usuarios/busqueda/{correoPersona}", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultaIncompleta(@PathVariable String correoPersona) {
         try {
-            return new ResponseEntity<>(schiNotesService.consultarPersonasIncompleta(correoPersona), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(schiNotesService.consultarPersonasIncompleta(correoPersona),
+                    HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }

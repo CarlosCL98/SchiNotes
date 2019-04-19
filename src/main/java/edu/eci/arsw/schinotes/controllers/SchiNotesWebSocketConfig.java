@@ -24,4 +24,5 @@ public class SchiNotesWebSocketConfig extends AbstractWebSocketMessageBrokerConf
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/stompendpoint").withSockJS();
-}}
+    }
+}

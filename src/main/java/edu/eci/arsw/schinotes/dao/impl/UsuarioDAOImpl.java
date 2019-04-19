@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UsuarioDAOImpl implements UsuarioDAO {
-    
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -34,7 +34,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         List<Usuario> usuarios = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             Usuario usuario = new Usuario();
-            usuario.setIdentificacion((int) row.get("identificacion"));
+            int identificacion = (int)row.get("identificacion");
+            usuario.setIdentificacion(identificacion);
             usuario.setNombre((String) row.get("nombre"));
             usuario.setApellido((String) row.get("apellido"));
             usuario.setFoto((Byte[]) row.get("foto"));
@@ -44,6 +45,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             cuenta.setContrasena((String) row.get("contrasena"));
             cuenta.setNickname((String) row.get("nickname"));
             usuario.setCuentaCorreo(cuenta);
+            usuario.setMisAmigos(loadMisAmigos(identificacion));
             usuarios.add(usuario);
         }
         if (usuarios.isEmpty()) {
@@ -55,16 +57,17 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public Usuario loadUsuarioByEmail(String correo) throws SchiNotesException {
         String sql = "SELECT * FROM usuario u JOIN cuenta cu ON(u.cuenta_correo = cu.correo) WHERE u.cuenta_correo = ?";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{correo});
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { correo });
         if (rows.isEmpty()) {
             throw new SchiNotesException("El usuario con correo '" + correo + "' no existe.");
         }
 
-        Usuario usuario = (Usuario)jdbcTemplate.queryForObject(sql, new Object[]{correo}, new RowMapper<Usuario>() {
+        Usuario usuario = (Usuario) jdbcTemplate.queryForObject(sql, new Object[] { correo }, new RowMapper<Usuario>() {
             @Override
-            public Usuario mapRow(ResultSet rs, int rwNumber) throws SQLException {
+            public Usuario mapRow(ResultSet rs, int rwNumber) throws SQLException{
                 Usuario usuario = new Usuario();
-                usuario.setIdentificacion(rs.getInt("identificacion"));
+                int identificacion = rs.getInt("identificacion");
+                usuario.setIdentificacion(identificacion);
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellido(rs.getString("apellido"));
                 usuario.setFoto((Byte[]) rs.getObject("foto"));
@@ -73,10 +76,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 cuenta.setCorreo(rs.getString("correo"));
                 cuenta.setContrasena(rs.getString("contrasena"));
                 cuenta.setNickname(rs.getString("nickname"));
+                usuario.setMisAmigos(loadMisAmigos(identificacion));
                 usuario.setCuentaCorreo(cuenta);
                 return usuario;
             }
-        }); 
+        });
         return usuario;
     }
 
@@ -96,27 +100,22 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         String sql1 = "SELECT CASE WHEN MAX(u.identificacion) is NULL THEN 0 ELSE MAX(u.identificacion) END FROM usuario u";
         int id = jdbcTemplate.queryForObject(sql1, Integer.class);
         String sql2 = "INSERT INTO usuario (identificacion,nombre,apellido,foto,intereses,cuenta_correo) VALUES (?,?,?,?,?,?)";
-        jdbcTemplate.update(sql2, new Object[]{
-            id+1, usuario.getNombre(), usuario.getApellido(), usuario.getFoto(), usuario.getIntereses(), usuario.getCuentaCorreo().getCorreo()
-        });
+        jdbcTemplate.update(sql2, new Object[] { id + 1, usuario.getNombre(), usuario.getApellido(), usuario.getFoto(),
+                usuario.getIntereses(), usuario.getCuentaCorreo().getCorreo() });
     }
 
     @Override
-    public void saveAmigos(int id1,int id2) throws SchiNotesException {
-        String sql ="INSERT INTO amigo(usuario_identificacion,usuario_2_identificacion,fecha) VALUES(?,?,?)";
+    public void saveAmigos(int id1, int id2) throws SchiNotesException {
+        String sql = "INSERT INTO amigo(usuario_identificacion,usuario_2_identificacion,fecha) VALUES(?,?,?)";
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        jdbcTemplate.update(sql, new Object[]{
-            id1,id2,date
-        });
-        
+        jdbcTemplate.update(sql, new Object[] { id1, id2, date });
+
     }
 
     @Override
     public List<Usuario> getAmigos(int identificacion) throws SchiNotesException {
         String sql = "select * from amigo,usuario where amigo.usuario_2_identificacion = usuario.identificacion and usuario_identificacion = ?;";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql,new Object[]{
-            identificacion
-        });
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { identificacion });
         List<Usuario> usuarios = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             Usuario usuario = new Usuario();
@@ -138,8 +137,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return usuarios;
     }
 
-    
-
     @Override
     public List<Usuario> deleteAmigos(String correo) throws SchiNotesException {
         return null;
@@ -147,10 +144,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException {
-        String sql ="SELECT * FROM usuario u JOIN cuenta cu ON(u.cuenta_correo = cu.correo) WHERE u.cuenta_correo LIKE('%"+correoPersonas+"%');";
+        String sql = "SELECT * FROM usuario u JOIN cuenta cu ON(u.cuenta_correo = cu.correo) WHERE u.cuenta_correo LIKE('%"
+                + correoPersonas + "%');";
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
-        
+
         List<Usuario> usuarios = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             Usuario usuario = new Usuario();
@@ -166,9 +164,29 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             usuario.setCuentaCorreo(cuenta);
             usuarios.add(usuario);
         }
-        if (usuarios.isEmpty()) {
-            throw new SchiNotesException("No hay usuarios existentes.");
+        return usuarios;
+    }
+
+    private List<Usuario> loadMisAmigos(int identificacion) {
+
+        String sql = "SELECT * FROM usuario u, cuenta cu, amigo a WHERE u.cuenta_correo = cu.correo AND u.identificacion = a.usuario_2_identificacion AND a.usuario_identificacion = ?;";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { identificacion});
+        List<Usuario> usuarios = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Usuario usuario = new Usuario();
+            usuario.setIdentificacion((int) row.get("identificacion"));
+            usuario.setNombre((String) row.get("nombre"));
+            usuario.setApellido((String) row.get("apellido"));
+            usuario.setFoto((Byte[]) row.get("foto"));
+            usuario.setIntereses((String) row.get("intereses"));
+            Cuenta cuenta = new Cuenta();
+            cuenta.setCorreo((String) row.get("correo"));
+            cuenta.setContrasena((String) row.get("contrasena"));
+            cuenta.setNickname((String) row.get("nickname"));
+            usuario.setCuentaCorreo(cuenta);
+            usuarios.add(usuario);
         }
+        
         return usuarios;
     }
 

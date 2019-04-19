@@ -68,7 +68,6 @@
         <h5 id="nombrePerfil" class="card-title"> </h5>
         <h6 id="nicknamePerfil" class="card-subtitle mb-2 text-muted"> </h6>
         <p id="interesesPerfil" class="card-text"> </p>
-
       </div>
       <div class="card-footer">
         <div class="social-networks">
@@ -78,8 +77,44 @@
           <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
         </div>
       </div>
+      <button class='btn btn-secondary btnNav' onclick='' data-toggle="modal" data-target="#modalVerAmigos"> 
+        Consultar amigos
+        <span id='numeroDeAmigos' class="badge badge-primary badge-pill"></span>
+      </button>
     </div>
+    
   </div>
+  <div class="modal fade" id="modalVerAmigos" tabindex="-1" role="dialog" aria-labelledby="modalLabelHorario"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabelHorario">Mis amigos</h5>
+                  <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class='col'>
+                      <div class='row'>
+                        <div id='listaAmigos' class="list-group">
+                        </div>
+                      </div>
+                    </div>
+                    <div class='col'>
+                      <div class='row'>
+                        <input type="button">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+  
   <!-- Footer -->
   <footer id="myFooter">
     <div class="container">

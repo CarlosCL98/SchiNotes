@@ -97,9 +97,8 @@ public class HorarioDAOImpl implements HorarioDAO {
         int id = getMaxId();
         String query = "INSERT INTO horario (id,nombre,usuario_identificacion) VALUES(?,?,?)";
 
-        jdbcTemplate.update(query, new Object[] { 
-            id+1, horario.getNombre(), horario.getUsuario().getIdentificacion() 
-        });
+        jdbcTemplate.update(query,
+                new Object[] { id + 1, horario.getNombre(), horario.getUsuario().getIdentificacion() });
     }
 
     @Override
