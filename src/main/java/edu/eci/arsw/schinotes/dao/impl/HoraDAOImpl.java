@@ -67,7 +67,7 @@ public class HoraDAOImpl implements HoraDAO {
 
     @Override
     public void saveHora(Hora hora, int idHorario, String dia) throws SchiNotesException {
-        String query = "INSERT INTO hora (hora,dias_por_horario_horario_id,dias_por_horario_dia_nombre) VALUES (TO_TIMESTAMP(?,'HH24:MI:SS'),?,?)";
+        String query = "INSERT INTO hora (hora,dias_por_horario_horario_id,dias_por_horario_dia_nombre) VALUES (TO_TIMESTAMP(?,'HH24:MI'),?,?)";
         jdbcTemplate.update(query, new Object[] { hora.getHora(), idHorario, dia });
 
     }

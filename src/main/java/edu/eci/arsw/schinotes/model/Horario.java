@@ -38,11 +38,6 @@ public class Horario {
         this.nombre = nombre;
         this.intervaloHoras = intervaloHoras;
         this.numeroDias = numeroDias;
-        // this.horas = this.calcularHoras(intervalo);
-        // this.diasDeLaSemana = this.calcularDias(numeroDias);
-        //this.usuario = usuario;
-        // this.intervaloHoras = intervalo;
-        // this.numeroDias = numeroDias;
         this.actividades = new ArrayList<>();
         this.diasDeLaSemana = new ArrayList<>();
         this.horas = new ArrayList<>();
@@ -62,8 +57,7 @@ public class Horario {
             cal.add(Calendar.HOUR, intervalo / 100);
             cal.add(Calendar.MINUTE, (intervalo % 100));
             Date d = cal.getTime();
-            horaString = d.toString().substring(10,19);
-            
+            horaString = d.toString().substring(10,19);            
             currentHora = d.getHours();
             currentMin = d.getMinutes();
         }
