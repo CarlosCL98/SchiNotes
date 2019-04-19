@@ -4,6 +4,7 @@ import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.model.Actividad;
 import edu.eci.arsw.schinotes.model.Cuenta;
+import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Horario;
 
 import java.util.List;
@@ -45,6 +46,8 @@ public interface SchiNotesService {
     public List<Horario> consultarHorarios(String correo) throws SchiNotesException;
     
     public List<Usuario> consultarPersonasIncompleta(String correoPersona) throws SchiNotesException;
+
+    public void crearGrupo(String correo, Grupo grupo) throws SchiNotesException;
 
     /*
     void modificarCuenta(Cuenta cuenta) throws SchiNotesException;

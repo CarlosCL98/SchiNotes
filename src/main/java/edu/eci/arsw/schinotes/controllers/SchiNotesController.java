@@ -3,6 +3,7 @@ package edu.eci.arsw.schinotes.controllers;
 import edu.eci.arsw.schinotes.exceptions.*;
 import edu.eci.arsw.schinotes.model.Actividad;
 import edu.eci.arsw.schinotes.model.Cuenta;
+import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Horario;
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.services.EmailService;
@@ -200,6 +201,16 @@ public class SchiNotesController {
     public ResponseEntity<?> recursoRegistrarAmigo(@PathVariable String correo, @RequestBody Usuario amigo) {
         try {
             schiNotesService.agregarAmigo(correo, amigo.getCuentaCorreo().getCorreo());
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/usuarios/{correo}/grupos", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoCrearGrupo(@PathVariable String correo, @RequestBody Grupo grupo) {
+        try {
+            schiNotesService.crearGrupo(correo, grupo);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);

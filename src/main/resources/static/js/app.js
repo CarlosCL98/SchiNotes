@@ -140,21 +140,16 @@ var app = (function () {
         $('#passwordConfirmarInput').val('');
     }
 
-
-
     var refrescarBusquedaPersonas = function (param) {
         var usuarioCorreo;
-
         var usuarios = [];
-
         for (var i = 0; i < param.length; i++) {
             usuarioCorreo = param[i].cuentaCorreo.correo;
             usuario = { "correo": usuarioCorreo };
             usuarios.push(usuario);
         }
         actualizarTablaBusqueda(usuarios);
-
-    }
+    };
 
     var actualizarTablaBusqueda = function (usuarios) {
         $("#tablaResultadoBusqueda").find('tbody').empty();
@@ -164,28 +159,24 @@ var app = (function () {
             var usuario = usuarios[i];
             $("#tablaResultadoBusqueda").find('tbody').append('<tr class="clickable-row"><th scope="row" data-correo="' + usuario.correo + '">' + (i + 1) + '</th><td data-correo="' + usuario.correo + '">' + usuario.correo + '</td></tr>');
         }
-
         mantenerUsuario();
-
-    }
+    };
 
     var mantenerUsuario = function () {
         $('#tablaResultadoBusqueda').on('click', 'tbody tr', function (event) {
             $(this).addClass('highlight').siblings().removeClass('highlight');
-
             var rowSelected = true;
             usuarioParaAgregar = event.target.dataset.correo;
         });
-    }
+    };
 
     var agregarAmigoSeleccionado = function(data){
         apiUsuario.postAmigo(Cookies.get('username'),data,confirmarAgregarAmigo);
-    }
+    };
 
     var confirmarAgregarAmigo = function(data){
         alert("se ingresooo el amigooo");
-    }    
-
+    };
 
     return {
         agregarUsuario: function () {
@@ -261,7 +252,14 @@ var app = (function () {
         },
         agregarAmigo: function () {
             apiUsuario.getUsuario(usuarioParaAgregar,agregarAmigoSeleccionado);
-
+        },
+        crearGrupo: function () {
+            data = {
+                identificacion: "1",
+                nombre: $("#inputGrupoNombre").val(),
+                descripcion: $("#inputGrupoDescripcion").val()
+            };
+            apiGrupo.postGrupo(Cookies.get("username"),data);
         }
     };
 

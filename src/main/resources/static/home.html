@@ -29,6 +29,7 @@
   <script src="js/appFunctions.js"></script>
   <script src="js/apiUsuario.js"></script>
   <script src="js/apiHorario.js"></script>
+  <script src="js/apiGrupo.js"></script>
   <script src="js/modernizr.js"></script>
   <script src="js/main.js"></script>
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -99,10 +100,9 @@
               <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad"><i
                   class="fas fa-edit"></i>&nbsp;Crear actividad</a>
             </li>
-
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalAgregarAmigo"><i
-                  class="fas fa-calendar-plus"></i>&nbsp;&nbsp; Agregar amigo</a>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearGrupo"><i
+                  class="fas fa-users"></i>&nbsp;Crear grupo</a>
             </li>
           </ul>
           <!-- Modal para la creación de un horario -->
@@ -229,15 +229,13 @@
               </div>
             </div>
           </div>
-
-
-          <!-- modal para la agregacion de un amigo-->
-          <div class="modal fade" id="modalAgregarAmigo" tabindex="-1" role="dialog" aria-labelledby="modalLabelHorario"
+          <!-- Modal para crear un grupo -->
+          <div class="modal fade" id="modalCrearGrupo" tabindex="-1" role="dialog" aria-labelledby="modalLabelGrupo"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalLabelHorario">Crear un horario</h5>
+                  <h5 class="modal-title" id="modalLabelGrupo">Crear un grupo</h5>
                   <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -245,35 +243,24 @@
                 <div class="modal-body">
                   <form>
                     <div class="form-group row">
-                      <label for="horarioNombre" class="col-md-2 col-form-label">Buscar</label>
+                      <label for="inputGrupoNombre" class="col-md-2 col-form-label">Nombre</label>
                       <div class="col-md-10">
-                        <input id="inputBuscarPersonas" type="text" class="form-control"
+                        <input id="inputGrupoNombre" type="text" class="form-control"
                           placeholder="Ingrese un nombre"></input>
-                          <button type="button" class="btn btn-secondary m-0 waves-effect"
-                          aria-label="Default" onclick="app.buscarUsuarios()">Buscar</button>
                       </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="inputGrupoDescripcion" class="col-md-3 col-form-label">Descripcion</label>
+                        <div class="col-md-9">
+                          <textarea id="inputGrupoDescripcion" type="text" class="form-control"
+                            placeholder="Ingrese la descripcion"></textarea>
+                        </div>
+                      </div>
                   </form>
                 </div>
-
-
-                <table id="tablaResultadoBusqueda" class="table table-hover table-dark table-curved" style="width: auto">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col" style="width: 35px"><i class="grin-alt"></i>#</th>
-                      <th scope="col" style="width: 250px">Correo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th colspan="5">No se ha realizado una búsqueda.</th>
-                    </tr>
-                  </tbody>
-                </table>
-
-
                 <div class="modal-footer">
-                  <button class="btn btn-secondary btnNav" onclick="app.agregarAmigo()"><i class="fas fa-calendar-alt"></i> Agregar Amigo</button>
+                  <button class="btn btn-secondary btnNav" onclick="app.crearGrupo()"><i
+                      class="fas fa-plus-square"></i> Crear</button>
                   <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
                     aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
                 </div>

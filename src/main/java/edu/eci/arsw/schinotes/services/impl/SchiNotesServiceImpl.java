@@ -8,6 +8,7 @@ import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Actividad;
 import edu.eci.arsw.schinotes.model.Cuenta;
 import edu.eci.arsw.schinotes.model.DiaDeLaSemana;
+import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Hora;
 import edu.eci.arsw.schinotes.model.Horario;
 import edu.eci.arsw.schinotes.model.Usuario;
@@ -40,7 +41,7 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Autowired
     private DiasPorHorarioDAO DiasPorHorarioDAO;
-    
+
     @Autowired
     private ActividadDAO actividadDAO;
 
@@ -72,7 +73,7 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public void crearHorario(Horario horario) throws SchiNotesException {
         int id = horarioDAO.getMaxId();
-        horario.setId(id+1);
+        horario.setId(id + 1);
         horario.setDiasDeLaSemana(horario.calcularDias(horario.getNumeroDias()));
         horario.setHoras(horario.calcularHoras(horario.getIntervaloHoras()));
         horarioDAO.saveHorario(horario);
@@ -105,12 +106,12 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     public void agregarActividad(Actividad actividad) throws SchiNotesException {
         actividadDAO.saveActividad(actividad);
     }
-    
+
     @Override
     public Actividad consultarActividad(String correo, String nombre, String actividad) throws SchiNotesException {
         return actividadDAO.loadActividad(correo, nombre, actividad);
     }
-    
+
     @Override
     public List<Actividad> consultarActividades(String correo, String nombre) throws SchiNotesException {
         return actividadDAO.loadAll(correo, nombre);
@@ -125,12 +126,12 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public List<Usuario> consultarAmigos(String correo) throws SchiNotesException {
-        
+
         return usuarioDAO.getAmigos(usuarioDAO.loadUsuarioByEmail(correo).getIdentificacion());
     }
 
     @Override
-    public List<Horario> consultarHorarios(String correo) throws SchiNotesException{
+    public List<Horario> consultarHorarios(String correo) throws SchiNotesException {
         return horarioDAO.getHorarios(correo);
     }
 
@@ -138,6 +139,11 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     public List<Usuario> consultarPersonasIncompleta(String correoPersona) throws SchiNotesException {
 
         return usuarioDAO.loadUsuarioIncomplete(correoPersona);
+    }
+
+    @Override
+    public void crearGrupo(String correo, Grupo grupo) throws SchiNotesException {
+        
     }
 
 }

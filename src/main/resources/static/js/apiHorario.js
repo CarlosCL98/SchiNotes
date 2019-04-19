@@ -17,13 +17,11 @@ var apiHorario = (function () {
             });
         },
         getActividades: function (usuario, horario, callback) {
-            console.log(usuario);
             $.get("/schinotes/usuarios/" + usuario + "/horarios/" + horario + "/actividades", function (data) {
                 callback(data);
             });
         },
         postHorario: function (data, correo) {
-            console.log(data)
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -34,7 +32,6 @@ var apiHorario = (function () {
             }).fail(function () {
                 alert("El horario no se pudo crear. Intentelo nuevamente.");
             });
-            //$(location).attr("href", "../login.html");
         },
         postActividad: function (data, correo, idHorario) {
             $.ajax({
