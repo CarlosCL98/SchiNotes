@@ -140,6 +140,15 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/usuarios/busqueda/{correoPersona}", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultaIncompleta(@PathVariable String correoPersona) {
+        try {
+            return new ResponseEntity<>(schiNotesService.consultarPersonasIncompleta(correoPersona), HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     @RequestMapping(value = "/usuarios/registrar", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarUsuario(@RequestBody Usuario usuario) throws FoundException {
         try {

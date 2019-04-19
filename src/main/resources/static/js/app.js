@@ -7,10 +7,8 @@ var app = (function () {
     var actividadHoraInicio = null;
     var actividadHoraFin = null;
 
-    /**
-     * Este metodo verifica la contraseña de un usuario.
-     * @param {correo, contrasena} cuenta 
-     */
+    var usuarioParaAgregar = null;
+
     var verificarUsuario = function (cuenta) {
         var contrasena = $("#ContraseñaInput").val();
         if (cuenta.contrasena === contrasena) {
@@ -142,6 +140,53 @@ var app = (function () {
         $('#passwordConfirmarInput').val('');
     }
 
+
+
+    var refrescarBusquedaPersonas = function (param) {
+        var usuarioCorreo;
+
+        var usuarios = [];
+
+        for (var i = 0; i < param.length; i++) {
+            usuarioCorreo = param[i].cuentaCorreo.correo;
+            usuario = { "correo": usuarioCorreo };
+            usuarios.push(usuario);
+        }
+        actualizarTablaBusqueda(usuarios);
+
+    }
+
+    var actualizarTablaBusqueda = function (usuarios) {
+        $("#tablaResultadoBusqueda").find('tbody').empty();
+        $("#tablaResultadoBusqueda").find("tbody").empty();
+        console.log(usuarios);
+        for (var i = 0; i < usuarios.length; i++) {
+            var usuario = usuarios[i];
+            $("#tablaResultadoBusqueda").find('tbody').append('<tr class="clickable-row"><th scope="row" data-correo="' + usuario.correo + '">' + (i + 1) + '</th><td data-correo="' + usuario.correo + '">' + usuario.correo + '</td></tr>');
+        }
+
+        mantenerUsuario();
+
+    }
+
+    var mantenerUsuario = function () {
+        $('#tablaResultadoBusqueda').on('click', 'tbody tr', function (event) {
+            $(this).addClass('highlight').siblings().removeClass('highlight');
+
+            var rowSelected = true;
+            usuarioParaAgregar = event.target.dataset.correo;
+        });
+    }
+
+    var agregarAmigoSeleccionado = function(data){
+        apiUsuario.postAmigo(Cookies.get('username'),data,confirmarAgregarAmigo);
+    }
+
+    var confirmarAgregarAmigo = function(data){
+        alert("se ingresooo el amigooo");
+    }    
+
+
     return {
         agregarUsuario: function () {
             if ($('#passwordConfirmarInput').val() !== $('#passwordInput').val()) {
@@ -209,6 +254,14 @@ var app = (function () {
         recargarHorario: function (horario) {
             console.log(horario);
             cambiarHorario(horario.nombre);
+        },
+        buscarUsuarios: function () {
+            var cinema = $("#inputBuscarPersonas").val();
+            apiUsuario.getUsuarioIncompleto(cinema, refrescarBusquedaPersonas);
+        },
+        agregarAmigo: function () {
+            apiUsuario.getUsuario(usuarioParaAgregar,agregarAmigoSeleccionado);
+
         }
     };
 

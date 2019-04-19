@@ -42,7 +42,9 @@ public interface SchiNotesService {
 
     public List<Usuario> consultarAmigos(String correo) throws SchiNotesException;
 
-	public List<Horario> consultarHorarios(String correo) throws SchiNotesException;
+    public List<Horario> consultarHorarios(String correo) throws SchiNotesException;
+    
+    public List<Usuario> consultarPersonasIncompleta(String correoPersona) throws SchiNotesException;
 
     /*
     void modificarCuenta(Cuenta cuenta) throws SchiNotesException;
