@@ -85,11 +85,6 @@ public class ActividadDAOImpl implements ActividadDAO {
             actividad.setFecha((String) row.get("fecha"));
             actividad.setHorario_id((int) row.get("hora_dias_por_horario_horario_id"));
             actividad.setDia((String) row.get("hora_dias_por_horario_dia_nombre"));
-<<<<<<< HEAD
-            System.out.println("soy la hora ini " + (String) row.get("hora_hora"));
-            System.out.println("soy la hora fin " + (String) row.get("hora_fin"));
-=======
->>>>>>> f5937978153a59eeb3c3a5fe2cba234c0062d95a
             actividad.setHora_ini((String) row.get("hora_hora"));
             actividad.setHora_fin((String) row.get("hora_fin"));
             actividades.add(actividad);
