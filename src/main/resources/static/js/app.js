@@ -38,12 +38,13 @@ var app = (function () {
     };
 
     var mostrarHorario = function (horario) {
-        $("#schedule").empty();
+        $("#schedule").remove();
+        $("#mainContent").append('<div id="schedule" class="cd-schedule loading"></div>');
         var dias = horario.diasDeLaSemana;
         var horas = horario.horas;
         $("#schedule").append("<div id='timelineHorario' class='timeline'><ul></ul></div>");
         for (var i = 0; i < horas.length; i++) {
-            $("#timelineHorario").find("ul").append("<li><span>" + horas[i].hora + "</span></li>");
+            $("#timelineHorario").find("ul").append("<li><span>" + (horas[i].hora).substring(0, 5) + "</span></li>");
         }
         $("#schedule").append("<div id='eventosHorario' class='events'><ul></ul></div>");
         for (var i = 0; i < dias.length; i++) {
@@ -55,9 +56,15 @@ var app = (function () {
     var mostrarActividadesHorario = function (actividades) {
         for (var i = 0; i < actividades.length; i++) {
             $("#" + actividades[i].dia).append("<ul></ul>");
-            $("#" + actividades[i].dia).find("ul").append("<li class='single-event' data-start='" + actividades[i].hora_ini + "' data-end='" + actividades[i].hora_fin + "' data-content='event-" + (actividades[i].nombre).toLowerCase() + "' data-event='event-" + (i + 1) + "'><a href='#0'><em class='event-name'>" + actividades[i].nombre + "</em></a></li>");
+            $("#" + actividades[i].dia).find("ul").append("<li class='single-event drag' data-start='" + (actividades[i].hora_ini).substring(0, 5) + "' data-end='" + (actividades[i].hora_fin).substring(0, 5) + "' data-content='event-" + (actividades[i].nombre).toLowerCase() + "' data-event='event-" + (i + 1) + "'><a href='#0'><em class='event-name'>" + actividades[i].nombre + "</em></a></li>");
         }
+        crearModalActividades();
+    };
+
+    var crearModalActividades = function () {
+        $("#schedule").append('<div class="event-modal" tabindex="-1"><header class="header"><div class="content"><span class="event-date"></span><h3 class="event-name"></h3></div><div class="header-bg"></div></header><div class="body"><div class="event-info"></div><div class="body-bg"></div></div><a href="#0" class="close">Close</a></div><div class="cover-layer"></div>');
         main.cargarHorario();
+        appFunctions.draggable();
     };
 
     var agregarOpcionesHorarios = function (data) {
@@ -66,10 +73,11 @@ var app = (function () {
             $("#deployHorariosButton").append("<a class='dropdown-item' href='#' data-horario-id=" + data[i].id + " data-horario-nombre=" + data[i].nombre + ">" + data[i].nombre + "</a>");
         }
         $("#deployHorariosButton").on("click", "a", function (event) {
+            //document.location.reload();
             cambiarHorario(event.target.dataset.horarioNombre);
             appStomp.init(event.target.dataset.horarioId);
         });
-    }
+    };
 
     var cambiarHorario = function (nombre) {
         apiHorario.getHorarioByName(Cookies.get('username'), nombre, mostrarHorario);
@@ -105,8 +113,8 @@ var app = (function () {
         $("#opcionesHorarioCrearActividadHorasFin").empty();
         horasDelHorario = data.horas;
         for (var i = 0; i < horasDelHorario.length; i++) {
-            $("#opcionesHorarioCrearActividadHorasInicio").append("<a class='dropdown-item' href='#' data-hora=" + horasDelHorario[i].hora + ">" + horasDelHorario[i].hora + "</a>");
-            $("#opcionesHorarioCrearActividadHorasFin").append("<a class='dropdown-item' href='#' data-hora=" + horasDelHorario[i].hora + ">" + horasDelHorario[i].hora + "</a>");
+            $("#opcionesHorarioCrearActividadHorasInicio").append("<a class='dropdown-item' href='#' data-hora=" + (horasDelHorario[i].hora).substring(0, 5) + ">" + (horasDelHorario[i].hora).substring(0, 5) + "</a>");
+            $("#opcionesHorarioCrearActividadHorasFin").append("<a class='dropdown-item' href='#' data-hora=" + (horasDelHorario[i].hora).substring(0, 5) + ">" + (horasDelHorario[i].hora).substring(0, 5) + "</a>");
         }
         $("#opcionesHorarioCrearActividadHorasInicio").on("click", "a", function (event) {
             var horaHorario = event.target.dataset.hora;
@@ -250,7 +258,7 @@ var app = (function () {
                 hora_fin: actividadHoraFin
             }
             apiHorario.postActividad(data, Cookies.get('username'), data.horario_id);
-            cambiarHorario(actividadHorario);
+            //cambiarHorario(actividadHorario);
             appStomp.cambiarHorarioConActividades(data);
         },
         recargarHorario: function (horario) {

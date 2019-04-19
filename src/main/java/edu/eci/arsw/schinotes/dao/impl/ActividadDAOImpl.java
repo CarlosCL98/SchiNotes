@@ -3,7 +3,6 @@ package edu.eci.arsw.schinotes.dao.impl;
 import edu.eci.arsw.schinotes.dao.ActividadDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Actividad;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class ActividadDAOImpl implements ActividadDAO {
 
     @Override
     public Actividad loadActividad(String correo, String nombre, String actividad) throws SchiNotesException {
-        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id\n"
+        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha,to_char(a.hora_hora, 'HH24:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id, to_char(a.hora_fin, 'HH24:MI:SS') as hora_fin\n"
                 + "FROM usuario u JOIN horario h ON (u.identificacion=h.usuario_identificacion) \n"
                 + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
                 + "JOIN actividad a ON (a.id=aph.actividad_id)\n"
@@ -71,7 +70,7 @@ public class ActividadDAOImpl implements ActividadDAO {
 
     @Override
     public List<Actividad> loadAll(String correo, String nombre) throws SchiNotesException {
-        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha_creacion,to_char(a.hora_hora, 'HH12:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id,to_char(a.hora_fin, 'HH12:MI:SS') as hora_fin\n"
+        String sql = "SELECT a.id,a.nombre,a.descripcion,a.fecha_creacion,to_char(a.hora_hora, 'HH24:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id,to_char(a.hora_fin, 'HH24:MI:SS') as hora_fin\n"
                 + "FROM usuario u JOIN horario h ON (u.identificacion=h.usuario_identificacion) \n"
                 + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
                 + "JOIN actividad a ON (a.id=aph.actividad_id)\n"
@@ -86,8 +85,11 @@ public class ActividadDAOImpl implements ActividadDAO {
             actividad.setFecha((String) row.get("fecha"));
             actividad.setHorario_id((int) row.get("hora_dias_por_horario_horario_id"));
             actividad.setDia((String) row.get("hora_dias_por_horario_dia_nombre"));
+<<<<<<< HEAD
             System.out.println("soy la hora ini " + (String) row.get("hora_hora"));
             System.out.println("soy la hora fin " + (String) row.get("hora_fin"));
+=======
+>>>>>>> f5937978153a59eeb3c3a5fe2cba234c0062d95a
             actividad.setHora_ini((String) row.get("hora_hora"));
             actividad.setHora_fin((String) row.get("hora_fin"));
             actividades.add(actividad);

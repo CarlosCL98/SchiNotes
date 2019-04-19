@@ -57,30 +57,45 @@
   </nav>
   <!-- Contenido -->
   <div class="container-fluid">
-    <div style="padding: 3rem 1.5rem; text-align: center; font-size: 40px;">
-      <h2 id="tituloPerfil"> </h2>
-    </div>
-    <div id="cardPerfil" class="card" style="width: 18rem;">
-      <div class="card-header">
-        <img class="card-img-top" src="images/avatar.png" alt="FotoPerfil" style="width:50%">
-      </div>
-      <div class="card-body">
-        <h5 id="nombrePerfil" class="card-title"> </h5>
-        <h6 id="nicknamePerfil" class="card-subtitle mb-2 text-muted"> </h6>
-        <p id="interesesPerfil" class="card-text"> </p>
-      </div>
-      <div class="card-footer">
-        <div class="social-networks">
-          <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
-          <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="home.html"><i class="fas fa-reply"></i>&nbsp;&nbsp;Regresar</a>
+            </li class="nav-item">
+          </ul>
         </div>
-      </div>
-      <button class='btn btn-secondary btnNav' onclick='' data-toggle="modal" data-target="#modalVerAmigos"> 
-        Consultar amigos
-        <span id='numeroDeAmigos' class="badge badge-primary badge-pill"></span>
-      </button>
+      </nav>
+      <!-- Main contenido al lado del slidebar-->
+      <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
+        <div style="padding: 3rem 1.5rem; text-align: center; font-size: 40px;">
+          <h2 id="tituloPerfil"> </h2>
+        </div>
+        <div id="cardPerfil" class="card" style="width: 18rem;">
+          <div class="card-header">
+            <img class="card-img-top" src="images/avatar.png" alt="FotoPerfil" style="width:50%">
+          </div>
+          <div class="card-body">
+            <h5 id="nombrePerfil" class="card-title"> </h5>
+            <h6 id="nicknamePerfil" class="card-subtitle mb-2 text-muted"> </h6>
+            <p id="interesesPerfil" class="card-text"> </p>
+
+          </div>
+          <div class="card-footer">
+            <div class="social-networks">
+              <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+              <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
+            </div>
+          </div>
+          <button class='btn btn-secondary btnNav' onclick='' data-toggle="modal" data-target="#modalVerAmigos"> 
+            Consultar amigos
+            <span id='numeroDeAmigos' class="badge badge-primary badge-pill"></span>
+          </button>
+        </div>
+      </main>
     </div>
     
   </div>
