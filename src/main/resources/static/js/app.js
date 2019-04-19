@@ -29,7 +29,12 @@ var app = (function () {
         }
         $("#nicknamePerfil").text("Nickname: " + usuario.cuentaCorreo.nickname);
         $("").text("correo: " + usuario.cuentaCorreo.correo)
-        $("#perfilCard").append("<p style =\"font-size: 20px\"> nickname: " + usuario.cuentaCorreo.nickname + "</p>");
+        console.log(usuario);
+        $("#numeroDeAmigos").append(usuario.misAmigos.length);
+        for (let i = 0; i < usuario.misAmigos.length; i++) {
+            $("#listaAmigos").append("<button type='button' class='list-group-item list-group-item-action'>"+usuario.misAmigos[i].cuentaCorreo.nickname+"</button>");
+        }  
+
     };
 
     var mostrarHorario = function (horario) {
@@ -143,6 +148,7 @@ var app = (function () {
     var refrescarBusquedaPersonas = function (param) {
         var usuarioCorreo;
         var usuarios = [];
+        console.log(param.length);
         for (var i = 0; i < param.length; i++) {
             usuarioCorreo = param[i].cuentaCorreo.correo;
             usuario = { "correo": usuarioCorreo };
@@ -152,14 +158,17 @@ var app = (function () {
     };
 
     var actualizarTablaBusqueda = function (usuarios) {
-        $("#tablaResultadoBusqueda").find('tbody').empty();
-        $("#tablaResultadoBusqueda").find("tbody").empty();
-        console.log(usuarios);
-        for (var i = 0; i < usuarios.length; i++) {
-            var usuario = usuarios[i];
-            $("#tablaResultadoBusqueda").find('tbody').append('<tr class="clickable-row"><th scope="row" data-correo="' + usuario.correo + '">' + (i + 1) + '</th><td data-correo="' + usuario.correo + '">' + usuario.correo + '</td></tr>');
+        $("#tablaResultadoBusqueda").find('tbody').empty();       
+        console.log(usuarios.length);
+        if(usuarios.length === 0){            
+            $("#tablaResultadoBusqueda").find('tbody').append("<tr><th colspan='5'>No existen usuarios</th></tr>");
+        }else{
+            for (var i = 0; i < usuarios.length; i++) {
+                var usuario = usuarios[i];
+                $("#tablaResultadoBusqueda").find('tbody').append('<tr class="clickable-row"><th scope="row" data-correo="' + usuario.correo + '">' + (i + 1) + '</th><td data-correo="' + usuario.correo + '">' + usuario.correo + '</td></tr>');
+            }    
+            mantenerUsuario();
         }
-        mantenerUsuario();
     };
 
     var mantenerUsuario = function () {

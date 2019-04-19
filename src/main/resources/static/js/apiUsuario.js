@@ -32,6 +32,7 @@ var apiUsuario = (function () {
         },
         getUsuarioIncompleto: function (emailFragment, callback) {
             $.get("/schinotes/usuarios/busqueda/" + emailFragment, function (data) {
+                console.log(data);
                 callback(data);
             });
         },

@@ -20,18 +20,18 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class CuentaDAOImpl implements CuentaDAO {
-    
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @Override
     public Cuenta loadCuentaByEmail(String correo) throws SchiNotesException {
         String sql = "SELECT * FROM cuenta cu WHERE cu.correo = ?";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{correo});
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { correo });
         if (rows.isEmpty()) {
             throw new SchiNotesException("La cuenta con correo '" + correo + "' no existe.");
         }
-        return (Cuenta) jdbcTemplate.queryForObject(sql, new Object[]{correo}, new RowMapper<Cuenta>() {
+        return (Cuenta) jdbcTemplate.queryForObject(sql, new Object[] { correo }, new RowMapper<Cuenta>() {
             @Override
             public Cuenta mapRow(ResultSet rs, int rwNumber) throws SQLException {
                 Cuenta cuenta = new Cuenta();
@@ -42,7 +42,7 @@ public class CuentaDAOImpl implements CuentaDAO {
             }
         });
     }
-    
+
     @Override
     public void saveCuenta(Cuenta cuenta) throws SchiNotesException {
         String correo = cuenta.getCorreo();
@@ -57,9 +57,7 @@ public class CuentaDAOImpl implements CuentaDAO {
             }
         }
         String sql = "INSERT INTO cuenta (correo,contrasena,nickname) VALUES (?,?,?)";
-        jdbcTemplate.update(sql, new Object[]{
-            cuenta.getCorreo(), cuenta.getContrasena(), cuenta.getNickname()
-        });
+        jdbcTemplate.update(sql, new Object[] { cuenta.getCorreo(), cuenta.getContrasena(), cuenta.getNickname() });
     }
 
 }
