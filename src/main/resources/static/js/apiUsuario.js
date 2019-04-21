@@ -11,8 +11,8 @@ var apiUsuario = (function () {
                     data: JSON.stringify(data)
                 }).done(function () {
                     alert("Usuario registrado exitosamente. Se le enviará un correo de confirmación a " + data.cuentaCorreo.correo);
-                    $(location).attr("href", "../login.html");
-                }).fail(function (data1) {
+                    $(location).attr("href", "../comprobarCuenta.html");
+                }).fail(function () {
                     alert("El usuario no pudo ser creado. Inténtelo nuevamente.");
                 });
             } else {
@@ -32,22 +32,37 @@ var apiUsuario = (function () {
         },
         getUsuarioIncompleto: function (emailFragment, callback) {
             $.get("/schinotes/usuarios/busqueda/" + emailFragment, function (data) {
-                console.log(data);
                 callback(data);
             });
         },
-        postAmigo: function (correo, data, callback) {
+        postAmigo: function (correo, data) {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
                 url: "/schinotes/usuarios/" + correo + "/amigos",
                 data: JSON.stringify(data)
             }).done(function () {
-                alert("amigo registrado exitosamente");
-            }).fail(function (data1) {
-                alert("no se pudo registrar tu amigo T.T");
+                alert("Amigo añadido exitosamente");
+            }).fail(function () {
+                alert("El amigo no pudo ser añadido. Inténtelo nuevamente.");
             });
-            callback(data);
+        },
+        getCodigoComprobacion: function (correoUsuario, codigo, callback) {
+            $.get("/schinotes/usuarios/"+correoUsuario+"/comprobar", function (data) {
+                callback(codigo, data);
+            });
+        },
+        usuarioVerificado: function (correo) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/schinotes/usuarios/" + correo + "/verificado"
+            });
+        },
+        cuentaYaVerificada: function (correo, callback) {
+            $.get("/schinotes/usuarios/"+correo+"/cuentas/verificar", function (data) {
+                callback(data);
+            });
         }
     };
 

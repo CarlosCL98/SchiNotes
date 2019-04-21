@@ -1,12 +1,18 @@
 package edu.eci.arsw.schinotes.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.schinotes.dao.GrupoDAO;
+import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Grupo;
+import edu.eci.arsw.schinotes.model.Horario;
 
 @Repository
 public class GrupoDAOImpl implements GrupoDAO {
@@ -25,13 +31,35 @@ public class GrupoDAOImpl implements GrupoDAO {
     public void saveGrupo(int idUsuario, Grupo grupo) {
         String sql1 = "INSERT INTO Grupo (identificacion,nombre,descripcion,horario_id) VALUES (?,?,?,?)";
         int id = maxIdGrupo() + 1;
-        jdbcTemplate.update(sql1, new Object[]{
-            id, grupo.getNombre(), grupo.getDescripcion(), grupo.getHorarioNombre().getId()
-        });
+        jdbcTemplate.update(sql1,
+                new Object[] { id, grupo.getNombre(), grupo.getDescripcion(), grupo.getHorarioNombre().getId() });
         String sql2 = "INSERT INTO grupo_de_trabajo (rol,grupo_identificacion,usuario_identificacion) VALUES (?,?,?)";
-        jdbcTemplate.update(sql2, new Object[]{
-            "Administrador", id, idUsuario
-        });
+        jdbcTemplate.update(sql2, new Object[] { "Administrador", id, idUsuario });
+    }
+
+    @Override
+    public List<Grupo> loadGroupsByUser(String correo) throws SchiNotesException {
+        String sql1 = "SELECT g.identificacion,g.nombre,g.descripcion,g.tablero_nombre,g.horario_id,h.id as hid,h.nombre as hnombre "
+                + "FROM Grupo g JOIN horario h ON (g.horario_id = h.id) "
+                + "JOIN grupo_de_trabajo gdt ON (g.identificacion = gdt.grupo_identificacion) "
+                + "JOIN Usuario u ON (gdt.usuario_identificacion = u.identificacion) WHERE u.cuenta_correo = ?";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql1, new Object[] { correo });
+        List<Grupo> grupos = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Grupo grupo = new Grupo();
+            grupo.setIdentificacion((int) row.get("identificacion"));
+            grupo.setNombre((String) row.get("nombre"));
+            grupo.setDescripcion((String) row.get("descripcion"));
+            Horario horario = new Horario();
+            horario.setId((int) row.get("hid"));
+            horario.setNombre((String) row.get("hnombre"));
+            grupo.setHorarioNombre(horario);
+            grupos.add(grupo);
+        }
+        if (grupos.isEmpty()) {
+            throw new SchiNotesException("El usuario con correo '" + correo + "' no tiene grupos.");
+        }
+        return grupos;
     }
 
 }

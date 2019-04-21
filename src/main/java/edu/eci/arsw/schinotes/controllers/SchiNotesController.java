@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -34,6 +37,10 @@ public class SchiNotesController {
 
     @Autowired
     EmailService emailService;
+
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    private Map<String,String> codigosComprobacion = new HashMap<>();
 
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public ResponseEntity<List<Usuario>> recursoConsultarUsuarios() throws NotFoundException {
@@ -102,7 +109,6 @@ public class SchiNotesController {
     @RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarHorarios(@PathVariable String correo) {
         try {
-
             List<Horario> horarios = schiNotesService.consultarHorarios(correo);
             return new ResponseEntity<>(horarios, HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
@@ -116,6 +122,16 @@ public class SchiNotesController {
             @PathVariable String actividad) {
         try {
             Actividad actividadConsultada = schiNotesService.consultarActividad(correo, nombre, actividad);
+            return new ResponseEntity<>(actividadConsultada, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/actividades/{actividadId}", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarActividadPorId(@PathVariable int actividadId) {
+        try {
+            Actividad actividadConsultada = schiNotesService.consultarActividadById(actividadId);
             return new ResponseEntity<>(actividadConsultada, HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
@@ -151,15 +167,28 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/usuarios/{correo}/grupos", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarGrupos(@PathVariable String correo) {
+        try {
+            List<Grupo> grupos = schiNotesService.consultarGruposDeUnUsuario(correo);
+            return new ResponseEntity<>(grupos, HttpStatus.CREATED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     @RequestMapping(value = "/usuarios/registrar", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarUsuario(@RequestBody Usuario usuario) throws FoundException {
         try {
+            String codigoComprobacion = randomAlphaNumeric(10);
+            codigosComprobacion.put(usuario.getCuentaCorreo().getCorreo(), codigoComprobacion);
             SchiNotesThread enviarCorreo = new SchiNotesThread(usuario.getCuentaCorreo().getCorreo(),
                     "Usuario creado exitosamente",
                     "Hola " + usuario.getCuentaCorreo().getNickname() + ".\n"
-                            + "Su usuario de SchiNotes ha sido creado satisfactoriamente.\n"
-                            + "Ahora puede ingresar a http://schinotes.herokuapp.com/ y aprovechar la herramienta.\n\n"
-                            + "Si tienes alguna inquietud, puedes comunicarte a schinotes2019dc@gmail.com\n\n"
+                            + "Su usuario de SchiNotes ha sido creado satisfactoriamente.\n\n"
+                            + "Para confirmar que usted es quien se registró, ingrese el siguiente código en el campo que apareció inmediantemente después de registrarse: "+codigoComprobacion+"\n\n"
+                            + "Luego de verficada su cuenta, puede ingresar a http://schinotes.herokuapp.com/login.html y aprovechar la herramienta.\n\n"
+                            + "Si tiene alguna inquietud, puede comunicarse a schinotes2019dc@gmail.com\n\n"
                             + "Atentamente,\nEl staff de SchiNotes",
                     emailService);
             enviarCorreo.start();
@@ -170,6 +199,40 @@ public class SchiNotesController {
             throw new FoundException(ex.getMessage());
         }
     }
+
+    @RequestMapping(value = "/usuarios/{correo}/comprobar", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoComprobarRegistro(@PathVariable String correo) throws NotFoundException {
+        try {
+            if (!codigosComprobacion.containsKey(correo)) {
+                throw new SchiNotesException("El correo '"+correo+"' no ha sido registrado aún.");
+            }
+            String codigoComprobacion = codigosComprobacion.get(correo);
+            return new ResponseEntity<>(codigoComprobacion, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            throw new NotFoundException(ex.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/usuarios/{correo}/verificado", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoVerificarCuenta(@PathVariable String correo) throws NotFoundException {
+        try {
+            schiNotesService.verificarCuenta(correo);            
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (SchiNotesException ex) {
+            throw new NotFoundException(ex.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/usuarios/{correo}/cuentas/verificar", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoCuentaEstaVerificada(@PathVariable String correo) {
+        try {
+            boolean estaVerficada = schiNotesService.cuentaEstaVerificada(correo);
+            System.out.println(estaVerficada);
+            return new ResponseEntity<>(estaVerficada, HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }    
 
     @RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.POST)
     public ResponseEntity<?> recursoCrearHorario(@PathVariable String correo, @RequestBody Horario horario) {
@@ -213,6 +276,15 @@ public class SchiNotesController {
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
+    }
+
+    private static String randomAlphaNumeric(int count) {
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
     }
 
 }

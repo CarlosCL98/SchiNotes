@@ -49,6 +49,14 @@ public interface SchiNotesService {
 
     public void crearGrupo(String correo, Grupo grupo) throws SchiNotesException;
 
+	public List<Grupo> consultarGruposDeUnUsuario(String correo) throws SchiNotesException;
+
+	public Actividad consultarActividadById(int actividadId) throws SchiNotesException;
+
+    public void verificarCuenta(String correo) throws SchiNotesException;
+    
+    public boolean cuentaEstaVerificada(String correo);
+
     /*
     void modificarCuenta(Cuenta cuenta) throws SchiNotesException;
 

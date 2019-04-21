@@ -20,8 +20,8 @@ public interface ActividadDAO {
     public void saveActividad(Actividad actividad) throws SchiNotesException;
 
     /**
-     * Se obtiene una actividad dado el correo del usuario, el nombre del
-     * horario donde está la actividad y el nombre de la actividad.
+     * Se obtiene una actividad dado el correo del usuario, el nombre del horario
+     * donde está la actividad y el nombre de la actividad.
      *
      * @param correo
      * @param nombre
@@ -29,7 +29,7 @@ public interface ActividadDAO {
      * @return la actividad consultada.
      * @throws SchiNotesException
      */
-    public Actividad loadActividad(String correo, String nombre, String actividad) throws SchiNotesException; 
+    public Actividad loadActividad(String correo, String nombre, String actividad) throws SchiNotesException;
 
     /**
      * Se obtienen todas las actividades de un usuario y horario específicos.
@@ -40,5 +40,14 @@ public interface ActividadDAO {
      * @throws SchiNotesException
      */
     public List<Actividad> loadAll(String correo, String nombre) throws SchiNotesException;
+
+    /**
+     * Se obtiene una actividad dado su identificador.
+     * 
+     * @param actividadId
+     * @return una actividad
+     * @throws SchiNotesException
+     */
+    public Actividad loadActividadById(int actividadId) throws SchiNotesException;
 
 }

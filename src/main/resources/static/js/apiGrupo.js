@@ -12,6 +12,11 @@ var apiGrupo = (function () {
             }).fail(function () {
                 alert("El grupo no se pudo crear. Intentelo nuevamente.");
             });
+        },
+        getGrupos: function (correoUsuario, callback) {
+            $.get("/schinotes/usuarios/" + correoUsuario + "/grupos", function(data) {
+                callback(data);
+            });
         }
     };
 

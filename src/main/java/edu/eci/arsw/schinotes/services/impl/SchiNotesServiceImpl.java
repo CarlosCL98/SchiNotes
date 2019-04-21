@@ -155,4 +155,24 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         grupoDAO.saveGrupo(usuario.getIdentificacion(), g);
     }
 
+    @Override
+    public List<Grupo> consultarGruposDeUnUsuario(String correo) throws SchiNotesException {
+        return grupoDAO.loadGroupsByUser(correo);
+    }
+
+    @Override
+    public Actividad consultarActividadById(int actividadId) throws SchiNotesException {
+        return actividadDAO.loadActividadById(actividadId);
+    }
+
+    @Override
+    public void verificarCuenta(String correo) throws SchiNotesException {
+        cuentaDAO.updateVerificadaCuentaByCorreo(correo);
+    }
+
+    @Override
+    public boolean cuentaEstaVerificada(String correo) {
+        return cuentaDAO.loadBoolCuentaVerificada(correo);
+    }
+
 }

@@ -22,13 +22,13 @@
   <script src="/webjars/jquery/jquery.min.js"></script>
   <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/perfil.js"></script>
   <script src="js/appFunctions.js"></script>
   <script src="js/apiUsuario.js"></script>
-  <script src="js/apiHorario.js"></script>
+  <script src="js/apiGrupo.js"></script>
 </head>
 
-<body class="bg" onload="app.consultarPerfil()">
+<body class="bg" onload="perfil.consultarMiPerfil()">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">
@@ -40,8 +40,7 @@
       <span class="narbar-text">
         <div class="dropdown mx-3">
           <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#" id="dropdownOpcionesUsuario"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="app.consultarMisHorarios()"><i
-              class="fas fa-user-circle fa-fw"></i>
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-fw"></i>
           </button>
           <div id="opcionesUsuario" class="dropdown-menu" aria-labelledby="dropdownOpcionesUsuario">
             <a class='dropdown-item' href='perfil.html'>Mi perfil</a>
@@ -68,6 +67,14 @@
               <a class="nav-link" href="#" data-toggle="modal" data-target="#modalAgregarAmigo"><i
                   class="fas fa-user-friends"></i>&nbsp;Agregar amigo</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownGruposUsuario" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" onclick="perfil.consultarMisGrupos()"><i
+                  class="fas fa-users-cog"></i>&nbsp;Mis grupos
+              </a>
+              <div id="deployGruposButton" class="dropdown-menu" aria-labelledby="dropdownGruposUsuario">
+              </div>
+            </li>
           </ul>
           <!-- Modal para agregar a un amigo -->
           <div class="modal fade" id="modalAgregarAmigo" tabindex="-1" role="dialog" aria-labelledby="modalLabelAmigo"
@@ -85,31 +92,33 @@
                     <div class="form-group row">
                       <div class="col-md-9">
                         <input id="inputBuscarPersonas" type="text" class="form-control"
-                          placeholder="Ingrese un nombre"></input>
+                          placeholder="Ingrese un correo"></input>
                       </div>
                       <div class="col-md-3">
                         <button type="button" class="btn btn-secondary btnNav m-0 waves-effect" aria-label="Default"
-                          onclick="app.buscarUsuarios()"><i class="fas fa-search"></i> Buscar</button>
+                          onclick="perfil.buscarUsuarios()"><i class="fas fa-search"></i> Buscar</button>
                       </div>
+                    </div>
+                    <div class="form-group">
+                      <table id="tablaResultadoBusqueda" class="table table-hover table-dark table-curved"
+                        style="width: 100%">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col" style="width: 35px"><i class="grin-alt"></i>#</th>
+                            <th scope="col" style="width: 250px">Correo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th colspan="5">No se ha realizado una búsqueda.</th>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </form>
                 </div>
-                <table id="tablaResultadoBusqueda" class="table table-hover table-dark table-curved"
-                  style="width: auto">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col" style="width: 35px"><i class="grin-alt"></i>#</th>
-                      <th scope="col" style="width: 250px">Correo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th colspan="5">No se ha realizado una búsqueda.</th>
-                    </tr>
-                  </tbody>
-                </table>
                 <div class="modal-footer">
-                  <button class="btn btn-secondary btnNav" onclick="app.agregarAmigo()"><i
+                  <button class="btn btn-secondary btnNav" onclick="perfil.agregarAmigo()"><i
                       class="fas fa-calendar-alt"></i> Agregar Amigo</button>
                   <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
                     aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
@@ -196,9 +205,8 @@
         <div class="col-sm-2">
           <h5>Conócenos</h5>
           <ul>
-            <li><a href="#">- Información desarrolladores</a></li>
+            <li><a href="#">- Información de los desarrolladores</a></li>
             <li><a href="#">- Contáctanos</a></li>
-            <li>- Realizado por: Daniel Rosales & Carlos Medina</li>
           </ul>
         </div>
         <div class="col-sm-2">
@@ -218,6 +226,7 @@
       </div>
     </div>
     <div class="footer-copyright">
+      <p>Daniel Rosales & Carlos Medina</p>
       <p>&copy; Copyright 2019</p>
     </div>
   </footer>

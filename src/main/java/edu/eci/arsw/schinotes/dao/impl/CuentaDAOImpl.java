@@ -60,4 +60,17 @@ public class CuentaDAOImpl implements CuentaDAO {
         jdbcTemplate.update(sql, new Object[] { cuenta.getCorreo(), cuenta.getContrasena(), cuenta.getNickname() });
     }
 
+    @Override
+    public void updateVerificadaCuentaByCorreo(String correo) {
+        String sql1 = "UPDATE Cuenta SET verificada = ? WHERE correo = ?";
+        jdbcTemplate.update(sql1, new Object[] { true, correo });
+    }
+
+    @Override
+    public boolean loadBoolCuentaVerificada(String correo) {
+        String sql1 = "SELECT c.verificada FROM Cuenta c WHERE c.correo = ?";
+        boolean verificada = jdbcTemplate.queryForObject(sql1, new Object[] { correo }, Boolean.class);
+        return verificada;
+    }
+
 }

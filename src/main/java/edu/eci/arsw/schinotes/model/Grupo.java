@@ -35,11 +35,11 @@ public class Grupo {
         this.tableroNombre = tableroNombre;
     }*/
 
-    public int getidentificacion() {
+    public int getIdentificacion() {
         return identificacion;
     }
 
-    public void setidentificacion(int identificacion) {
+    public void setIdentificacion(int identificacion) {
         this.identificacion = identificacion;
     }
 

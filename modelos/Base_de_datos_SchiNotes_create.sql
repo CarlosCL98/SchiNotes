@@ -35,6 +35,7 @@ CREATE TABLE Cuenta (
     correo varchar(50)  NOT NULL,
     contrasena varchar(50)  NOT NULL,
     nickname varchar(50)  NOT NULL,
+	verificada bool NOT NULL,
     CONSTRAINT nickname UNIQUE (nickname) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT correo PRIMARY KEY (correo)
 );

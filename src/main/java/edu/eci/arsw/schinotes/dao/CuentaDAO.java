@@ -27,4 +27,19 @@ public interface CuentaDAO {
      */
     public void saveCuenta(Cuenta cuenta) throws SchiNotesException;
 
+    /**
+     * Se actualiza la cuenta, pues ya se encuentra verificada.
+     * 
+     * @param correo
+     */
+    public void updateVerificadaCuentaByCorreo(String correo);
+    
+    /**
+     * Se obtiene si una cuenta está verificada o no.
+     * 
+     * @param correo
+     * @return un booleano indicando si la cuenta está verificada o no.
+     */
+    public boolean loadBoolCuentaVerificada(String correo);
+
 }

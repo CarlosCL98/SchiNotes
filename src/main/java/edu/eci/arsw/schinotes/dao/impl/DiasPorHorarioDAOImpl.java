@@ -42,7 +42,6 @@ public class DiasPorHorarioDAOImpl implements DiasPorHorarioDAO {
     public List<DiaDeLaSemana> getDiasByName(String nomString) throws SchiNotesException {
         String sql = "SELECT * FROM dias_Por_horario d JOIN horario h ON(h.id = d.horario_id) WHERE h.nombre = ?";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { nomString });
-
         List<DiaDeLaSemana> ddls = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             DiaDeLaSemana dia = new DiaDeLaSemana();
@@ -59,7 +58,6 @@ public class DiasPorHorarioDAOImpl implements DiasPorHorarioDAO {
     public List<DiaDeLaSemana> getDiasById(int id) throws SchiNotesException {
         String sql = "SELECT * FROM dias_Por_horario d JOIN horario h ON(h.id = d.horario_id) WHERE d.horario_id = ?";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { id });
-
         List<DiaDeLaSemana> ddls = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             DiaDeLaSemana dia = new DiaDeLaSemana();

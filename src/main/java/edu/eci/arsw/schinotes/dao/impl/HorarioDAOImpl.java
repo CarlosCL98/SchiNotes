@@ -55,7 +55,7 @@ public class HorarioDAOImpl implements HorarioDAO {
         String query = "";
         if (correo == null) {
             query = "SELECT h.id as hid,h.nombre as hnombre,h.usuario_identificacion FROM horario h WHERE h.nombre = ?";
-            return (Horario) jdbcTemplate.queryForObject(query, new Object[] {nombre}, new RowMapper<Horario>() {
+            return (Horario) jdbcTemplate.queryForObject(query, new Object[] { nombre }, new RowMapper<Horario>() {
                 @Override
                 public Horario mapRow(ResultSet rs, int rwNumber) throws SQLException {
                     Horario horario = new Horario();
@@ -66,20 +66,21 @@ public class HorarioDAOImpl implements HorarioDAO {
             });
         } else {
             query = "SELECT h.id as hid,h.nombre as hnombre,h.usuario_identificacion,u.identificacion,u.nombre as unombre,u.apellido,u.cuenta_correo FROM horario h JOIN usuario u ON(h.usuario_identificacion = u.identificacion) WHERE h.nombre = ? and u.cuenta_correo = ?";
-            return (Horario) jdbcTemplate.queryForObject(query, new Object[] {nombre,correo}, new RowMapper<Horario>() {
-                @Override
-                public Horario mapRow(ResultSet rs, int rwNumber) throws SQLException {
-                    Horario horario = new Horario();
-                    horario.setId(rs.getInt("hid"));
-                    horario.setNombre(rs.getString("hnombre"));
-                    Usuario usuario = new Usuario();
-                    usuario.setIdentificacion(rs.getInt("identificacion"));
-                    usuario.setNombre(rs.getString("unombre"));
-                    usuario.setApellido(rs.getString("apellido"));
-                    horario.setUsuario(usuario);
-                    return horario;
-                }
-            });
+            return (Horario) jdbcTemplate.queryForObject(query, new Object[] { nombre, correo },
+                    new RowMapper<Horario>() {
+                        @Override
+                        public Horario mapRow(ResultSet rs, int rwNumber) throws SQLException {
+                            Horario horario = new Horario();
+                            horario.setId(rs.getInt("hid"));
+                            horario.setNombre(rs.getString("hnombre"));
+                            Usuario usuario = new Usuario();
+                            usuario.setIdentificacion(rs.getInt("identificacion"));
+                            usuario.setNombre(rs.getString("unombre"));
+                            usuario.setApellido(rs.getString("apellido"));
+                            horario.setUsuario(usuario);
+                            return horario;
+                        }
+                    });
         }
     }
 
@@ -107,14 +108,11 @@ public class HorarioDAOImpl implements HorarioDAO {
         int id = getMaxId();
         String query = "INSERT INTO horario (id,nombre,usuario_identificacion) VALUES(?,?,?)";
         if (horario.getUsuario() == null) {
-            jdbcTemplate.update(query, new Object[] {
-                id + 1, horario.getNombre(), null
-            });
+            jdbcTemplate.update(query, new Object[] { id + 1, horario.getNombre(), null });
         } else {
-            jdbcTemplate.update(query, new Object[] {
-                id + 1, horario.getNombre(), horario.getUsuario().getIdentificacion() 
-            });
-        }        
+            jdbcTemplate.update(query,
+                    new Object[] { id + 1, horario.getNombre(), horario.getUsuario().getIdentificacion() });
+        }
     }
 
     @Override
