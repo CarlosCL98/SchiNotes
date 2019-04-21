@@ -34,7 +34,7 @@ public class Horario {
         this.horasRepetidas = new HashSet<>();
     }
 
-    public Horario(int id, String nombre, int intervaloHoras,int numeroDias) {
+    public Horario(int id, String nombre, int intervaloHoras, int numeroDias) {
         this.nombre = nombre;
         this.intervaloHoras = intervaloHoras;
         this.numeroDias = numeroDias;
@@ -51,23 +51,24 @@ public class Horario {
         String horaString = "";
         Calendar cal = Calendar.getInstance();
         while (!horasRepetidas.contains(horaString)) {
-            if(!horaString.equals("")) horasRepetidas.add(horaString);
+            if (!horaString.equals(""))
+                horasRepetidas.add(horaString);
             cal.set(Calendar.HOUR_OF_DAY, currentHora);
             cal.set(Calendar.MINUTE, currentMin);
             cal.add(Calendar.HOUR, intervalo / 100);
             cal.add(Calendar.MINUTE, (intervalo % 100));
             Date d = cal.getTime();
-            horaString = d.toString().substring(10,19);            
+            horaString = d.toString().substring(10, 19);
             currentHora = d.getHours();
             currentMin = d.getMinutes();
         }
-        for (String ho: horasRepetidas) {
+        for (String ho : horasRepetidas) {
             horas.add(new Hora(ho));
         }
         return horas;
     }
 
-    public List<DiaDeLaSemana> calcularDias(int numeroDias){
+    public List<DiaDeLaSemana> calcularDias(int numeroDias) {
         this.numeroDias = numeroDias;
         List<DiaDeLaSemana> dias = new ArrayList<>();
         for (int i = 0; i < numeroDias; i++) {
@@ -90,11 +91,11 @@ public class Horario {
         this.id = id;
     }
 
-    public int getIntervaloHoras(){
+    public int getIntervaloHoras() {
         return this.intervaloHoras;
     }
 
-    public int getNumeroDias(){
+    public int getNumeroDias() {
         return this.numeroDias;
     }
 
@@ -182,7 +183,11 @@ public class Horario {
         this.horas = horas;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Horario{id=" + this.id + ", nombre=" + this.nombre + ", intervaloHoras=" + this.intervaloHoras
+                + ", numeroDias=" + this.numeroDias + ", horas=" + this.horas.toString() + ", dias="
+                + this.diasDeLaSemana.toString() + "}";
+    }
 
 }
-

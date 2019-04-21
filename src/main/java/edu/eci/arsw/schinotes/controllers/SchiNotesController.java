@@ -37,7 +37,6 @@ public class SchiNotesController {
 
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public ResponseEntity<List<Usuario>> recursoConsultarUsuarios() throws NotFoundException {
-        System.out.println("soy el controller");
         try {
             List<Usuario> usuarios = schiNotesService.consultarUsuarios();
             return new ResponseEntity<>(usuarios, HttpStatus.OK);
@@ -175,8 +174,6 @@ public class SchiNotesController {
     @RequestMapping(value = "/usuarios/{correo}/horarios", method = RequestMethod.POST)
     public ResponseEntity<?> recursoCrearHorario(@PathVariable String correo, @RequestBody Horario horario) {
         try {
-            System.out.println("numero de dias: " + horario.getNumeroDias());
-            System.out.println("intervalo horas: " + horario.getIntervaloHoras());
             Usuario usuario = schiNotesService.consultarUsuarioPorCorreo(correo);
             horario.setUsuario(usuario);
             schiNotesService.crearHorario(horario);
@@ -190,7 +187,6 @@ public class SchiNotesController {
     public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable int id,
             @RequestBody Actividad actividad) {
         try {
-            System.out.println(actividad.toString());
             actividad.setHorario_id(id);
             schiNotesService.agregarActividad(actividad);
             return new ResponseEntity<>(HttpStatus.CREATED);

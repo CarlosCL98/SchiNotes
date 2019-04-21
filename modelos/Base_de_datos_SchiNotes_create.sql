@@ -57,7 +57,7 @@ CREATE TABLE Grupo (
     identificacion int  NOT NULL,
     nombre varchar(50)  NOT NULL,
     descripcion text  NOT NULL,
-    Tablero_nombre varchar(50)  NOT NULL,
+    Tablero_nombre varchar(50),
     Horario_id int  NOT NULL,
     CONSTRAINT Grupo_pk PRIMARY KEY (identificacion)
 );
@@ -81,7 +81,7 @@ CREATE TABLE Hora (
 -- Table: Horario
 CREATE TABLE Horario (
     nombre varchar(50)  NOT NULL,
-    Usuario_identificacion int  NOT NULL,
+    Usuario_identificacion int,
     id int  NOT NULL,
     CONSTRAINT Horario_pk PRIMARY KEY (id)
 );

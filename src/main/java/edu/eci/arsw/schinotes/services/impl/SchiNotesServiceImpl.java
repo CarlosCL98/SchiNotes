@@ -3,6 +3,7 @@ package edu.eci.arsw.schinotes.services.impl;
 import edu.eci.arsw.schinotes.dao.ActividadDAO;
 import edu.eci.arsw.schinotes.dao.CuentaDAO;
 import edu.eci.arsw.schinotes.dao.DiasPorHorarioDAO;
+import edu.eci.arsw.schinotes.dao.GrupoDAO;
 import edu.eci.arsw.schinotes.dao.UsuarioDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Actividad;
@@ -44,6 +45,9 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Autowired
     private ActividadDAO actividadDAO;
+
+    @Autowired
+    private GrupoDAO grupoDAO;
 
     @Override
     public List<Usuario> consultarUsuarios() throws SchiNotesException {
@@ -137,13 +141,18 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public List<Usuario> consultarPersonasIncompleta(String correoPersona) throws SchiNotesException {
-
         return usuarioDAO.loadUsuarioIncomplete(correoPersona);
     }
 
     @Override
     public void crearGrupo(String correo, Grupo grupo) throws SchiNotesException {
-        
+        Usuario usuario = consultarUsuarioPorCorreo(correo);
+        Horario horario = new Horario(1, "Horario-"+grupo.getNombre(), 100, 7);
+        crearHorario(horario);
+        Horario horarioGrupo = consultarHorarioByName(null, "Horario-"+grupo.getNombre());
+        Grupo g = grupo;
+        g.setHorarioNombre(horarioGrupo);
+        grupoDAO.saveGrupo(usuario.getIdentificacion(), g);
     }
 
 }

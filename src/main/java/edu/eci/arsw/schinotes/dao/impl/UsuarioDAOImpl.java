@@ -34,7 +34,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         List<Usuario> usuarios = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             Usuario usuario = new Usuario();
-            int identificacion = (int)row.get("identificacion");
+            int identificacion = (int) row.get("identificacion");
             usuario.setIdentificacion(identificacion);
             usuario.setNombre((String) row.get("nombre"));
             usuario.setApellido((String) row.get("apellido"));
@@ -64,7 +64,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         Usuario usuario = (Usuario) jdbcTemplate.queryForObject(sql, new Object[] { correo }, new RowMapper<Usuario>() {
             @Override
-            public Usuario mapRow(ResultSet rs, int rwNumber) throws SQLException{
+            public Usuario mapRow(ResultSet rs, int rwNumber) throws SQLException {
                 Usuario usuario = new Usuario();
                 int identificacion = rs.getInt("identificacion");
                 usuario.setIdentificacion(identificacion);
@@ -146,9 +146,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException {
         String sql = "SELECT * FROM usuario u JOIN cuenta cu ON(u.cuenta_correo = cu.correo) WHERE u.cuenta_correo LIKE('%"
                 + correoPersonas + "%');";
-
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
-
         List<Usuario> usuarios = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             Usuario usuario = new Usuario();
@@ -168,9 +166,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     private List<Usuario> loadMisAmigos(int identificacion) {
-
         String sql = "SELECT * FROM usuario u, cuenta cu, amigo a WHERE u.cuenta_correo = cu.correo AND u.identificacion = a.usuario_2_identificacion AND a.usuario_identificacion = ?;";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { identificacion});
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { identificacion });
         List<Usuario> usuarios = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             Usuario usuario = new Usuario();
@@ -186,7 +183,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             usuario.setCuentaCorreo(cuenta);
             usuarios.add(usuario);
         }
-        
         return usuarios;
     }
 

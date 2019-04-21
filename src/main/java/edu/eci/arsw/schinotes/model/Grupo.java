@@ -27,13 +27,13 @@ public class Grupo {
         this.descripcion = descripcion;
     }
 
-    public Grupo(int identificacion, String nombre, String descripcion, Horario horarioNombre, Tablero tableroNombre) {
+    /*public Grupo(int identificacion, String nombre, String descripcion, Horario horarioNombre, Tablero tableroNombre) {
         this.identificacion = identificacion;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.horarioNombre = horarioNombre;
         this.tableroNombre = tableroNombre;
-    }
+    }*/
 
     public int getidentificacion() {
         return identificacion;

@@ -32,7 +32,6 @@ public class DiasPorHorarioDAOImpl implements DiasPorHorarioDAO {
 
     @Override
     public void saveDiasPorHorario(Horario horario) throws SchiNotesException {
-        System.out.println(horario.getDiasDeLaSemana());
         for (DiaDeLaSemana ddls : horario.getDiasDeLaSemana()) {
             String query = "INSERT INTO dias_Por_horario (horario_id,dia_nombre) VALUES(?,?)";
             jdbcTemplate.update(query, new Object[] { horario.getId(), ddls.getNombre() });
