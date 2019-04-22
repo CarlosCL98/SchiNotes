@@ -1,11 +1,14 @@
 package edu.eci.arsw.schinotes.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ import edu.eci.arsw.schinotes.dao.GrupoDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Horario;
+import edu.eci.arsw.schinotes.model.Usuario;
 
 @Repository
 public class GrupoDAOImpl implements GrupoDAO {
@@ -62,4 +66,32 @@ public class GrupoDAOImpl implements GrupoDAO {
         return grupos;
     }
 
+    @Override
+    public Horario loadHorarioGrupo(int idGrupo) {
+        String sql = "SELECT * FROM horario,grupo WHERE horario.id = grupo.horario_id AND grupo.identificacion = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[] { idGrupo }, new RowMapper<Horario>() {
+
+            @Override
+            public Horario mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Horario grupoHorario = new Horario();
+                grupoHorario.setNombre(rs.getString("nombre"));
+                grupoHorario.setId(rs.getInt("id"));
+                Grupo grupo = new Grupo();
+                grupo.setIdentificacion(rs.getInt("identificacion"));
+                grupo.setNombre(rs.getString("nombre"));
+                grupo.setDescripcion(rs.getString("descripcion"));
+                grupo.setHorarioNombre(grupoHorario);
+                grupoHorario.setGrupo(grupo);
+                return grupoHorario;
+            }
+
+        });
+    }
+
+    @Override
+    public void saveIntegrante(int idGrupo, Usuario integrante, Horario horario) {
+        String sql = "INSERT INTO grupo_de_trabajo(rol, grupo_identificacion,usuario_identificacion) values('Integrante',"
+                + idGrupo + "," + integrante.getIdentificacion() + ");";
+        jdbcTemplate.update(sql);
+    }
 }

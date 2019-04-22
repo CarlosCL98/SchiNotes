@@ -4,6 +4,8 @@ import java.util.List;
 
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Grupo;
+import edu.eci.arsw.schinotes.model.Horario;
+import edu.eci.arsw.schinotes.model.Usuario;
 
 public interface GrupoDAO {
 
@@ -12,5 +14,10 @@ public interface GrupoDAO {
     public void saveGrupo(int idUsuario, Grupo grupo);
 
     public List<Grupo> loadGroupsByUser(String correo) throws SchiNotesException;
+
+    public Horario loadHorarioGrupo(int idGrupo);
+
+	public void saveIntegrante(int idGrupo, Usuario integrante, Horario horario);
+
 
 }

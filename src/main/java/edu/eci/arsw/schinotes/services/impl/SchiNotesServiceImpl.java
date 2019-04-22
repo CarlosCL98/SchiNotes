@@ -161,6 +161,17 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     }
 
     @Override
+    public void agregarNuevoIntegrante(int idGrupo, Usuario integrante, Horario horario) throws SchiNotesException {
+        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaa");
+        Horario horarioGrupo = grupoDAO.loadHorarioGrupo(idGrupo);
+        Horario horarioIntegrante = horarioDAO.getHorarioByName(integrante.getCuentaCorreo().getCorreo(), horario.getNombre());
+        horarioIntegrante.setActividades(this.consultarActividades(integrante.getCuentaCorreo().getCorreo(), horario.getNombre()));
+        integrarActividadesGrupo(horarioGrupo, horarioIntegrante);
+
+        grupoDAO.saveIntegrante(idGrupo,integrante,horario);
+    }
+
+    @Override
     public Actividad consultarActividadById(int actividadId) throws SchiNotesException {
         return actividadDAO.loadActividadById(actividadId);
     }
@@ -173,6 +184,33 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public boolean cuentaEstaVerificada(String correo) {
         return cuentaDAO.loadBoolCuentaVerificada(correo);
+    }
+
+    private void integrarActividadesGrupo(Horario horarioGrupo, Horario horarioIntegrante) throws SchiNotesException {
+        System.out.println(horarioIntegrante.getActividades().size());
+        for (Actividad a : horarioIntegrante.getActividades()) {
+            String hora_ini = a.getHora_ini().substring(0,2);
+            hora_ini += ":00:00";
+            System.out.println(hora_ini);
+            a.setHora_ini(hora_ini);
+
+            int hora = Integer.parseInt(a.getHora_fin().substring(0,2));
+            hora += 1;
+            String hora_fin;
+            if(hora < 10){
+                hora_fin = "0";
+                hora_fin += String.valueOf(hora);
+            }else{
+                hora_fin = String.valueOf(hora);
+            }
+            hora_fin += ":00:00";
+            System.out.println(hora_fin);
+            a.setHora_fin(hora_fin);
+            a.setHorario_id(horarioGrupo.getId());
+            System.out.println(a.toString());
+            this.agregarActividad(a);
+        }
+
     }
 
 }

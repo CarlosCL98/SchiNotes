@@ -278,6 +278,18 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/grupos/{idGrupo}/integrantes/{correo}/{nombreHorario}", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoAgregarIntegrante(@PathVariable int idGrupo, @PathVariable String correo, @PathVariable String nombreHorario) {
+        try {
+            Usuario integrante = schiNotesService.consultarUsuarioPorCorreo(correo);
+            Horario horario = schiNotesService.consultarHorarioByName(correo, nombreHorario);
+            schiNotesService.agregarNuevoIntegrante(idGrupo,integrante,horario);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     private static String randomAlphaNumeric(int count) {
         StringBuilder builder = new StringBuilder();
         while (count-- != 0) {
