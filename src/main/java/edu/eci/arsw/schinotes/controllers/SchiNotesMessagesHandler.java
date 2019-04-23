@@ -7,7 +7,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import edu.eci.arsw.schinotes.model.Actividad;
-import edu.eci.arsw.schinotes.services.SchiNotesService;
 
 /**
  * 
@@ -18,10 +17,7 @@ import edu.eci.arsw.schinotes.services.SchiNotesService;
 public class SchiNotesMessagesHandler {
 
     @Autowired
-    SchiNotesService schiNotesService;
-
-    @Autowired
-    SimpMessagingTemplate msgt;
+    private SimpMessagingTemplate msgt;
 
     @MessageMapping("/horario.{idHorario}")
     public void handlePointEvent(Actividad actividad, @DestinationVariable int idHorario) throws Exception {

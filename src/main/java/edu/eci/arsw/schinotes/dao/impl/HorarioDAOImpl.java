@@ -1,9 +1,7 @@
 package edu.eci.arsw.schinotes.dao.impl;
 
 import edu.eci.arsw.schinotes.model.Usuario;
-import edu.eci.arsw.schinotes.dao.UsuarioDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
-import edu.eci.arsw.schinotes.model.Cuenta;
 import edu.eci.arsw.schinotes.model.Horario;
 
 import java.sql.ResultSet;

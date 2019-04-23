@@ -81,6 +81,14 @@ public class Usuario implements Serializable {
         return cuentaCorreo;
     }
 
+    public List<Horario> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
     public List<Usuario> getMisAmigos() {
         return misAmigos;
     }

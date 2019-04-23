@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.arsw.schinotes.model;
 
 /**
@@ -11,7 +6,7 @@ package edu.eci.arsw.schinotes.model;
  * @author Carlos Medina
  */
 public class Tablero {
-    
+
     private String nombre;
     private Byte[] template;
     private Grupo grupo;
@@ -19,7 +14,7 @@ public class Tablero {
     public Tablero() {
 
     }
-    
+
     public Tablero(String nombre, Byte[] template) {
         this.nombre = nombre;
         this.template = template;
@@ -40,8 +35,13 @@ public class Tablero {
     public void setTemplate(Byte[] template) {
         this.template = template;
     }
-    
-    
-    
-    
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
 }

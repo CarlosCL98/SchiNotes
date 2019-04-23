@@ -1,7 +1,5 @@
 package edu.eci.arsw.schinotes.model;
 
-import java.sql.Date;
-
 /**
  *
  * @author Daniel Rosales

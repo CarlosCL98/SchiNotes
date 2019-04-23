@@ -9,9 +9,6 @@ import edu.eci.arsw.schinotes.model.Horario;
 
 import java.util.List;
 
-
-
-
 /**
  * La clase SchiNotesService representa los servicios que se pueden ofrecer.
  */
@@ -58,18 +55,5 @@ public interface SchiNotesService {
     public boolean cuentaEstaVerificada(String correo);
 
     public void agregarNuevoIntegrante(int idGrupo, Usuario integrante, Horario horario) throws SchiNotesException; 
-    /*
-    void modificarCuenta(Cuenta cuenta) throws SchiNotesException;
-
-    void modificarHorario(Horario horario) throws SchiNotesException;
-
-    void eliminarHorario(String nombre) throws SchiNotesException;
-
-    List<Horario> consultarHorarios() throws SchiNotesException;
-
-    void modificarActividad(Actividad actividad) throws SchiNotesException;
-    
-    void modificarUsuario(Usuario usuario) throws SchiNotesException;
-     */
     
 }

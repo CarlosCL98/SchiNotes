@@ -27,13 +27,12 @@ public class Grupo {
         this.descripcion = descripcion;
     }
 
-    /*public Grupo(int identificacion, String nombre, String descripcion, Horario horarioNombre, Tablero tableroNombre) {
-        this.identificacion = identificacion;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.horarioNombre = horarioNombre;
-        this.tableroNombre = tableroNombre;
-    }*/
+    /*
+     * public Grupo(int identificacion, String nombre, String descripcion, Horario
+     * horarioNombre, Tablero tableroNombre) { this.identificacion = identificacion;
+     * this.nombre = nombre; this.descripcion = descripcion; this.horarioNombre =
+     * horarioNombre; this.tableroNombre = tableroNombre; }
+     */
 
     public int getIdentificacion() {
         return identificacion;
@@ -82,4 +81,13 @@ public class Grupo {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
+
 }

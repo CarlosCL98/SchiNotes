@@ -4,7 +4,6 @@ import java.util.List;
 
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.DiaDeLaSemana;
-import edu.eci.arsw.schinotes.model.Hora;
 import edu.eci.arsw.schinotes.model.Horario;
 
 /**
