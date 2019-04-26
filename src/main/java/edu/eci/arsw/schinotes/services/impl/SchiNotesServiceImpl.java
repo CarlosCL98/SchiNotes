@@ -113,7 +113,7 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public Actividad consultarActividad(String correo, String nombre, String actividad) throws SchiNotesException {
-        return actividadDAO.loadActividad(correo, nombre, actividad);
+        return actividadDAO.loadActividadByCorreo(correo, nombre, actividad);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public void agregarNuevoIntegrante(int idGrupo, Usuario integrante, Horario horario) throws SchiNotesException {
-        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaa");
+        
         Horario horarioGrupo = grupoDAO.loadHorarioGrupo(idGrupo);
         Horario horarioIntegrante = horarioDAO.getHorarioByName(integrante.getCuentaCorreo().getCorreo(), horario.getNombre());
         horarioIntegrante.setActividades(this.consultarActividades(integrante.getCuentaCorreo().getCorreo(), horario.getNombre()));
@@ -185,6 +185,22 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     public boolean cuentaEstaVerificada(String correo) {
         return cuentaDAO.loadBoolCuentaVerificada(correo);
     }
+
+    @Override
+    public List<Actividad> consultarActividadesPorHorarioId(int idHorario) throws SchiNotesException {
+        return actividadDAO.loadActividadesByHorarioId(idHorario);
+    }
+
+    @Override
+    public Horario consultarHorarioPorGrupo(int idGrupo) throws SchiNotesException {
+        Horario horario = horarioDAO.getHorarioGrupo(idGrupo);
+        horario.setDiasDeLaSemana(DiasPorHorarioDAO.getDiasById(horario.getId()));
+        horario.setHoras(horaDAO.getHorasById(horario.getId()));
+        horario.setActividades(this.consultarActividadesPorHorarioId(horario.getId()));
+        return horario;
+    }
+
+    
 
     private void integrarActividadesGrupo(Horario horarioGrupo, Horario horarioIntegrante) throws SchiNotesException {
         System.out.println(horarioIntegrante.getActividades().size());
@@ -210,7 +226,10 @@ public class SchiNotesServiceImpl implements SchiNotesService {
             System.out.println(a.toString());
             this.agregarActividad(a);
         }
-
     }
+
+    
+
+    
 
 }

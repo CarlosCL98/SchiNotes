@@ -1,6 +1,6 @@
 /* global Cookies, apiUsuario, apiHorario */
 var home = (function () {
-
+    
     var actividadHorarioId = null;
     var actividadHorario = null;
     var actividadDia = null;
@@ -155,6 +155,10 @@ var home = (function () {
                 descripcion: $("#inputGrupoDescripcion").val()
             };
             apiGrupo.postGrupo(Cookies.get("username"), data);
+        },
+
+        consultarHorarioGrupo: function(){
+            apiGrupo.getHorarioGrupo
         }
     };
 

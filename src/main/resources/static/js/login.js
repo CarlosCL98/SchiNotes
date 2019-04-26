@@ -4,6 +4,7 @@ var login = (function () {
         var contrasena = $("#ContraseñaInput").val();
         if (cuenta.contrasena === contrasena) {
             Cookies.set('username', cuenta.correo, { expires: 1, path: '/' });
+            Cookies.set('hola', cuenta.nickname, { expires: 1, path: '/homeGrupo.html'});
             apiUsuario.cuentaYaVerificada(Cookies.get("username"), comprobarCuentaVerificada);
         } else {
             alert("Credenciales inválidas. No puede ingresar.");

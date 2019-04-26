@@ -82,6 +82,8 @@ public class HorarioDAOImpl implements HorarioDAO {
         }
     }
 
+
+    
     @Override
     public Horario getHorarioById(String correo, int id) throws SchiNotesException {
         String query = "SELECT h.id as hid,h.nombre as hnombre,h.usuario_identificacion,u.identificacion,u.nombre as unombre,u.apellido,u.cuenta_correo FROM horario h JOIN usuario u ON(h.usuario_identificacion = u.identificacion) WHERE h.id = ? and u.cuenta_correo = ?";
@@ -102,6 +104,23 @@ public class HorarioDAOImpl implements HorarioDAO {
     }
 
     @Override
+    public Horario getHorarioGrupo(int idGrupo) throws SchiNotesException {
+        String sql = "SELECT h.nombre,h.id FROM horario h JOIN grupo g ON (h.id = g.horario_id) WHERE g.identificacion=?"; 
+
+        return (Horario) jdbcTemplate.queryForObject(sql, new Object[] {idGrupo}, new RowMapper<Horario>() {
+            @Override
+            public Horario mapRow(ResultSet rs, int rwNumber) throws SQLException {
+                Horario horario = new Horario();
+                horario.setId(rs.getInt("id"));
+                horario.setNombre(rs.getString("nombre"));
+                return horario;
+            }
+        });
+    }
+    
+
+
+    @Override
     public void saveHorario(Horario horario) throws SchiNotesException {
         int id = getMaxId();
         String query = "INSERT INTO horario (id,nombre,usuario_identificacion) VALUES(?,?,?)";
@@ -119,5 +138,6 @@ public class HorarioDAOImpl implements HorarioDAO {
         int id = jdbcTemplate.queryForObject(maxIdQuery, Integer.class);
         return id;
     }
+
 
 }

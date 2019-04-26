@@ -39,7 +39,7 @@ public class ActividadDAOImpl implements ActividadDAO {
     }
 
     @Override
-    public Actividad loadActividad(String correo, String nombre, String actividad) throws SchiNotesException {
+    public Actividad loadActividadByCorreo(String correo, String nombre, String actividad) throws SchiNotesException {
         String sql = "SELECT a.id,a.nombre,a.descripcion,to_char(a.fecha_creacion,'YYYY-MM-DD') as fecha_creacion,to_char(a.hora_hora, 'HH24:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id, to_char(a.hora_fin, 'HH24:MI:SS') as hora_fin\n"
                 + "FROM usuario u JOIN horario h ON (u.identificacion=h.usuario_identificacion) \n"
                 + "JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
@@ -113,6 +113,28 @@ public class ActividadDAOImpl implements ActividadDAO {
             actividad.setHora_fin((String) row.get("hora_fin"));
         }
         return actividad;
+    }
+
+    @Override
+    public List<Actividad> loadActividadesByHorarioId(int idHorario) throws SchiNotesException {
+        String sql = "SELECT a.id,a.nombre,a.descripcion,to_char(a.fecha_creacion,'YYYY-MM-DD') as fecha_creacion,to_char(a.hora_hora, 'HH24:MI:SS') as hora_hora,a.hora_dias_por_horario_dia_nombre,a.hora_dias_por_horario_horario_id, to_char(a.hora_fin, 'HH24:MI:SS') as hora_fin\n"
+                + "FROM horario h JOIN actividad_por_horario aph ON (h.id=aph.horario_id)\n"
+                + "JOIN actividad a ON (a.id=aph.actividad_id)\n" + "WHERE h.id = ?";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] {idHorario});
+        List<Actividad> actividades = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Actividad actividad = new Actividad();
+            actividad.setId((int) row.get("id"));
+            actividad.setNombre((String) row.get("nombre"));
+            actividad.setDescripcion((String) row.get("descripcion"));
+            actividad.setFecha((String) row.get("fecha_creacion"));
+            actividad.setHorario_id((int) row.get("hora_dias_por_horario_horario_id"));
+            actividad.setDia((String) row.get("hora_dias_por_horario_dia_nombre"));
+            actividad.setHora_ini((String) row.get("hora_hora"));
+            actividad.setHora_fin((String) row.get("hora_fin"));
+            actividades.add(actividad);
+        }
+        return actividades;
     }
 
 }

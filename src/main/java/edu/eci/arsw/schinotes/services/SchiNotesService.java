@@ -54,6 +54,10 @@ public interface SchiNotesService {
     
     public boolean cuentaEstaVerificada(String correo);
 
-    public void agregarNuevoIntegrante(int idGrupo, Usuario integrante, Horario horario) throws SchiNotesException; 
+    public void agregarNuevoIntegrante(int idGrupo, Usuario integrante, Horario horario) throws SchiNotesException;
+    
+    public Horario consultarHorarioPorGrupo(int idGrupo) throws SchiNotesException;
+
+    public List<Actividad> consultarActividadesPorHorarioId(int Horario) throws SchiNotesException;
     
 }

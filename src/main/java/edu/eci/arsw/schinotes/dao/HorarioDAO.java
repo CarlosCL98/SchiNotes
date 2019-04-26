@@ -40,9 +40,27 @@ public interface HorarioDAO {
      * @throws SchiNotesException
      */
     public void saveHorario(Horario horario) throws SchiNotesException;
+    
+    /**
+     * Se consulta el horario por medio del corre electronico 
+     * @param correo
+     * @return
+     * @throws SchiNotesException
+     */
+    public List<Horario> getHorarios(String correo)throws SchiNotesException;
+    
+    /**
+     *  
+     * @return
+     */
+    public int getMaxId();
 
-	public List<Horario> getHorarios(String correo)throws SchiNotesException;
-
-	public int getMaxId();
+    /**
+     *  Se consulta el horario del grupo
+     * @param grupo Grupo al cual se consultara el horario
+     * @return
+     * @throws SchiNotesException
+     */
+    public Horario getHorarioGrupo(int idGrupo) throws SchiNotesException;
 
 }
