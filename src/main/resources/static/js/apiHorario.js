@@ -17,7 +17,9 @@ var apiHorario = (function () {
             });
         },
         getActividades: function (usuario, horario, callback) {
+            
             $.get("/schinotes/usuarios/" + usuario + "/horarios/" + horario + "/actividades", function (data) {
+                
                 callback(data);
             });
         },

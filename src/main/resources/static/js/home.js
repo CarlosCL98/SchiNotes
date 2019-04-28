@@ -24,6 +24,7 @@ var home = (function () {
     };
     
     var mostrarActividadesHorario = function (actividades) {
+        
         for (var i = 0; i < actividades.length; i++) {
             $("#" + actividades[i].dia).append("<ul></ul>");
             $("#" + actividades[i].dia).find("ul").append("<li class='single-event drag' data-start='" + (actividades[i].hora_ini).substring(0, 5) + "' data-end='" + (actividades[i].hora_fin).substring(0, 5) + "' data-content='event-actividades' data-event='event-" + (i + 1) + "'><a href='#0' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></a></li>");
@@ -59,6 +60,17 @@ var home = (function () {
         $("#deployHorariosButton").on("click", "a", function (event) {
             cambiarHorario(event.target.dataset.horarioNombre);
             appStomp.init(event.target.dataset.horarioId);
+        });
+    };
+
+    var agregarOpcionesGrupos = function (data) {
+        console.log(data)
+        $("#deployGruposButton").empty();
+        for (var i = 0; i < data.length; i++) {
+            $("#deployGruposButton").append("<a class='dropdown-item' href='homeGrupo.html'" + " data-grupo-identificacion=" + data[i].identificacion+ ">" + data[i].nombre + "</a>");
+        }
+        $("#deployGruposButton").on("click", "a", function (event) {
+            Cookies.set('grupo',event.target.dataset.grupoIdentificacion, { expires: 1, path: '/' });
         });
     };
 
@@ -124,6 +136,10 @@ var home = (function () {
         consultarMisHorarios: function () {
             var usuario = Cookies.get('username');
             apiHorario.getHorarios(usuario, agregarOpcionesHorarios);
+        },
+        consultarMisGrupos: function(){
+            var usuario = Cookies.get('username');
+            apiGrupo.getGrupos(usuario, agregarOpcionesGrupos);
         },
         consultarMisHorariosParaActividades: function () {
             var usuario = Cookies.get('username');

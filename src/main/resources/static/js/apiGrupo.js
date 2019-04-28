@@ -1,5 +1,5 @@
 var apiGrupo = (function () {
-    asd
+    
 
     return {
         postGrupo: function (nombreUsuario, datosGrupo) {
