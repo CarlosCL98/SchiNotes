@@ -1,5 +1,4 @@
 var apiGrupo = (function () {
-    asd
 
     return {
         postGrupo: function (nombreUsuario, datosGrupo) {
@@ -15,12 +14,12 @@ var apiGrupo = (function () {
             });
         },
         getGrupos: function (correoUsuario, callback) {
-            $.get("/schinotes/usuarios/" + correoUsuario + "/grupos", function(data) {
+            $.get("/schinotes/usuarios/" + correoUsuario + "/grupos", function (data) {
                 callback(data);
             });
         },
-        getHorarioGrupo: function (idGrupo,callback){
-            $.get("/schinotes/grupos/"+idGrupo,function(data){
+        getHorarioGrupo: function (idGrupo, callback) {
+            $.get("/schinotes/grupos/" + idGrupo, function (data) {
                 callback(data)
             });
         }

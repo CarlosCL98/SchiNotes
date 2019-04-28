@@ -1,5 +1,6 @@
-:root {
-    --yellow-green: #84c33e;
+* {
+    box-sizing: border-box;
+    transition: all .3s ease;
 }
 
 body, html {
@@ -205,8 +206,8 @@ label {
 /*Botones*/
 
 .btnNav {
-    background-color: var(--yellow-green);
-    border-color: var(--yellow-green);
+    background-color: #84c33e;
+    border-color: #84c33e;
     color: #2e2e2e;
 }
 
@@ -472,7 +473,7 @@ span.psw {
 }
 
 .table tbody tr.highlight td {
-    background-color: var(--yellow-green);
+    background-color: #84c33e;
 }
 
 .table {
@@ -497,7 +498,21 @@ div#notes {
 }
 
 @media (min-width: 991px) {
-	.col-md-9.col-sm-12 {
-    	margin-left: 12%;
-	}
+    .col-md-9.col-sm-12 {
+        margin-left: 12%;
+    }
+}
+
+/*Chat Grupal*/
+
+.chat {
+    content: '';
+    width: 100%;
+    height: calc(100vh - 165px);
+    background: #d1dbc4;
+    padding: 5px 10px;
+}
+
+.chat p {
+    margin: 0 0 5px 0;
 }
