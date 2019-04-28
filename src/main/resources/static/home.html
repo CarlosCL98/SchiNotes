@@ -105,6 +105,14 @@
               <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearGrupo"><i
                   class="fas fa-users"></i>&nbsp;Crear grupo</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownGruposUsuario" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" onclick="home.consultarMisGrupos()"><i
+                  class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Mis grupos
+              </a>
+              <div id="deployGruposButton" class="dropdown-menu" aria-labelledby="dropdownGruposUsuario">
+              </div>
+            </li>
           </ul>
           <!-- Modal para la creación de un horario -->
           <div class="modal fade" id="modalCrearHorario" tabindex="-1" role="dialog" aria-labelledby="modalLabelHorario"

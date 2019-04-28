@@ -25,6 +25,7 @@
   <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="js/home.js"></script>
+  <script src="js/homeGrupo.js"></script>
   <script src="js/appStomp.js"></script>
   <script src="js/appFunctions.js"></script>
   <script src="js/apiUsuario.js"></script>
@@ -33,6 +34,7 @@
   <script src="js/apiActividad.js"></script>
   <script src="js/modernizr.js"></script>
   <script src="js/main.js"></script>
+  
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <!-- Script para el botón que permite ir al inicio -->
@@ -48,7 +50,7 @@
   </script>
 </head>
 
-<body class="bg">
+<body class="bg" onload="homeGrupo.mostrarHorario()">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">
@@ -85,23 +87,12 @@
               <a class="nav-link active" href="home.html"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
             </li class="nav-item">
             
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownHorariosUsuario" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" onclick="home.consultarMisHorarios()"><i
-                  class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Ver horarios
-              </a>
-              <div id="deployHorariosButton" class="dropdown-menu" aria-labelledby="dropdownHorariosUsuario">
-              </div>
-            </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad"><i
                   class="fas fa-edit"></i>&nbsp;Crear actividad</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearGrupo"><i
-                  class="fas fa-users"></i>&nbsp;Crear grupo</a>
-            </li>
-          </ul>
+            
          
           <!-- Modal para la creacion de una actividad-->
           <div class="modal fade" id="modalCrearActividad" tabindex="-1" role="dialog"
@@ -179,44 +170,6 @@
                       </button>
                     </div>
                   </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Modal para crear un grupo -->
-          <div class="modal fade" id="modalCrearGrupo" tabindex="-1" role="dialog" aria-labelledby="modalLabelGrupo"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalLabelGrupo">Crear un grupo</h5>
-                  <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="form-group row">
-                      <label for="inputGrupoNombre" class="col-md-2 col-form-label">Nombre</label>
-                      <div class="col-md-10">
-                        <input id="inputGrupoNombre" type="text" class="form-control"
-                          placeholder="Ingrese un nombre"></input>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputGrupoDescripcion" class="col-md-3 col-form-label">Descripcion</label>
-                      <div class="col-md-9">
-                        <textarea id="inputGrupoDescripcion" type="text" class="form-control"
-                          placeholder="Ingrese la descripcion"></textarea>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-secondary btnNav" onclick="home.crearGrupo()"><i class="fas fa-plus-square"></i>
-                    Crear</button>
-                  <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
                 </div>
               </div>
             </div>
