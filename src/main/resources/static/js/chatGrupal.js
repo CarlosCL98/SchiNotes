@@ -15,20 +15,27 @@ var chatGrupal = (function () {
                 mostrarMensaje(eventbody.body);
             });
             stompClient.subscribe('/topic/conectado.' + idGrupoChat, function (eventbody) {
-                aumentarConectados(eventbody.body);
+                modificarConectados(eventbody.body);
+            });
+            stompClient.subscribe('/topic/desconectar.' + idGrupoChat, function (eventbody) {
+                modificarConectados(eventbody.body);
             });
             actualizarConectados();
         });
     };
 
     var actualizarConectados = function () {
-        stompClient.send('/app/conectado.' + grupoId, {}, JSON.stringify(1));
+        stompClient.send('/app/conectado.' + grupoId, {}, JSON.stringify(Cookies.get("username")));
     };
 
-    var aumentarConectados = function (param) {
+    var modificarConectados = function (param) {
         var conectado = JSON.parse(param);
         conectados = conectado;
         $("#conectadosChat").text("Conectados: " + conectados);
+    };
+
+    var desconectarChat = function () {
+        stompClient.send('/app/desconectar.' + grupoId, {}, JSON.stringify(Cookies.get("username")));
     };
 
     var mostrarMensaje = function (param) {
@@ -36,7 +43,7 @@ var chatGrupal = (function () {
         var usuario = datos.usuario;
         var mensaje = datos.mensaje;
         var fecha = new Date();
-        var cadenaFecha = fecha.getDate() + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear() + " - " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
+        var cadenaFecha = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear() + " - " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
         if (usuario === Cookies.get("username")) {
             $("#chatGrupal").append('<div class="balon1 p-2 m-0 position-relative" data-is="yo\n' + cadenaFecha + '"><a class="float-right"> ' + mensaje + ' </a></div>');
         } else {
@@ -52,6 +59,7 @@ var chatGrupal = (function () {
             connectAndSubscribe(grupoId);
         },
         disconnect: function () {
+            desconectarChat();
             if (stompClient !== null) {
                 stompClient.disconnect();
             }
