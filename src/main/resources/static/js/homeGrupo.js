@@ -1,7 +1,7 @@
 var homeGrupo = (function () {
 
     var mostrarHorario = function (horario) {
-        
+
         $("#schedule").remove();
         $("#mainContent").append('<div id="schedule" class="cd-schedule loading"></div>');
         var dias = horario.diasDeLaSemana;
@@ -23,7 +23,7 @@ var homeGrupo = (function () {
             apiActividad.getActividadById(event.target.dataset.actividadId, mostrarDescripcionActividad);
         });
         apiHorario.getActividades(Cookies.get('username'), horario.nombre, mostrarActividadesHorario);
-        
+
     };
 
     var mostrarActividadesHorario = function (actividades) {
@@ -54,9 +54,12 @@ var homeGrupo = (function () {
         appFunctions.draggable();
     };
 
-    return{
-        mostrarHorario : function () {
+    return {
+        mostrarHorario: function () {
             apiGrupo.getHorarioGrupo(Cookies.get('grupoId'), mostrarHorario);
+        },
+        salirseDelGrupo: function () {
+            apiGrupo.deleteIntegranteDeGrupo(Cookies.get('username'), Cookies.get('grupoId'));
         }
     }
 })();

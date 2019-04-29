@@ -109,4 +109,12 @@ public class GrupoDAOImpl implements GrupoDAO {
         }
         return grupos;
     }
+
+    @Override
+    public void deleteUserFromGroup(int grupoId, String correo) throws SchiNotesException {
+        String sql1 = "SELECT u.identificacion FROM Usuario u WHERE u.cuenta_correo = ?";
+        int idUsuario = jdbcTemplate.queryForObject(sql1, new Object[] { correo }, Integer.class);
+        String sql2 = "DELETE FROM grupo_de_trabajo WHERE grupo_identificacion = ? AND usuario_identificacion = ?";
+        jdbcTemplate.update(sql2, new Object[] { grupoId, idUsuario });
+    }
 }

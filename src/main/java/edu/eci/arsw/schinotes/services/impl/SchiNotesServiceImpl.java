@@ -201,11 +201,9 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     }
 
     private void integrarActividadesGrupo(Horario horarioGrupo, Horario horarioIntegrante) throws SchiNotesException {
-        System.out.println(horarioIntegrante.getActividades().size());
         for (Actividad a : horarioIntegrante.getActividades()) {
             String hora_ini = a.getHora_ini().substring(0, 2);
             hora_ini += ":00:00";
-            System.out.println(hora_ini);
             a.setHora_ini(hora_ini);
             int hora = Integer.parseInt(a.getHora_fin().substring(0, 2));
             hora += 1;
@@ -217,10 +215,8 @@ public class SchiNotesServiceImpl implements SchiNotesService {
                 hora_fin = String.valueOf(hora);
             }
             hora_fin += ":00:00";
-            System.out.println(hora_fin);
             a.setHora_fin(hora_fin);
             a.setHorario_id(horarioGrupo.getId());
-            System.out.println(a.toString());
             this.agregarActividad(a);
         }
     }
@@ -228,6 +224,11 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public List<Grupo> consultarTodosLosGrupos() throws SchiNotesException {
         return grupoDAO.getAllGroups();
+    }
+
+    @Override
+    public void eliminarIntegranteDeGrupo(int grupoId, String correo) throws SchiNotesException {
+        grupoDAO.deleteUserFromGroup(grupoId, correo);
     }
 
 }

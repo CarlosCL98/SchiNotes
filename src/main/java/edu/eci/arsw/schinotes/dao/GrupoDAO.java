@@ -24,5 +24,7 @@ public interface GrupoDAO {
 	public void saveIntegrante(int idGrupo, Usuario integrante, Horario horario);
 
     public List<Grupo> getAllGroups() throws SchiNotesException;
+
+	public void deleteUserFromGroup(int grupoId, String correo) throws SchiNotesException;
     
 }

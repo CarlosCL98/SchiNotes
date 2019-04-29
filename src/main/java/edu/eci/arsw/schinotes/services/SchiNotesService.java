@@ -61,5 +61,7 @@ public interface SchiNotesService {
     public List<Actividad> consultarActividadesPorHorarioId(int Horario) throws SchiNotesException;
 
 	public List<Grupo> consultarTodosLosGrupos() throws SchiNotesException;
+
+	public void eliminarIntegranteDeGrupo(int grupoId, String correo) throws SchiNotesException;
     
 }
