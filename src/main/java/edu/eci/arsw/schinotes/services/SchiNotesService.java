@@ -59,5 +59,7 @@ public interface SchiNotesService {
     public Horario consultarHorarioPorGrupo(int idGrupo) throws SchiNotesException;
 
     public List<Actividad> consultarActividadesPorHorarioId(int Horario) throws SchiNotesException;
+
+	public List<Grupo> consultarTodosLosGrupos() throws SchiNotesException;
     
 }

@@ -53,17 +53,14 @@ var perfil = (function () {
         apiUsuario.postAmigo(Cookies.get('username'), data);
     };
 
-    var mostrarGrupo = function () {
-
-    };
-
     var agregarOpcionesGrupos = function (data) {
         $("#deployGruposButton").empty();
         for (var i = 0; i < data.length; i++) {
-            $("#deployGruposButton").append("<a class='dropdown-item' href='#' data-grupo-id=" + data[i].identificacion + " data-grupo-nombre=" + data[i].nombre + ">" + data[i].nombre + "</a>");
+            $("#deployGruposButton").append("<a class='dropdown-item' href='homeGrupo.html' data-grupo-identificacion=" + data[i].identificacion + " data-grupo-nombre=" + data[i].nombre + ">" + data[i].nombre + "</a>");
         }
-        $("#deployHorariosButton").on("click", "a", function (event) {
-            mostrarGrupo(event.target.dataset.grupoId);
+        $("#deployGruposButton").on("click", "a", function (event) {
+            Cookies.set('grupoId',event.target.dataset.grupoIdentificacion, { expires: 1, path: '/' });
+            Cookies.set('grupoNombre',event.target.dataset.grupoNombre, { expires: 1, path: '/' });
         });
     };
 
@@ -79,8 +76,9 @@ var perfil = (function () {
         agregarAmigo: function () {
             apiUsuario.getUsuario(usuarioParaAgregar, agregarAmigoSeleccionado);
         },
-        consultarMisGrupos: function () {
-            apiGrupo.getGrupos(Cookies.get("username"), agregarOpcionesGrupos);
+        consultarMisGrupos: function(){
+            var usuario = Cookies.get('username');
+            apiGrupo.getGrupos(usuario, agregarOpcionesGrupos);
         }
     };
 

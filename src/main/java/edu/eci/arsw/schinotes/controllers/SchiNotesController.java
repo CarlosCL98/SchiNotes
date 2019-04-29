@@ -212,6 +212,16 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/grupos", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarTodosLosGrupos() {
+        try {
+            List<Grupo> grupos = schiNotesService.consultarTodosLosGrupos();
+            return new ResponseEntity<>(grupos, HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(value = "/usuarios/registrar", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarUsuario(@RequestBody Usuario usuario) throws FoundException {
         try {
@@ -291,7 +301,7 @@ public class SchiNotesController {
         }
     }
 
-    @RequestMapping(value = "/grupos/{idGrupo}/integrantes/{correo}/{nombreHorario}", method = RequestMethod.POST)
+    @RequestMapping(value = "/grupos/{idGrupo}/integrantes/{correo}/horarios/{nombreHorario}", method = RequestMethod.POST)
     public ResponseEntity<?> recursoAgregarIntegrante(@PathVariable int idGrupo, @PathVariable String correo, @PathVariable String nombreHorario) {
         try {
             Usuario integrante = schiNotesService.consultarUsuarioPorCorreo(correo);

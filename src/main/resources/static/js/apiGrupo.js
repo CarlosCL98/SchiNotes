@@ -18,9 +18,25 @@ var apiGrupo = (function () {
                 callback(data);
             });
         },
+        getAllGrupos: function (callback) {
+            $.get("/schinotes/grupos", function (data) {
+                callback(data);
+            });
+        },
         getHorarioGrupo: function (idGrupo, callback) {
             $.get("/schinotes/grupos/" + idGrupo, function (data) {
                 callback(data)
+            });
+        },
+        postAgregarIntegrante: function (usuarioCorreo, horarioNombre, idGrupo) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/schinotes/grupos/" + idGrupo + "/integrantes/" + usuarioCorreo + "/horarios/" + horarioNombre,
+            }).done(function () {
+                alert("Se ha unido exitosamente al grupo.");
+            }).fail(function () {
+                alert("No fue posible unirse al grupo. Intentelo nuevamente.");
             });
         }
     };

@@ -34,7 +34,7 @@
   <script src="js/apiActividad.js"></script>
   <script src="js/modernizr.js"></script>
   <script src="js/main.js"></script>
-  
+
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <!-- Script para el botón que permite ir al inicio -->
@@ -62,11 +62,10 @@
       <span class="narbar-text">
         <div class="dropdown mx-3">
           <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#" id="dropdownOpcionesUsuario"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-              class="fas fa-user-circle fa-fw"></i>
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users"></i>
           </button>
           <div id="opcionesUsuario" class="dropdown-menu" aria-labelledby="dropdownOpcionesUsuario">
-            <a class='dropdown-item' href='perfil.html'>Mi perfil</a>
+            <a class='dropdown-item' href="#">Información del Grupo</a>
           </div>
         </div>
       </span>
@@ -86,14 +85,14 @@
             <li class="nav-item">
               <a class="nav-link active" href="home.html"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
             </li class="nav-item">
-            
-            
             <li class="nav-item">
               <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad"><i
                   class="fas fa-edit"></i>&nbsp;Crear actividad</a>
             </li>
-            
-         
+            <li class="nav-item">
+              <a class="nav-link" href="chatGrupal.html"><i class="fas fa-comments"></i>&nbsp;Entrar a chat</a>
+            </li>
+          </ul>
           <!-- Modal para la creacion de una actividad-->
           <div class="modal fade" id="modalCrearActividad" tabindex="-1" role="dialog"
             aria-labelledby="modalLabelHorario" aria-hidden="true">

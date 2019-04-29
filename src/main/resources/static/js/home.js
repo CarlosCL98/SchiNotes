@@ -1,11 +1,16 @@
 /* global Cookies, apiUsuario, apiHorario */
 var home = (function () {
-    
+
     var actividadHorarioId = null;
     var actividadHorario = null;
     var actividadDia = null;
     var actividadHoraInicio = null;
     var actividadHoraFin = null;
+
+    var grupoHorarioId = null;
+    var grupoHorarioNombre = null;
+    var grupoNombre = null;
+    var idGrupo = null;
 
     var mostrarHorario = function (horario) {
         $("#schedule").remove();
@@ -22,9 +27,9 @@ var home = (function () {
         }
         apiHorario.getActividades(Cookies.get('username'), horario.nombre, mostrarActividadesHorario);
     };
-    
+
     var mostrarActividadesHorario = function (actividades) {
-        
+
         for (var i = 0; i < actividades.length; i++) {
             $("#" + actividades[i].dia).append("<ul></ul>");
             $("#" + actividades[i].dia).find("ul").append("<li class='single-event drag' data-start='" + (actividades[i].hora_ini).substring(0, 5) + "' data-end='" + (actividades[i].hora_fin).substring(0, 5) + "' data-content='event-actividades' data-event='event-" + (i + 1) + "'><a href='#0' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></a></li>");
@@ -60,17 +65,6 @@ var home = (function () {
         $("#deployHorariosButton").on("click", "a", function (event) {
             cambiarHorario(event.target.dataset.horarioNombre);
             appStomp.init(event.target.dataset.horarioId);
-        });
-    };
-
-    var agregarOpcionesGrupos = function (data) {
-        console.log(data)
-        $("#deployGruposButton").empty();
-        for (var i = 0; i < data.length; i++) {
-            $("#deployGruposButton").append("<a class='dropdown-item' href='homeGrupo.html'" + " data-grupo-identificacion=" + data[i].identificacion+ ">" + data[i].nombre + "</a>");
-        }
-        $("#deployGruposButton").on("click", "a", function (event) {
-            Cookies.set('grupo',event.target.dataset.grupoIdentificacion, { expires: 1, path: '/' });
         });
     };
 
@@ -123,7 +117,33 @@ var home = (function () {
         });
     };
 
-    return {        
+    var agregaropcionesHorariosUnirseGrupo = function (data) {
+        $("#opcionesHorarioUnirseGrupo").empty();
+        for (var i = 0; i < data.length; i++) {
+            $("#opcionesHorarioUnirseGrupo").append("<a class='dropdown-item' href='#' data-horario-id=" + data[i].id + " data-horario-nombre=" + data[i].nombre + ">" + data[i].nombre + "</a>");
+        }
+        $("#opcionesHorarioUnirseGrupo").on("click", "a", function (event) {
+            var nombreHorario = event.target.dataset.horarioNombre;
+            var idHorario = event.target.dataset.horarioId;
+            grupoHorarioNombre = nombreHorario;
+            grupoHorarioId = idHorario;
+            $("#labelHorarioParaGrupo").text("Horario seleccionado: " + nombreHorario);
+        });
+    };
+
+    var agregarOpcionesGruposUnirseGrupo = function (data) {
+        $("#opcionesGruposUnirseGrupo").empty();
+        for (var i = 0; i < data.length; i++) {
+            $("#opcionesGruposUnirseGrupo").append("<a class='dropdown-item' href='#' data-grupo-identificacion=" + data[i].identificacion + " data-grupo-nombre=" + data[i].nombre + ">" + data[i].nombre + "</a>");
+        }
+        $("#opcionesGruposUnirseGrupo").on("click", "a", function (event) {
+            nombreGrupo = event.target.dataset.grupoNombre;
+            idGrupo = event.target.dataset.grupoIdentificacion;
+            $("#labelGrupoParaGrupo").text("Grupo seleccionado: " + nombreGrupo);
+        });
+    }
+
+    return {
         agregarHorario: function () {
             var data = {
                 id: "1",
@@ -137,13 +157,13 @@ var home = (function () {
             var usuario = Cookies.get('username');
             apiHorario.getHorarios(usuario, agregarOpcionesHorarios);
         },
-        consultarMisGrupos: function(){
-            var usuario = Cookies.get('username');
-            apiGrupo.getGrupos(usuario, agregarOpcionesGrupos);
-        },
         consultarMisHorariosParaActividades: function () {
             var usuario = Cookies.get('username');
             apiHorario.getHorarios(usuario, agregaropcionesHorariosActividades);
+        },
+        consultarMisHorariosParaElGrupo: function () {
+            var usuario = Cookies.get('username');
+            apiHorario.getHorarios(usuario, agregaropcionesHorariosUnirseGrupo);
         },
         agregarActividad: function () {
             var data = {
@@ -157,13 +177,11 @@ var home = (function () {
                 hora_fin: actividadHoraFin
             }
             apiHorario.postActividad(data, Cookies.get('username'), data.horario_id);
-            //cambiarHorario(actividadHorario);
             appStomp.cambiarHorarioConActividades(data);
         },
         recargarHorario: function (horario) {
             cambiarHorario(horario.nombre);
         },
-        
         crearGrupo: function () {
             data = {
                 identificacion: "1",
@@ -172,10 +190,15 @@ var home = (function () {
             };
             apiGrupo.postGrupo(Cookies.get("username"), data);
         },
-
+        consultarGrupos: function () {
+            apiGrupo.getAllGrupos(agregarOpcionesGruposUnirseGrupo);
+        },
+        uniserAlGrupo: function () {
+            apiGrupo.postAgregarIntegrante(Cookies.get("username"), grupoHorarioNombre, idGrupo);
+        }/*,
         consultarHorarioGrupo: function(){
             apiGrupo.getHorarioGrupo
-        }
+        }*/
     };
 
 })();

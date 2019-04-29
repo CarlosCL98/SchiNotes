@@ -14,7 +14,6 @@ var homeGrupo = (function () {
         for (var i = 0; i < dias.length; i++) {
             $("#eventosHorario").find("ul").append("<li class='events-group' id=" + dias[i].nombre + "><div class='top-info'><span>" + dias[i].nombre + "</span></div></li>");
         }
-
         for (var i = 0; i < horario.actividades.length; i++) {
             $("#" + horario.actividades[i].dia).append("<ul></ul>");
             $("#" + horario.actividades[i].dia).find("ul").append("<li class='single-event drag' data-start='" + (horario.actividades[i].hora_ini).substring(0, 5) + "' data-end='" + (horario.actividades[i].hora_fin).substring(0, 5) + "' data-content='event-actividades' data-event='event-" + (i + 1) + "'><a href='#0' data-actividad-id=" + horario.actividades[i].id + "><em class='event-name'>" + horario.actividades[i].nombre + "</em></a></li>");
@@ -23,14 +22,11 @@ var homeGrupo = (function () {
         $(".single-event").on("click", "a", function (event) {
             apiActividad.getActividadById(event.target.dataset.actividadId, mostrarDescripcionActividad);
         });
-
-        console.log(horario)
         apiHorario.getActividades(Cookies.get('username'), horario.nombre, mostrarActividadesHorario);
         
     };
 
     var mostrarActividadesHorario = function (actividades) {
-        console.log(actividades)
         for (var i = 0; i < actividades.length; i++) {
             $("#" + actividades[i].dia).append("<ul></ul>");
             $("#" + actividades[i].dia).find("ul").append("<li class='single-event drag' data-start='" + (actividades[i].hora_ini).substring(0, 5) + "' data-end='" + (actividades[i].hora_fin).substring(0, 5) + "' data-content='event-actividades' data-event='event-" + (i + 1) + "'><a href='#0' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></a></li>");
@@ -60,7 +56,7 @@ var homeGrupo = (function () {
 
     return{
         mostrarHorario : function () {
-            apiGrupo.getHorarioGrupo(Cookies.get('grupo'), mostrarHorario);
+            apiGrupo.getHorarioGrupo(Cookies.get('grupoId'), mostrarHorario);
         }
     }
 })();

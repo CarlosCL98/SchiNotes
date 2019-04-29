@@ -7,6 +7,10 @@ import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Horario;
 import edu.eci.arsw.schinotes.model.Usuario;
 
+/**
+ * @author Daniel Rosales
+ * @author Carlos Medina
+ */
 public interface GrupoDAO {
 
     public int maxIdGrupo();
@@ -19,5 +23,6 @@ public interface GrupoDAO {
 
 	public void saveIntegrante(int idGrupo, Usuario integrante, Horario horario);
 
-
+    public List<Grupo> getAllGroups() throws SchiNotesException;
+    
 }

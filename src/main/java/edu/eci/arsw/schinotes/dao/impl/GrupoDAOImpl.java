@@ -69,7 +69,6 @@ public class GrupoDAOImpl implements GrupoDAO {
     public Horario loadHorarioGrupo(int idGrupo) {
         String sql = "SELECT * FROM horario,grupo WHERE horario.id = grupo.horario_id AND grupo.identificacion = ?";
         return jdbcTemplate.queryForObject(sql, new Object[] { idGrupo }, new RowMapper<Horario>() {
-
             @Override
             public Horario mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Horario grupoHorario = new Horario();
@@ -83,7 +82,6 @@ public class GrupoDAOImpl implements GrupoDAO {
                 grupoHorario.setGrupo(grupo);
                 return grupoHorario;
             }
-
         });
     }
 
@@ -92,5 +90,23 @@ public class GrupoDAOImpl implements GrupoDAO {
         String sql = "INSERT INTO grupo_de_trabajo(rol, grupo_identificacion,usuario_identificacion) values('Integrante',"
                 + idGrupo + "," + integrante.getIdentificacion() + ");";
         jdbcTemplate.update(sql);
+    }
+
+    @Override
+    public List<Grupo> getAllGroups() throws SchiNotesException {
+        String sql = "SELECT g.identificacion,g.nombre,g.descripcion FROM Grupo g";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+        List<Grupo> grupos = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Grupo grupo = new Grupo();
+            grupo.setIdentificacion((int) row.get("identificacion"));
+            grupo.setNombre((String) row.get("nombre"));
+            grupo.setDescripcion((String) row.get("descripcion"));
+            grupos.add(grupo);
+        }
+        if (grupos.isEmpty()) {
+            throw new SchiNotesException("No hay grupos existentes.");
+        }
+        return grupos;
     }
 }
