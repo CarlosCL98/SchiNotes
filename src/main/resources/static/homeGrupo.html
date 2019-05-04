@@ -14,8 +14,8 @@
   <link href="css/app.css" type="text/css" rel="stylesheet" />
   <link href="css/footer.css" type="text/css" rel="stylesheet" />
   <link href="css/sidebar.css" type="text/css" rel="stylesheet" />
-  <link href="css/reset.css" type="text/css" rel="stylesheet" />
-  <link href="css/style.css" type="text/css" rel="stylesheet" />
+  <!--<link href="css/reset.css" type="text/css" rel="stylesheet" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" />-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
     integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -32,8 +32,9 @@
   <script src="js/apiHorario.js"></script>
   <script src="js/apiGrupo.js"></script>
   <script src="js/apiActividad.js"></script>
-  <script src="js/modernizr.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/drag.js"></script>
+  <!--<script src="js/modernizr.js"></script>
+  <script src="js/main.js"></script>-->
 
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -93,8 +94,9 @@
               <a class="nav-link" href="chatGrupal.html"><i class="fas fa-comments"></i>&nbsp;Entrar a chat</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="homeGrupo.salirseDelGrupo()"><i class="fas fa-sign-out-alt"></i>&nbsp;Salirse del grupo</a>
-              </li>
+              <a class="nav-link" href="#" onclick="homeGrupo.salirseDelGrupo()"><i
+                  class="fas fa-sign-out-alt"></i>&nbsp;Salirse del grupo</a>
+            </li>
           </ul>
           <!-- Modal para la creacion de una actividad-->
           <div class="modal fade" id="modalCrearActividad" tabindex="-1" role="dialog"
@@ -180,8 +182,15 @@
       </nav>
       <!-- Main contenido al lado del slidebar-->
       <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
-        <div id="schedule" class="cd-schedule loading">
-        </div> <!-- .cd-schedule -->
+        <div id="drag" class="table-responsive">
+          <table id="schedule" class="table table-light table-striped table-border">
+            <thead>
+              <tr></tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div> <!-- Tabla del horario grupal -->
       </main>
     </div>
   </div>

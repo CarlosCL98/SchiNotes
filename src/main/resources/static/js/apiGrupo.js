@@ -24,7 +24,7 @@ var apiGrupo = (function () {
             });
         },
         getHorarioGrupo: function (idGrupo, callback) {
-            $.get("/schinotes/grupos/" + idGrupo, function (data) {
+            $.get("/schinotes/grupos/" + idGrupo + "/horarios", function (data) {
                 callback(data)
             });
         },
@@ -45,7 +45,7 @@ var apiGrupo = (function () {
                 url: "/schinotes/grupos/" + idGrupo + "/integrantes/" + usuarioCorreo,
             }).done(function () {
                 alert("Ha sido eliminado con éxito.");
-                $(location).attr("href","../home.html");
+                $(location).attr("href", "../home.html");
             }).fail(function () {
                 alert("No fue posible eliminarlo del grupo. Inténtelo nuevamente.");
             });

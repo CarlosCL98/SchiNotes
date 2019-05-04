@@ -149,6 +149,16 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/grupos/{grupoId}/horarios/{nombreHorario}", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarActividadesPorGrupo(@PathVariable int grupoId, @PathVariable String nombreHorario) {
+        try {
+            List<Actividad> actividades = schiNotesService.consultarActividadesPorGrupo(grupoId, nombreHorario);
+            return new ResponseEntity<>(actividades, HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     @RequestMapping(value = "/usuarios/{correo}/amigos", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarAmigo(@PathVariable String correo) {
         try {
@@ -202,7 +212,7 @@ public class SchiNotesController {
         }
     }
 
-    @RequestMapping(value = "/grupos/{idGrupo}", method = RequestMethod.GET)
+    @RequestMapping(value = "/grupos/{idGrupo}/horarios", method = RequestMethod.GET)
     public ResponseEntity<?> recursoConsultarHorarioGrupo(@PathVariable int idGrupo) {
         try {
             Horario horario = schiNotesService.consultarHorarioPorGrupo(idGrupo);

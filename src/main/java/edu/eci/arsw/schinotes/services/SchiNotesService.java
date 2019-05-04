@@ -31,37 +31,39 @@ public interface SchiNotesService {
     public Horario consultarHorarioById(String correo, int id) throws SchiNotesException;
 
     public void agregarActividad(Actividad actividad) throws SchiNotesException;
-    
+
     public Actividad consultarActividad(String correo, String nombre, String actividad) throws SchiNotesException;
-    
+
     public List<Actividad> consultarActividades(String correo, String nombre) throws SchiNotesException;
 
-    public void agregarAmigo(String correo1,String correo2) throws SchiNotesException;
+    public void agregarAmigo(String correo1, String correo2) throws SchiNotesException;
 
     public List<Usuario> consultarAmigos(String correo) throws SchiNotesException;
 
     public List<Horario> consultarHorarios(String correo) throws SchiNotesException;
-    
+
     public List<Usuario> consultarPersonasIncompleta(String correoPersona) throws SchiNotesException;
 
     public void crearGrupo(String correo, Grupo grupo) throws SchiNotesException;
 
-	public List<Grupo> consultarGruposDeUnUsuario(String correo) throws SchiNotesException;
+    public List<Grupo> consultarGruposDeUnUsuario(String correo) throws SchiNotesException;
 
-	public Actividad consultarActividadById(int actividadId) throws SchiNotesException;
+    public Actividad consultarActividadById(int actividadId) throws SchiNotesException;
 
     public void verificarCuenta(String correo) throws SchiNotesException;
-    
+
     public boolean cuentaEstaVerificada(String correo);
 
     public void agregarNuevoIntegrante(int idGrupo, Usuario integrante, Horario horario) throws SchiNotesException;
-    
+
     public Horario consultarHorarioPorGrupo(int idGrupo) throws SchiNotesException;
 
     public List<Actividad> consultarActividadesPorHorarioId(int Horario) throws SchiNotesException;
 
-	public List<Grupo> consultarTodosLosGrupos() throws SchiNotesException;
+    public List<Grupo> consultarTodosLosGrupos() throws SchiNotesException;
 
-	public void eliminarIntegranteDeGrupo(int grupoId, String correo) throws SchiNotesException;
-    
+    public void eliminarIntegranteDeGrupo(int grupoId, String correo) throws SchiNotesException;
+
+    public List<Actividad> consultarActividadesPorGrupo(int grupoId, String nombreHorario) throws SchiNotesException;
+
 }

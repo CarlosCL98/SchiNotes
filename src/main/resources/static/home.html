@@ -14,8 +14,8 @@
   <link href="css/app.css" type="text/css" rel="stylesheet" />
   <link href="css/footer.css" type="text/css" rel="stylesheet" />
   <link href="css/sidebar.css" type="text/css" rel="stylesheet" />
-  <link href="css/reset.css" type="text/css" rel="stylesheet" />
-  <link href="css/style.css" type="text/css" rel="stylesheet" />
+  <!--<link href="css/reset.css" type="text/css" rel="stylesheet" />-->
+  <!--<link href="css/style.css" type="text/css" rel="stylesheet" />-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
     integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -31,8 +31,9 @@
   <script src="js/apiHorario.js"></script>
   <script src="js/apiGrupo.js"></script>
   <script src="js/apiActividad.js"></script>
-  <script src="js/modernizr.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/drag.js"></script>
+  <!--<script src="js/modernizr.js"></script>-->
+  <!--<script src="js/main.js"></script>-->
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <!-- Script para el botón que permite ir al inicio -->
@@ -91,7 +92,8 @@
             <li class="nav-item">
               <a class="nav-link dropdown-toggle" href="#" id="dropdownHorariosUsuario" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" onclick="home.consultarMisHorarios()"><i
-                  class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Ver horarios
+                  class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Ver
+                horarios
               </a>
               <div id="deployHorariosButton" class="dropdown-menu" aria-labelledby="dropdownHorariosUsuario">
               </div>
@@ -137,7 +139,8 @@
                       <label class="col-md-6">Ejm: 130 equivale a 1:30 min</label>
                     </div>
                     <div class="form-group row">
-                      <label for="horarioNumDias" class="col-md-3 col-form-label">Número días</label>
+                      <label for="horarioNumDias" class="col-md-3 col-form-label">Número
+                        días</label>
                       <div class="col-md-3">
                         <input id="horarioNumDias" class="form-control" type="number" min="1" max="7"></input>
                       </div>
@@ -148,7 +151,8 @@
                   <button class="btn btn-secondary btnNav" onclick="home.agregarHorario()"><i
                       class="fas fa-calendar-alt"></i> Crear</button>
                   <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
+                    aria-label="Cerrar"><i class="fas fa-window-close"></i>
+                    Cerrar</button>
                 </div>
               </div>
             </div>
@@ -222,7 +226,8 @@
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-secondary btnNav" onclick="home.agregarActividad()"><i
-                          class="fas fa-calendar-alt"></i> Crear
+                          class="fas fa-calendar-alt"></i>
+                        Crear
                       </button>
                       <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
                         aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
@@ -267,7 +272,8 @@
                       class="fas fa-plus-square"></i>
                     Crear</button>
                   <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
+                    aria-label="Cerrar"><i class="fas fa-window-close"></i>
+                    Cerrar</button>
                 </div>
               </div>
             </div>
@@ -310,7 +316,8 @@
                       class="fas fa-plus-square"></i>
                     Unirse</button>
                   <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
+                    aria-label="Cerrar"><i class="fas fa-window-close"></i>
+                    Cerrar</button>
                 </div>
               </div>
             </div>
@@ -319,8 +326,15 @@
       </nav>
       <!-- Main contenido al lado del slidebar-->
       <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
-        <div id="schedule" class="cd-schedule loading">
-        </div> <!-- .cd-schedule -->
+        <div id="drag" class="table-responsive">
+          <table id="schedule" class="table table-light table-striped table-border">
+            <thead>
+              <tr></tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div> <!-- Tabla del horario -->
       </main>
     </div>
   </div>

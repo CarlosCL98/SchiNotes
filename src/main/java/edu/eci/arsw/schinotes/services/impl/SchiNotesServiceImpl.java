@@ -231,4 +231,9 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         grupoDAO.deleteUserFromGroup(grupoId, correo);
     }
 
+    @Override
+    public List<Actividad> consultarActividadesPorGrupo(int grupoId, String nombreHorario) throws SchiNotesException {
+        return actividadDAO.loadActividadesByGroup(grupoId, nombreHorario);
+    }
+
 }

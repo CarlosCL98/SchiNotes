@@ -50,6 +50,21 @@ public interface ActividadDAO {
      */
     public Actividad loadActividadById(int actividadId) throws SchiNotesException;
 
-
+    /**
+     * Se obtienen las actividades dado el id del horario.
+     * 
+     * @param idHorario
+     * @return una lista con las actividades
+     * @throws SchiNotesException
+     */
     public List<Actividad> loadActividadesByHorarioId(int idHorario) throws SchiNotesException;
+
+    /**
+     * 
+     * @param grupoId
+     * @param nombreHorario
+     * @return una lista con las actividades
+     * @throws SchiNotesException
+     */
+	public List<Actividad> loadActividadesByGroup(int grupoId, String nombreHorario) throws SchiNotesException;
 }

@@ -16,13 +16,6 @@ var apiHorario = (function () {
                 callback(data);
             });
         },
-        getActividades: function (usuario, horario, callback) {
-            
-            $.get("/schinotes/usuarios/" + usuario + "/horarios/" + horario + "/actividades", function (data) {
-                
-                callback(data);
-            });
-        },
         postHorario: function (data, correo) {
             $.ajax({
                 type: "POST",
@@ -33,18 +26,6 @@ var apiHorario = (function () {
                 alert("El horario se creo exitosamente");
             }).fail(function () {
                 alert("El horario no se pudo crear. Intentelo nuevamente.");
-            });
-        },
-        postActividad: function (data, correo, idHorario) {
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "/schinotes/usuarios/" + correo + "/horarios/" + idHorario + "/actividades",
-                data: JSON.stringify(data)
-            }).done(function () {
-                alert("La Actividad se creo exitosamente");
-            }).fail(function () {
-                alert("La Actividad no se pudo crear. Intentelo nuevamente.");
             });
         }
     };
