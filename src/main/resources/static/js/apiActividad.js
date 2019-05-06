@@ -40,8 +40,8 @@ var apiActividad = (function () {
                 }).fail(function () {
                     setTimeout(function () {
                         $('#modalCargandoHome').modal('hide');
-                        $("#crearHorarioAlert").append("<div id='alertFalloCrearHorario' class='col-md-12'><div class='alert alert-danger alert-dismissible fade show' role='alert'>La Actividad no se pudo crear. Intentelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
-                        $('#alertFalloCrearHorario').on('close.bs.alert', function () {
+                        $("#crearActividadAlert").append("<div id='alertFalloCrearActividad' class='col-md-12'><div class='alert alert-danger alert-dismissible fade show' role='alert'>La Actividad no se pudo crear. Intentelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                        $('#alertFalloCrearActividad').on('close.bs.alert', function () {
                             $(this).remove();
                         });
                     }, 500);

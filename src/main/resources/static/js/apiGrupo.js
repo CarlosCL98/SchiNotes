@@ -1,17 +1,45 @@
 var apiGrupo = (function () {
 
     return {
-        postGrupo: function (nombreUsuario, datosGrupo) {
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "/schinotes/usuarios/" + nombreUsuario + "/grupos",
-                data: JSON.stringify(datosGrupo)
-            }).done(function () {
-                alert("El grupo se creo exitosamente");
-            }).fail(function () {
-                alert("El grupo no se pudo crear. Intentelo nuevamente.");
-            });
+        postGrupo: function (nombreUsuario, datosGrupo, callback) {
+            var infoCompleta = callback(data);
+            if (infoCompleta) {
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "/schinotes/usuarios/" + nombreUsuario + "/grupos",
+                    data: JSON.stringify(datosGrupo)
+                }).done(function () {
+                    setTimeout(function () {
+                        $('#modalCargandoHome').modal('hide');
+                        $("#crearGrupoAlert").append("<div id='alertGrupoCreado' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>El grupo se creo exitosamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                        $('#alertGrupoCreado').on('close.bs.alert', function () {
+                            $(this).remove();
+                        });
+                    }, 500);
+                    setTimeout(function () {
+                        $('#alertGrupoCreado').remove();
+                        $('#modalCrearGrupo').modal('hide');
+                    }, 2000);
+                }).fail(function () {
+                    setTimeout(function () {
+                        $('#modalCargandoHome').modal('hide');
+                        $("#crearGrupoAlert").append("<div id='alertFalloCrearGrupo' class='col-md-12'><div class='alert alert-danger alert-dismissible fade show' role='alert'>El grupo no se pudo crear. Intentelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                        $('#alertFalloCrearGrupo').on('close.bs.alert', function () {
+                            $(this).remove();
+                        });
+                    }, 500);
+                    alert("El grupo no se pudo crear. Intentelo nuevamente.");
+                });
+            } else {
+                setTimeout(function () {
+                    $('#modalCargandoHome').modal('hide');
+                    $("#crearGrupoAlert").append("<div id='alertGrupoInfoIncom' class='col-md-12'><div class='alert alert-warning alert-dismissible fade show' role='alert'>Debe llenar todos los campos para crear un grupo.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $('#alertGrupoInfoIncom').on('close.bs.alert', function () {
+                        $(this).remove();
+                    });
+                }, 500);
+            }
         },
         getGrupos: function (correoUsuario, callback) {
             $.get("/schinotes/usuarios/" + correoUsuario + "/grupos", function (data) {

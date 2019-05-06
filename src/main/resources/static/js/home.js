@@ -33,11 +33,12 @@ var home = (function () {
 
     var mostrarActividadesHorario = function (actividades) {
         for (var i = 0; i < actividades.length; i++) {
-            $("#" + $.escapeSelector((actividades[i].hora_ini).substring(0, 5) + "-" + actividades[i].dia)).append("<div class='single-event drag t1'><a type='button' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></a></div>");
+            $("#" + $.escapeSelector((actividades[i].hora_ini).substring(0, 5) + "-" + actividades[i].dia)).append("<div class='single-event drag t1'><button class='btn btn-sm btn-secondary' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></button></div>");
         }
         crearModalActividades();
         appFunctions.hacerDraggable();
-        $(".single-event").on("click", "a", function (event) {
+        $(".single-event").on("click", "button", function (event) {
+            console.log(event.target);
             apiActividad.getActividadById(event.target.dataset.actividadId, mostrarDescripcionActividad);
         });
     };
@@ -161,6 +162,14 @@ var home = (function () {
         return infoCompleta;
     };
 
+    var verficarDatosCrearGrupo = function (data) {
+        var infoCompleta = true;
+        if (data.nombre === "" || data.descripcion === "") {
+            infoCompleta = false;
+        }
+        return infoCompleta;
+    };
+
     return {
         agregarHorario: function () {
             var data = {
@@ -205,7 +214,7 @@ var home = (function () {
                 nombre: $("#inputGrupoNombre").val(),
                 descripcion: $("#inputGrupoDescripcion").val()
             };
-            apiGrupo.postGrupo(Cookies.get("username"), data);
+            apiGrupo.postGrupo(Cookies.get("username"), data, verficarDatosCrearGrupo);
         },
         consultarGrupos: function () {
             apiGrupo.getAllGrupos(agregarOpcionesGruposUnirseGrupo);
