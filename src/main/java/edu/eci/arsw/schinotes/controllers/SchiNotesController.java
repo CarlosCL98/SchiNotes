@@ -150,7 +150,8 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/grupos/{grupoId}/horarios/{nombreHorario}", method = RequestMethod.GET)
-    public ResponseEntity<?> recursoConsultarActividadesPorGrupo(@PathVariable int grupoId, @PathVariable String nombreHorario) {
+    public ResponseEntity<?> recursoConsultarActividadesPorGrupo(@PathVariable int grupoId,
+            @PathVariable String nombreHorario) {
         try {
             List<Actividad> actividades = schiNotesService.consultarActividadesPorGrupo(grupoId, nombreHorario);
             return new ResponseEntity<>(actividades, HttpStatus.ACCEPTED);
@@ -205,7 +206,6 @@ public class SchiNotesController {
     public ResponseEntity<?> recursoCuentaEstaVerificada(@PathVariable String correo) {
         try {
             boolean estaVerficada = schiNotesService.cuentaEstaVerificada(correo);
-            System.out.println(estaVerficada);
             return new ResponseEntity<>(estaVerficada, HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -237,6 +237,8 @@ public class SchiNotesController {
         try {
             String codigoComprobacion = randomAlphaNumeric(10);
             codigosComprobacion.put(usuario.getCuentaCorreo().getCorreo(), codigoComprobacion);
+            schiNotesService.crearCuenta(usuario.getCuentaCorreo());
+            schiNotesService.registrarUsuario(usuario);
             SchiNotesThread enviarCorreo = new SchiNotesThread(usuario.getCuentaCorreo().getCorreo(),
                     "Usuario creado exitosamente",
                     "Hola " + usuario.getCuentaCorreo().getNickname() + ".\n"
@@ -248,8 +250,6 @@ public class SchiNotesController {
                             + "Atentamente,\nEl staff de SchiNotes",
                     emailService);
             enviarCorreo.start();
-            schiNotesService.crearCuenta(usuario.getCuentaCorreo());
-            schiNotesService.registrarUsuario(usuario);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             throw new FoundException(ex.getMessage());

@@ -145,6 +145,22 @@ var home = (function () {
         });
     };
 
+    var verficarDatosCrearHorario = function (data) {
+        var infoCompleta = true;
+        if (data.nombre === "" || data.intervaloHoras === "" || data.numeroDias === "") {
+            infoCompleta = false;
+        }
+        return infoCompleta;
+    };
+
+    var verficarDatosCrearActividad = function (data) {
+        var infoCompleta = true;
+        if (data.nombre === "" || data.descripcion === "" || data.horario_id === null || data.dia === null || data.hora_ini === null || data.hora_fin === null) {
+            infoCompleta = false;
+        }
+        return infoCompleta;
+    };
+
     return {
         agregarHorario: function () {
             var data = {
@@ -153,7 +169,7 @@ var home = (function () {
                 intervaloHoras: $('#intervaloHoras').val(),
                 numeroDias: $('#horarioNumDias').val()
             }
-            apiHorario.postHorario(data, Cookies.get('username'));
+            apiHorario.postHorario(data, Cookies.get('username'), verficarDatosCrearHorario);
         },
         consultarMisHorarios: function () {
             var usuario = Cookies.get('username');
@@ -178,8 +194,7 @@ var home = (function () {
                 hora_ini: actividadHoraInicio,
                 hora_fin: actividadHoraFin
             }
-            apiActividad.postActividad(data, Cookies.get('username'), data.horario_id);
-            appStomp.cambiarHorarioConActividades(data);
+            apiActividad.postActividad(data, Cookies.get('username'), data.horario_id, verficarDatosCrearActividad, appStomp.cambiarHorarioConActividades);
         },
         recargarHorario: function (horario) {
             cambiarHorario(horario.nombre);

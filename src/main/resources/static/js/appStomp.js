@@ -11,7 +11,7 @@ var appStomp = (function () {
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/horario.' + idHorario, function (eventbody) {
-                apiHorario.getHorarioById(Cookies.get("username"), idHorario, app.recargarHorario);
+                apiHorario.getHorarioById(Cookies.get("username"), idHorario, home.recargarHorario);
             });
         });
     };

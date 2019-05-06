@@ -64,11 +64,28 @@
           placeholder="Confirmar Contraseña" required>
       </div>
       <div class="form-group">
-        <input type="button" value="Registrarse" class="btn btn-secondary btnNav btn-lg btn-block"
-          onclick="register.registrarUsuario()">
+        <input type="button" value="Registrarse" class="btn btn-secondary btnNav btn-lg btn-block" data-toggle="modal"
+          onclick="register.registrarUsuario()" data-target="#modalCargandoRegistrar">
+      </div>
+      <div id="registerAlert1" class="row">
       </div>
     </form>
     <div class="text-center">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></div>
+  </div>
+  <!-- Modal de cargando -->
+  <div class="modal fade" id="modalCargandoRegistrar" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-success" role="status"></div>
+              <span>&nbsp;Registrando Usuario...</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- Footer -->
   <footer id="myFooter">

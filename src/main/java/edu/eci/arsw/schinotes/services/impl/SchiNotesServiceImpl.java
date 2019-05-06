@@ -83,7 +83,6 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         horarioDAO.saveHorario(horario);
         DiasPorHorarioDAO.saveDiasPorHorario(horario);
         for (DiaDeLaSemana diaSemana : horario.getDiasDeLaSemana()) {
-            System.out.println(horario.getDiasDeLaSemana().size());
             for (Hora h : horario.getHoras()) {
                 horaDAO.saveHora(h, horario.getId(), diaSemana.getNombre());
             }

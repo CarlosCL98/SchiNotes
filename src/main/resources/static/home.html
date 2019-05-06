@@ -145,10 +145,12 @@
                         <input id="horarioNumDias" class="form-control" type="number" min="1" max="7"></input>
                       </div>
                     </div>
+                    <div id="crearHorarioAlert" class="row">
+                    </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-secondary btnNav" onclick="home.agregarHorario()"><i
+                  <button class="btn btn-secondary btnNav" onclick="home.agregarHorario()" data-toggle="modal" data-target="#modalCargandoHome"><i
                       class="fas fa-calendar-alt"></i> Crear</button>
                   <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
                     aria-label="Cerrar"><i class="fas fa-window-close"></i>
@@ -223,9 +225,11 @@
                         id="opcionesHorarioCrearActividadHorasFin">
                       </div>
                       <label id="labelHorasFin"></label>
+                      <div id="crearActividadAlert" class="row">
+                        </div>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-secondary btnNav" onclick="home.agregarActividad()"><i
+                      <button class="btn btn-secondary btnNav" onclick="home.agregarActividad()" data-toggle="modal" data-target="#modalCargandoHome"><i
                           class="fas fa-calendar-alt"></i>
                         Crear
                       </button>
@@ -336,6 +340,21 @@
           </table>
         </div> <!-- Tabla del horario -->
       </main>
+    </div>
+  </div>
+  <!-- Modal de cargando -->
+  <div class="modal fade" id="modalCargandoHome" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-success" role="status"></div>
+              <span>&nbsp;Creando...</span>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Scroll to Top Button-->
