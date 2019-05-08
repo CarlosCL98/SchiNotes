@@ -1,4 +1,4 @@
-var homeGrupo = (function() {
+var homeGrupo = (function () {
   var actividadHorarioId = null;
   var actividadHorario = null;
   var actividadDia = null;
@@ -10,9 +10,9 @@ var homeGrupo = (function() {
   var grupoNombre = null;
   var idGrupo = null;
 
-  var mostrarHorario = function(horario) {
+  var mostrarHorario = function (horario) {
 
-    
+
     grupoHorarioId = horario.id;
     grupoHorarioNombre = horario.nombre;
     $("#schedule").empty();
@@ -27,10 +27,10 @@ var homeGrupo = (function() {
         .find("thead > tr")
         .append(
           "<th id=" +
-            dias[i].nombre +
-            " scope='col'>" +
-            dias[i].nombre +
-            "</th>"
+          dias[i].nombre +
+          " scope='col'>" +
+          dias[i].nombre +
+          "</th>"
         );
     }
     for (var i = 0; i < horas.length; i++) {
@@ -41,20 +41,20 @@ var homeGrupo = (function() {
         .find("tbody > tr:last")
         .append(
           "<th id=" +
-            horas[i].hora.substring(0, 5) +
-            " scope='row'>" +
-            horas[i].hora.substring(0, 5) +
-            "</th>"
+          horas[i].hora.substring(0, 5) +
+          " scope='row'>" +
+          horas[i].hora.substring(0, 5) +
+          "</th>"
         );
       for (var j = 0; j < dias.length; j++) {
         $("#schedule")
           .find("tbody > tr:last")
           .append(
             "<td id='" +
-              horas[i].hora.substring(0, 5) +
-              "-" +
-              dias[j].nombre +
-              "'></td>"
+            horas[i].hora.substring(0, 5) +
+            "-" +
+            dias[j].nombre +
+            "'></td>"
           );
       }
     }
@@ -65,25 +65,25 @@ var homeGrupo = (function() {
     );
   };
 
-  var mostrarActividadesHorario = function(actividades) {
-    
+  var mostrarActividadesHorario = function (actividades) {
+
     for (var i = 0; i < actividades.length; i++) {
       $(
         "#" +
-          $.escapeSelector(
-            actividades[i].hora_ini.substring(0, 5) + "-" + actividades[i].dia
-          )
+        $.escapeSelector(
+          actividades[i].hora_ini.substring(0, 5) + "-" + actividades[i].dia
+        )
       ).append(
         "<div class='single-event drag t1'><a type='button' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" +
-          actividades[i].id +
-          "><em class='event-name'>" +
-          actividades[i].nombre +
-          "</em></a></div>"
+        actividades[i].id +
+        "><em class='event-name'>" +
+        actividades[i].nombre +
+        "</em></a></div>"
       );
     }
     crearModalActividades();
     appFunctions.hacerDraggable();
-    $(".single-event").on("click", "a", function(event) {
+    $(".single-event").on("click", "a", function (event) {
       apiActividad.getActividadById(
         event.target.dataset.actividadId,
         mostrarDescripcionActividad
@@ -91,24 +91,23 @@ var homeGrupo = (function() {
     });
   };
 
-  var cambiarHorario = function(id) {
+  var cambiarHorario = function (id) {
     apiGrupo.getHorarioGrupo(id, mostrarHorario);
   };
 
-  var cambiarOpcionesCreacionActividad = function(data) {
-    
+  var cambiarOpcionesCreacionActividad = function (data) {
     $("#opcionesHorarioCrearActividadDias").empty();
     diasDeLaSemana = data.diasDeLaSemana;
     for (var i = 0; i < diasDeLaSemana.length; i++) {
       $("#opcionesHorarioCrearActividadDias").append(
         "<a class='dropdown-item' href='#' data-dia-semana=" +
-          diasDeLaSemana[i].nombre +
-          ">" +
-          diasDeLaSemana[i].nombre +
-          "</a>"
+        diasDeLaSemana[i].nombre +
+        ">" +
+        diasDeLaSemana[i].nombre +
+        "</a>"
       );
     }
-    $("#opcionesHorarioCrearActividadDias").on("click", "a", function(event) {
+    $("#opcionesHorarioCrearActividadDias").on("click", "a", function (event) {
       var diaSemana = event.target.dataset.diaSemana;
       actividadDia = diaSemana;
       $("#labelDias").text("Día seleccionado: " + diaSemana);
@@ -119,27 +118,27 @@ var homeGrupo = (function() {
     for (var i = 0; i < horasDelHorario.length; i++) {
       $("#opcionesHorarioCrearActividadHorasInicio").append(
         "<a class='dropdown-item' href='#' data-hora=" +
-          horasDelHorario[i].hora.substring(0, 5) +
-          ">" +
-          horasDelHorario[i].hora.substring(0, 5) +
-          "</a>"
+        horasDelHorario[i].hora.substring(0, 5) +
+        ">" +
+        horasDelHorario[i].hora.substring(0, 5) +
+        "</a>"
       );
       $("#opcionesHorarioCrearActividadHorasFin").append(
         "<a class='dropdown-item' href='#' data-hora=" +
-          horasDelHorario[i].hora.substring(0, 5) +
-          ">" +
-          horasDelHorario[i].hora.substring(0, 5) +
-          "</a>"
+        horasDelHorario[i].hora.substring(0, 5) +
+        ">" +
+        horasDelHorario[i].hora.substring(0, 5) +
+        "</a>"
       );
     }
-    $("#opcionesHorarioCrearActividadHorasInicio").on("click", "a", function(
+    $("#opcionesHorarioCrearActividadHorasInicio").on("click", "a", function (
       event
     ) {
       var horaHorario = event.target.dataset.hora;
       actividadHoraInicio = horaHorario;
       $("#labelHorasIni").text("Hora inicial seleccionada: " + horaHorario);
     });
-    $("#opcionesHorarioCrearActividadHorasFin").on("click", "a", function(
+    $("#opcionesHorarioCrearActividadHorasFin").on("click", "a", function (
       event
     ) {
       var horaHorario = event.target.dataset.hora;
@@ -148,13 +147,13 @@ var homeGrupo = (function() {
     });
   };
 
-  var crearModalActividades = function() {
+  var crearModalActividades = function () {
     $("#mainContent").append(
       '<div class="modal fade" id="modalActividad" tabindex="-1" role="dialog" aria-labelledby="modalLabelActividad" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="modalLabelActividad">Actividad: </h5><button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><form><div class="row"><div class="col-md-12"><span id="descripcion-actividad"></span></div><div class="col-md-12"><span id="fecha-creacion-actividad"></span></div><div class="col-md-12"><span id="hora-ini-actividad"></span></div><div class="col-md-12"><span id="hora-fin-actividad"></span></div></div></form></div><div class="modal-footer"><button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><i class="fas fa-window-close"></i>&nbsp;Cerrar</button></div></div></div></div>'
     );
   };
 
-  var mostrarDescripcionActividad = function(actividad) {
+  var mostrarDescripcionActividad = function (actividad) {
     $("#modalLabelActividad").empty();
     $("#descripcion-actividad").empty();
     $("#fecha-creacion-actividad").empty();
@@ -175,18 +174,26 @@ var homeGrupo = (function() {
     );
   };
 
+  var verficarDatosCrearActividadGrupo = function (data) {
+    var infoCompleta = true;
+    if (data.nombre === "" || data.descripcion === "" || data.horario_id === null || data.dia === null || data.hora_ini === null || data.hora_fin === null) {
+      infoCompleta = false;
+    }
+    return infoCompleta;
+  };
+
   return {
-    iniHorario: function() {
+    iniHorario: function () {
       apiGrupo.getHorarioGrupo(Cookies.get("grupoId"), mostrarHorario);
-      appStomp.init(Cookies.get("grupoId"));
+      appStomp.initGrupo(Cookies.get("grupoId"));
     },
-    salirseDelGrupo: function() {
+    salirseDelGrupo: function () {
       apiGrupo.deleteIntegranteDeGrupo(
         Cookies.get("username"),
         Cookies.get("grupoId")
       );
     },
-    agregarActividad: function() {
+    agregarActividad: function () {
       var data = {
         id: "1",
         nombre: $("#actividadNombre").val(),
@@ -197,20 +204,17 @@ var homeGrupo = (function() {
         hora_ini: actividadHoraInicio,
         hora_fin: actividadHoraFin
       };
-      apiActividad.postActividad(data, data.horario_id);
-      appStomp.cambiarHorarioConActividades(data);
+      apiActividad.postActividadGrupo(data, data.horario_id, verficarDatosCrearActividadGrupo, appStomp.cambiarHorarioGrupoConActividades);
     },
-    agregaropcionesHorariosActividades: function() {
+    agregaropcionesHorariosActividades: function () {
       actividadHorarioId = grupoHorarioId;
       actividadHorario = grupoHorarioNombre;
       apiGrupo.getHorarioGrupo(
         Cookies.get("grupoId"),
         cambiarOpcionesCreacionActividad
       );
-      //$("#labelHorario").text("Horario seleccionado: " + nombreHorario);
     },
-    recargarHorario: function(horario) {
-        
+    recargarHorario: function (horario) {
       cambiarHorario(Cookies.get("grupoId"));
     }
   };

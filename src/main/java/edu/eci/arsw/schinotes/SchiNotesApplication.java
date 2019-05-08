@@ -17,6 +17,7 @@ public class SchiNotesApplication {
 
     @Autowired
     DataSource dataSource;
+
     public static void main(String[] args) {
         SpringApplication.run(SchiNotesApplication.class, args);
     }

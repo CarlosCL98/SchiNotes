@@ -87,7 +87,7 @@
               <a class="nav-link active" href="home.html"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
             </li class="nav-item">
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad" onclick="homeGrupo.agregaropcionesHorariosActividades()"><i
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividadGrupo" onclick="homeGrupo.agregaropcionesHorariosActividades()"><i
                   class="fas fa-edit"></i>&nbsp;Crear actividad</a>
             </li>
             <li class="nav-item">
@@ -99,7 +99,7 @@
             </li>
           </ul>
           <!-- Modal para la creacion de una actividad-->
-          <div class="modal fade" id="modalCrearActividad" tabindex="-1" role="dialog"
+          <div class="modal fade" id="modalCrearActividadGrupo" tabindex="-1" role="dialog"
             aria-labelledby="modalLabelHorario" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -124,21 +124,7 @@
                         <textarea id="actividadDescripcion" type="text" class="form-control"
                           placeholder="Ingrese La descripcion de la actividad"></textarea>
                       </div>
-                    </div>
-                    <!--
-                      <div class="dropdown">
-                      <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" onclick="home.consultarMisHorariosParaActividades()">
-                        <i class="fas fa-calendar-alt"></i> Seleccione su horario
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                        id="opcionesHorarioCrearActividad">
-                      </div>
-                      <label id="labelHorario"></label>
-                    </div>
-
-                    -->
-                    
+                    </div>                    
                     <div class="dropdown">
                       <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -168,10 +154,12 @@
                         id="opcionesHorarioCrearActividadHorasFin">
                       </div>
                       <label id="labelHorasFin"></label>
+                      <div id="crearActividadGrupoAlert" class="row">
+                      </div>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()"><i
-                          class="fas fa-calendar-alt"></i> Crear
+                      <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()" data-toggle="modal"
+                      data-target="#modalCargandoHomeGrupo"><i class="fas fa-calendar-alt"></i> Crear
                       </button>
                       <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
                         aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
@@ -196,6 +184,21 @@
           </table>
         </div> <!-- Tabla del horario grupal -->
       </main>
+    </div>
+  </div>
+  <!-- Modal de cargando -->
+  <div class="modal fade" id="modalCargandoHomeGrupo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-success" role="status"></div>
+              <span>&nbsp;Creando...</span>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Scroll to Top Button-->
