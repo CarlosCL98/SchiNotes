@@ -60,6 +60,8 @@
               <label for="UsuarioInput"><i class="fas fa-at"></i> Correo</label>
               <input type="email" id="UsuarioInput" class="form-control" placeholder="Email address" required="required"
                 autofocus="autofocus">
+              <div id="loginAlert1" class="row">
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -67,6 +69,8 @@
               <label for="ContraseñaInput"><i class="fas fa-key"></i> Contraseña</label>
               <input type="password" id="ContraseñaInput" class="form-control" placeholder="Password"
                 required="required">
+              <div id="loginAlert2" class="row">
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -77,12 +81,29 @@
               </label>
             </div>
           </div>
-          <input type="button" class="btn btn-secondary btnNav btn-block" value="Iniciar Sesión"
-            onclick="login.autenticarUsuario()">
+          <input type="button" class="btn btn-secondary btnNav btn-block" data-toggle="modal" value="Iniciar Sesión"
+            onclick="login.autenticarUsuario()" data-target="#modalCargandoLogin">
+          <div id="loginAlert3" class="row">
+          </div>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="register.html">Registrar una cuenta</a>
           <a class="d-block small" href="forgot-password.html">¿Olvidó su contraseña?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de cargando -->
+  <div class="modal fade" id="modalCargandoLogin" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-success" role="status"></div>
+              <span>&nbsp;Verificando Cuenta...</span>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -206,7 +206,6 @@ public class SchiNotesController {
     public ResponseEntity<?> recursoCuentaEstaVerificada(@PathVariable String correo) {
         try {
             boolean estaVerficada = schiNotesService.cuentaEstaVerificada(correo);
-            System.out.println(estaVerficada);
             return new ResponseEntity<>(estaVerficada, HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -238,6 +237,8 @@ public class SchiNotesController {
         try {
             String codigoComprobacion = randomAlphaNumeric(10);
             codigosComprobacion.put(usuario.getCuentaCorreo().getCorreo(), codigoComprobacion);
+            schiNotesService.crearCuenta(usuario.getCuentaCorreo());
+            schiNotesService.registrarUsuario(usuario);
             SchiNotesThread enviarCorreo = new SchiNotesThread(usuario.getCuentaCorreo().getCorreo(),
                     "Usuario creado exitosamente",
                     "Hola " + usuario.getCuentaCorreo().getNickname() + ".\n"
@@ -249,8 +250,6 @@ public class SchiNotesController {
                             + "Atentamente,\nEl staff de SchiNotes",
                     emailService);
             enviarCorreo.start();
-            schiNotesService.crearCuenta(usuario.getCuentaCorreo());
-            schiNotesService.registrarUsuario(usuario);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             throw new FoundException(ex.getMessage());
@@ -279,8 +278,20 @@ public class SchiNotesController {
         }
     }
 
-    @RequestMapping(value = "/usuarios/horarios/{id}/actividades", method = RequestMethod.POST)
-    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable int id, @RequestBody Actividad actividad) {
+    @RequestMapping(value = "/usuarios/{correo}/horarios/{id}/actividades", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable int id,
+            @RequestBody Actividad actividad) {
+        try {
+            actividad.setHorario_id(id);
+            schiNotesService.agregarActividad(actividad);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/grupos/horarios/{id}/actividades", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoRegistrarActividadGrupo(@PathVariable int id, @RequestBody Actividad actividad) {
         try {
             actividad.setHorario_id(id);
             schiNotesService.agregarActividad(actividad);

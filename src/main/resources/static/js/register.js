@@ -31,7 +31,13 @@ var register = (function () {
     return {
         registrarUsuario: function () {
             if ($('#passwordConfirmarInput').val() !== $('#passwordInput').val()) {
-                alert("Las contraseñas no coinciden, por favor vuelva a ingresarlas.")
+                setTimeout(function () {
+                    $('#modalCargandoRegistrar').modal('hide');
+                    $("#registerAlert1").append("<div id='alertDifContra' class='col-md-12'><div class='alert alert-danger alert-dismissible fade show' role='alert'>Las contraseñas no coinciden, por favor vuelva a ingresarlas.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $('#alertDifContra').on('close.bs.alert', function () {
+                        $(this).remove();
+                    });
+                }, 500);
             } else {
                 var data = {
                     nombre: $('#nombreInput').val(),
