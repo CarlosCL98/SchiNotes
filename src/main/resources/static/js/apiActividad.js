@@ -16,11 +16,11 @@ var apiActividad = (function () {
                 callback(data);
             });
         },
-        postActividad: function (data, correo, idHorario) {
+        postActividad: function (data, idHorario) {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/schinotes/usuarios/" + correo + "/horarios/" + idHorario + "/actividades",
+                url: "/schinotes/usuarios/horarios/" + idHorario + "/actividades",
                 data: JSON.stringify(data)
             }).done(function () {
                 alert("La Actividad se creo exitosamente");

@@ -51,7 +51,7 @@
   </script>
 </head>
 
-<body class="bg" onload="homeGrupo.mostrarHorario()">
+<body class="bg" onload="homeGrupo.iniHorario()">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">
@@ -87,7 +87,7 @@
               <a class="nav-link active" href="home.html"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
             </li class="nav-item">
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad"><i
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad" onclick="homeGrupo.agregaropcionesHorariosActividades()"><i
                   class="fas fa-edit"></i>&nbsp;Crear actividad</a>
             </li>
             <li class="nav-item">
@@ -125,7 +125,8 @@
                           placeholder="Ingrese La descripcion de la actividad"></textarea>
                       </div>
                     </div>
-                    <div class="dropdown">
+                    <!--
+                      <div class="dropdown">
                       <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" onclick="home.consultarMisHorariosParaActividades()">
                         <i class="fas fa-calendar-alt"></i> Seleccione su horario
@@ -135,6 +136,9 @@
                       </div>
                       <label id="labelHorario"></label>
                     </div>
+
+                    -->
+                    
                     <div class="dropdown">
                       <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -166,7 +170,7 @@
                       <label id="labelHorasFin"></label>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-secondary btnNav" onclick="home.agregarActividad()"><i
+                      <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()"><i
                           class="fas fa-calendar-alt"></i> Crear
                       </button>
                       <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"

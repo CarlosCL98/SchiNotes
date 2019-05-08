@@ -27,9 +27,9 @@ public class SchiNotesMessagesHandler {
     // los usuarios conectados a un chat.
     private ConcurrentHashMap<Integer, List<String>> conectadosAlChat = new ConcurrentHashMap<>();
 
-    @MessageMapping("/horario.{idHorario}")
-    public void handlePointEventHorario(Actividad actividad, @DestinationVariable int idHorario) throws Exception {
-        msgt.convertAndSend("/topic/horario." + idHorario, actividad);
+    @MessageMapping("/horario.{idGrupo}")
+    public void handlePointEventHorario(Actividad actividad, @DestinationVariable int idGrupo) throws Exception {
+        msgt.convertAndSend("/topic/horario." + idGrupo, actividad);
     }
 
     @MessageMapping("/conectado.{idGrupo}")

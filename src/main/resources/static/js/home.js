@@ -66,7 +66,7 @@ var home = (function () {
         }
         $("#deployHorariosButton").on("click", "a", function (event) {
             cambiarHorario(event.target.dataset.horarioNombre);
-            appStomp.init(event.target.dataset.horarioId);
+            //appStomp.init(event.target.dataset.horarioId);
         });
     };
 
@@ -178,7 +178,7 @@ var home = (function () {
                 hora_ini: actividadHoraInicio,
                 hora_fin: actividadHoraFin
             }
-            apiActividad.postActividad(data, Cookies.get('username'), data.horario_id);
+            apiActividad.postActividad(data, data.horario_id);
             appStomp.cambiarHorarioConActividades(data);
         },
         recargarHorario: function (horario) {

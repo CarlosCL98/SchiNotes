@@ -150,7 +150,8 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/grupos/{grupoId}/horarios/{nombreHorario}", method = RequestMethod.GET)
-    public ResponseEntity<?> recursoConsultarActividadesPorGrupo(@PathVariable int grupoId, @PathVariable String nombreHorario) {
+    public ResponseEntity<?> recursoConsultarActividadesPorGrupo(@PathVariable int grupoId,
+            @PathVariable String nombreHorario) {
         try {
             List<Actividad> actividades = schiNotesService.consultarActividadesPorGrupo(grupoId, nombreHorario);
             return new ResponseEntity<>(actividades, HttpStatus.ACCEPTED);
@@ -278,9 +279,8 @@ public class SchiNotesController {
         }
     }
 
-    @RequestMapping(value = "/usuarios/{correo}/horarios/{id}/actividades", method = RequestMethod.POST)
-    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable String correo, @PathVariable int id,
-            @RequestBody Actividad actividad) {
+    @RequestMapping(value = "/usuarios/horarios/{id}/actividades", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoRegistrarActividad(@PathVariable int id, @RequestBody Actividad actividad) {
         try {
             actividad.setHorario_id(id);
             schiNotesService.agregarActividad(actividad);

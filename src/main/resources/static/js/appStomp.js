@@ -1,30 +1,31 @@
 var appStomp = (function () {
 
     var stompClient = null;
-    var idHorarioGlobal = null;
+    var idGrupoGlobal = null;
 
-    var connectAndSubscribe = function (idHorario) {
+    var connectAndSubscribe = function (idGrupo) {
         console.info('Connecting to SchiNotes WebSocket...');
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
-        //subscribe to /topic/horario.{idHorario} when connections succeed
+        //subscribe to /topic/horario.{idGrupo} when connections succeed
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/horario.' + idHorario, function (eventbody) {
-                apiHorario.getHorarioById(Cookies.get("username"), idHorario, app.recargarHorario);
+            stompClient.subscribe('/topic/horario.' + idGrupo, function (eventbody) {
+                
+                apiGrupo.getHorarioGrupo(idGrupo, homeGrupo.recargarHorario);
             });
         });
     };
 
     var enviarCambios = function (actividad) {
-        stompClient.send('/app/horario.' + idHorarioGlobal, {}, JSON.stringify(actividad));
+        stompClient.send('/app/horario.' + idGrupoGlobal, {}, JSON.stringify(actividad));
     };
 
     return {
-        init: function (idHorario) {
-            idHorarioGlobal = idHorario;
+        init: function (idGrupo) {
+            idGrupoGlobal = idGrupo;
             //websocket connection
-            connectAndSubscribe(idHorario);
+            connectAndSubscribe(idGrupo);
         },
         cambiarHorarioConActividades: function (actividad) {
             enviarCambios(actividad);
@@ -34,7 +35,7 @@ var appStomp = (function () {
                 stompClient.disconnect();
             }
             setConnected(false);
-            console.log("Disconnected");
+            
         }
     };
 })();

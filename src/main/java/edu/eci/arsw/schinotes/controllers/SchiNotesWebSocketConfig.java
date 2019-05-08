@@ -18,11 +18,17 @@ public class SchiNotesWebSocketConfig extends AbstractWebSocketMessageBrokerConf
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");
+        /*config.enableStompBrokerRelay("/topic/").setRelayHost("moose.rmq.cloudamqp.com").setRelayPort(61613)
+                .setClientLogin("cayumjwz").setClientPasscode("GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO")
+                .setSystemLogin("cayumjwz").setSystemPasscode("GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO")
+                .setVirtualHost("cayumjwz");*/
+
         config.setApplicationDestinationPrefixes("/app");
+
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/stompendpoint").withSockJS();
+        registry.addEndpoint("/stompendpoint").setAllowedOrigins("*").withSockJS();   
     }
 }
