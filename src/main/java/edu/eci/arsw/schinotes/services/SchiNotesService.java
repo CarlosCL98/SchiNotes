@@ -6,6 +6,7 @@ import edu.eci.arsw.schinotes.model.Actividad;
 import edu.eci.arsw.schinotes.model.Cuenta;
 import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Horario;
+import edu.eci.arsw.schinotes.model.Notificacion;
 
 import java.util.List;
 
@@ -66,4 +67,7 @@ public interface SchiNotesService {
 
     public List<Actividad> consultarActividadesPorGrupo(int grupoId, String nombreHorario) throws SchiNotesException;
 
+    public void agregarNotificacion(String correoUsuario, Notificacion notificacion) throws SchiNotesException;
+
+    public List<Notificacion> consultarNotificaciones(String correo) throws SchiNotesException;
 }

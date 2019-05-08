@@ -22,6 +22,7 @@ public class Usuario implements Serializable {
     private List<Horario> horarios;
     private List<Usuario> misAmigos;
     private List<Usuario> deLosQueSoyAmigo;
+    private List<Notificacion> notificaciones;
 
     public Usuario(){
         
@@ -108,5 +109,19 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Usuario{" + "id=" + this.identificacion + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", foto=" + Arrays.toString(this.foto) + ", intereses=" + this.intereses + ", cuenta=" + this.cuentaCorreo + "}";
+    }
+
+    /**
+     * @return the notificaciones
+     */
+    public List<Notificacion> getNotificaciones() {
+        return notificaciones;
+    }
+
+    /**
+     * @param notificaciones the notificaciones to set
+     */
+    public void setNotificaciones(List<Notificacion> notificaciones) {
+        this.notificaciones = notificaciones;
     }
 }

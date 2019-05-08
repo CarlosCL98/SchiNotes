@@ -5,6 +5,7 @@ import edu.eci.arsw.schinotes.model.Actividad;
 import edu.eci.arsw.schinotes.model.Cuenta;
 import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Horario;
+import edu.eci.arsw.schinotes.model.Notificacion;
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.services.EmailService;
 import edu.eci.arsw.schinotes.services.SchiNotesService;
@@ -233,6 +234,16 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/usuarios/{correo}/notificaciones", method = RequestMethod.GET)
+    public ResponseEntity<?> recursoConsultarLasNotificaciones(@PathVariable String correo) {
+        try {
+            List<Notificacion> notificaciones = schiNotesService.consultarNotificaciones(correo);
+            return new ResponseEntity<>(notificaciones, HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(value = "/usuarios/registrar", method = RequestMethod.POST)
     public ResponseEntity<?> recursoRegistrarUsuario(@RequestBody Usuario usuario) throws FoundException {
         try {
@@ -323,15 +334,26 @@ public class SchiNotesController {
         }
     }
 
+    @RequestMapping(value = "/usuarios/{correo}/notificaciones", method = RequestMethod.POST)
+    public ResponseEntity<?> recursoAgregarNotificacion(@PathVariable String correo, @RequestBody Notificacion notificacion) {
+        try {
+            schiNotesService.agregarNotificacion(correo, notificacion);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     @RequestMapping(value = "/grupos/{grupoId}/integrantes/{correo}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> recursoEliminarIntegranteDeGrupo(@PathVariable int grupoId, @PathVariable String correo) {
+    public ResponseEntity<?> recursoAgregarNotificacion(@PathVariable int grupoId, @PathVariable String correo) {
         try {
             schiNotesService.eliminarIntegranteDeGrupo(grupoId, correo);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
         }
-    }
+    }   
+
 
     private static String randomAlphaNumeric(int count) {
         StringBuilder builder = new StringBuilder();
