@@ -40,6 +40,28 @@ var apiUsuario = (function () {
             }
             callback2();
         },
+        postNotificacion: function (nombreUsuario, datosNotificacion, callback) {
+            
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/schinotes/usuarios/"+nombreUsuario+"/notificaciones",
+                data: JSON.stringify(datosNotificacion)
+            }).done(function () {
+                setTimeout(function () {
+                    $('#modalCargandoHome').modal('hide');
+                }, 500);
+               
+            }).fail(function () {
+                setTimeout(function () {
+                    $('#modalCargandoHome').modal('hide');
+
+                }, 500);
+                alert("El grupo no se pudo crear. Intentelo nuevamente.");
+            });
+            callback(datosNotificacion);
+             
+        },
         getUsuario: function (correo, callback) {
             $.get("/schinotes/usuarios/" + correo, function (data) {
                 callback(data);
@@ -89,6 +111,11 @@ var apiUsuario = (function () {
         },
         cuentaYaVerificada: function (correo, callback) {
             $.get("/schinotes/usuarios/" + correo + "/cuentas/verificar", function (data) {
+                callback(data);
+            });
+        },
+        getNotificaciones: function(correo,callback){
+            $.get("/schinotes/usuarios/"+correo+"/notificaciones", function(data){
                 callback(data);
             });
         }

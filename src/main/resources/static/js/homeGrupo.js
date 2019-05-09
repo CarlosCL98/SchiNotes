@@ -182,10 +182,23 @@ var homeGrupo = (function () {
     return infoCompleta;
   };
 
+  var mostrarNotificaciones = function(data){
+    console.log(data);
+    $("#notificationNum").empty;
+    $("#notificationsList").empty;
+    $("#notificationNum").append(data.length);
+    for (var i = 0; i < data.length; i++) {
+        $("#notificationsList").append("<li class='icon'></li>");
+        $("#notificationsList").find("li:last").append("<span class='icon'><i class='fa fa-user'></i></span>");
+        $("#notificationsList").find("li:last").append("<span class='text'>"+data[i].descripcion+"</span>");
+    }
+  };
+
   return {
     iniHorario: function () {
       apiGrupo.getHorarioGrupo(Cookies.get("grupoId"), mostrarHorario);
       appStomp.initGrupo(Cookies.get("grupoId"));
+      appStomp.initNotificaciones(Cookies.get("grupoId"));
     },
     salirseDelGrupo: function () {
       apiGrupo.deleteIntegranteDeGrupo(
@@ -194,7 +207,7 @@ var homeGrupo = (function () {
       );
     },
     agregarActividad: function () {
-      var data = {
+      var dataActividad = {
         id: "1",
         nombre: $("#actividadNombre").val(),
         descripcion: $("#actividadDescripcion").val(),
@@ -204,7 +217,14 @@ var homeGrupo = (function () {
         hora_ini: actividadHoraInicio,
         hora_fin: actividadHoraFin
       };
-      apiActividad.postActividadGrupo(data, data.horario_id, verficarDatosCrearActividadGrupo, appStomp.cambiarHorarioGrupoConActividades);
+
+      var dataNotificacion = {
+        id: "1",
+        descripcion: "Se ha creado la actividad'"+$("#actividadDescripcion").val()+"'en tu grupo "+Cookies.get("grupoNombre")
+      };
+
+      apiActividad.postActividadGrupo(dataActividad, dataActividad.horario_id, verficarDatosCrearActividadGrupo, appStomp.cambiarHorarioGrupoConActividades);
+      apiUsuario.postNotificacion(Cookies.get("username"),dataNotificacion,appStomp.actualizarNotificaciones);
     },
     agregaropcionesHorariosActividades: function () {
       actividadHorarioId = grupoHorarioId;
@@ -216,6 +236,12 @@ var homeGrupo = (function () {
     },
     recargarHorario: function (horario) {
       cambiarHorario(Cookies.get("grupoId"));
+    },
+    agregarNotificaciones:function(){
+      apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
+    },
+    actualizarNotificaciones:function(notificacion){
+      apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
     }
   };
 })();

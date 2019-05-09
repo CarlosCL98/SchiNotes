@@ -356,7 +356,7 @@ public class SchiNotesController {
     }
 
     @RequestMapping(value = "/grupos/{grupoId}/integrantes/{correo}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> recursoAgregarNotificacion(@PathVariable int grupoId, @PathVariable String correo) {
+    public ResponseEntity<?> recursoEleminarIntegrante(@PathVariable int grupoId, @PathVariable String correo) {
         try {
             schiNotesService.eliminarIntegranteDeGrupo(grupoId, correo);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
