@@ -4,9 +4,9 @@ var appFunctions = (function () {
         // initialization
         REDIPS.drag.init();
         // set hover color
-        REDIPS.drag.hover_color = '#E7C7B2';
-        // set drop option to 'switching'
-        REDIPS.drag.drop_option = 'switching';
+        REDIPS.drag.hover_color = "#E7C7B2";
+        // set drop option to "switching"
+        REDIPS.drag.drop_option = "switching";
     }
 
     return {
@@ -15,7 +15,7 @@ var appFunctions = (function () {
         },
         cerrarSesion: function () {
             $(location).attr("href", "../index.html");
-            Cookies.remove('username', { path: '/' });
+            Cookies.remove("username", { path: "/" });
         },
         hacerDraggable: function () {
             cargarDrag();

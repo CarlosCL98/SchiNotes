@@ -38,7 +38,7 @@ public class SchiNotesMessagesHandler {
         msgt.convertAndSend("/topic/horarioGrupo." + idGrupo, actividad);
     }
 
-    @MessageMapping("/grupo.{idGrupo}/notificaciones")
+    @MessageMapping("/notificacion.{idGrupo}")
     public void handlePointEventNotificacion(Notificacion notificacion, @DestinationVariable int idGrupo) throws Exception {
         System.out.println("entre al messageHandler");
         System.out.println(notificacion.getDescripcion());

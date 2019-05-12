@@ -71,7 +71,7 @@ var home = (function () {
     };
 
     var cambiarHorario = function (nombre) {
-        apiHorario.getHorarioByName(Cookies.get('username'), nombre, mostrarHorario);
+        apiHorario.getHorarioByName(Cookies.get("username"), nombre, mostrarHorario);
     };
 
     var agregaropcionesHorariosActividades = function (data) {
@@ -84,7 +84,7 @@ var home = (function () {
             var idHorario = event.target.dataset.horarioId;
             actividadHorarioId = idHorario;
             actividadHorario = nombreHorario;
-            apiHorario.getHorarioByName(Cookies.get('username'), nombreHorario, cambiarOpcionesCreacionActividad);
+            apiHorario.getHorarioByName(Cookies.get("username"), nombreHorario, cambiarOpcionesCreacionActividad);
             $("#labelHorario").text("Horario seleccionado: " + nombreHorario);
         });
     };
@@ -183,11 +183,11 @@ var home = (function () {
         agregarHorario: function () {
             var data = {
                 id: "1",
-                nombre: $('#horarioNombre').val(),
-                intervaloHoras: $('#intervaloHoras').val(),
-                numeroDias: $('#horarioNumDias').val()
+                nombre: $("#horarioNombre").val(),
+                intervaloHoras: $("#intervaloHoras").val(),
+                numeroDias: $("#horarioNumDias").val()
             }
-            apiHorario.postHorario(data, Cookies.get('username'), verficarDatosCrearHorario);
+            apiHorario.postHorario(data, Cookies.get("username"), verficarDatosCrearHorario);
         },
         consultarMisHorarios: function () {
             var usuario = Cookies.get('username');

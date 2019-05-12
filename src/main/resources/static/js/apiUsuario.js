@@ -11,9 +11,9 @@ var apiUsuario = (function () {
                     data: JSON.stringify(data)
                 }).done(function () {
                     setTimeout(function () {
-                        $('#modalCargandoRegistrar').modal('hide');
+                        $("#modalCargandoRegistrar").modal("hide");
                         $("#registerAlert1").append("<div id='alertEnvioCorreo' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>Usuario registrado exitosamente. Se le enviará un correo de confirmación a " + data.cuentaCorreo.correo + "<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
-                        $('#alertEnvioCorreo').on('close.bs.alert', function () {
+                        $("#alertEnvioCorreo").on("close.bs.alert", function () {
                             $(this).remove();
                         });
                     }, 500);
@@ -22,18 +22,18 @@ var apiUsuario = (function () {
                     }, 2500);
                 }).fail(function (fallo) {
                     setTimeout(function () {
-                        $('#modalCargandoRegistrar').modal('hide');
+                        $("#modalCargandoRegistrar").modal("hide");
                         $("#registerAlert1").append("<div id='alertFalloRegistro' class='col-md-12'><div class='alert alert-warning alert-dismissible fade show' role='alert'>El usuario no pudo ser creado. El nickname o correo ya existe.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
-                        $('#alertFalloRegistro').on('close.bs.alert', function () {
+                        $("#alertFalloRegistro").on("close.bs.alert", function () {
                             $(this).remove();
                         });
                     }, 500);
                 });
             } else {
                 setTimeout(function () {
-                    $('#modalCargandoRegistrar').modal('hide');
+                    $("#modalCargandoRegistrar").modal("hide");
                     $("#registerAlert1").append("<div id='alertInfoIncom' class='col-md-12'><div class='alert alert-warning alert-dismissible fade show' role='alert'>Debe ingresar todos los campos para continuar con el registro.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
-                    $('#alertInfoIncom').on('close.bs.alert', function () {
+                    $("#alertInfoIncom").on("close.bs.alert", function () {
                         $(this).remove();
                     });
                 }, 500);
@@ -49,12 +49,12 @@ var apiUsuario = (function () {
                 data: JSON.stringify(datosNotificacion)
             }).done(function () {
                 setTimeout(function () {
-                    $('#modalCargandoHome').modal('hide');
+                    $("#modalCargandoHome").modal("hide");
                 }, 500);
                
             }).fail(function () {
                 setTimeout(function () {
-                    $('#modalCargandoHome').modal('hide');
+                    $("#modalCargandoHome").modal("hide");
 
                 }, 500);
                 alert("El grupo no se pudo crear. Intentelo nuevamente.");
@@ -72,9 +72,9 @@ var apiUsuario = (function () {
                 callback(data);
             }).fail(function (fallo) {
                 setTimeout(function () {
-                    $('#modalCargandoLogin').modal('hide');
+                    $("#modalCargandoLogin").modal("hide");
                     $("#loginAlert1").append("<div id='alertVacioU2' class='col-md-12'><div class='alert alert-danger alert-dismissible fade show' role='alert'>" + fallo.responseJSON.message + "<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
-                    $('#alertVacioU2').on('close.bs.alert', function () {
+                    $("#alertVacioU2").on("close.bs.alert", function () {
                         $(this).remove();
                     });
                 }, 500);
