@@ -169,6 +169,16 @@ var home = (function () {
         return infoCompleta;
     };
 
+    var mostrarNotificaciones = function(data){
+        console.log(data);
+        $("#notificationNum").append(data.length);
+        for (var i = 0; i < data.length; i++) {
+            $("#notificationsList").append("<li class='icon'></li>");
+            $("#notificationsList").find("li:last").append("<span class='icon'><i class='fa fa-user'></i></span>");
+            $("#notificationsList").find("li:last").append("<span class='text'>"+data[i].descripcion+"</span>");
+        }
+    };
+
     return {
         agregarHorario: function () {
             var data = {
@@ -220,6 +230,9 @@ var home = (function () {
         },
         uniserAlGrupo: function () {
             apiGrupo.postAgregarIntegrante(Cookies.get("username"), grupoHorarioNombre, idGrupo);
+        },
+        agregarNotificaciones:function(){
+            apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
         }
     };
 

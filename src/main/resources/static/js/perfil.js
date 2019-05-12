@@ -64,6 +64,16 @@ var perfil = (function () {
         });
     };
 
+    var mostrarNotificaciones = function(data){
+        console.log(data);
+        $("#notificationNum").append(data.length);
+        for (var i = 0; i < data.length; i++) {
+            $("#notificationsList").append("<li class='icon'></li>");
+            $("#notificationsList").find("li:last").append("<span class='icon'><i class='fa fa-user'></i></span>");
+            $("#notificationsList").find("li:last").append("<span class='text'>"+data[i].descripcion+"</span>");
+        }
+      };
+
     return {
         consultarMiPerfil: function () {
             var correo = Cookies.get('username');
@@ -79,6 +89,9 @@ var perfil = (function () {
         consultarMisGrupos: function(){
             var usuario = Cookies.get('username');
             apiGrupo.getGrupos(usuario, agregarOpcionesGrupos);
+        },
+        agregarNotificaciones:function(){
+          apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
         }
     };
 

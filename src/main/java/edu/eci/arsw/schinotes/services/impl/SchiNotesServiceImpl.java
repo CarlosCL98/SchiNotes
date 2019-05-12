@@ -12,6 +12,7 @@ import edu.eci.arsw.schinotes.model.DiaDeLaSemana;
 import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Hora;
 import edu.eci.arsw.schinotes.model.Horario;
+import edu.eci.arsw.schinotes.model.Notificacion;
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.services.SchiNotesService;
 
@@ -233,6 +234,18 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public List<Actividad> consultarActividadesPorGrupo(int grupoId, String nombreHorario) throws SchiNotesException {
         return actividadDAO.loadActividadesByGroup(grupoId, nombreHorario);
+    }
+
+    @Override
+    public void agregarNotificacion(String correoUsuario, Notificacion notificacion) throws SchiNotesException {
+        Usuario usuario = this.consultarUsuarioPorCorreo(correoUsuario);
+        notificacion.setUsuario(usuario);
+        usuarioDAO.saveNotificaciones(notificacion);
+    }
+
+    @Override
+    public List<Notificacion> consultarNotificaciones(String correo) throws SchiNotesException {
+        return usuarioDAO.loadNotificaciones(correo);
     }
 
 }
