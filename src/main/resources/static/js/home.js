@@ -33,12 +33,11 @@ var home = (function () {
 
     var mostrarActividadesHorario = function (actividades) {
         for (var i = 0; i < actividades.length; i++) {
-            $("#" + $.escapeSelector((actividades[i].hora_ini).substring(0, 5) + "-" + actividades[i].dia)).append("<div class='single-event drag t1'><button class='btn btn-sm btn-secondary' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></button></div>");
+            $("#" + $.escapeSelector((actividades[i].hora_ini).substring(0, 5) + "-" + actividades[i].dia)).append("<div class='single-event drag t1'><a type='button' class='btn btn-sm btn-secondary btnNav' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></a></div>");
         }
         crearModalActividades();
         appFunctions.hacerDraggable();
-        $(".single-event").on("click", "button", function (event) {
-            console.log(event.target);
+        $(".single-event").on("click", "a", function (event) {
             apiActividad.getActividadById(event.target.dataset.actividadId, mostrarDescripcionActividad);
         });
     };

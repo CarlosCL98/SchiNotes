@@ -11,32 +11,18 @@ var homeGrupo = (function () {
   var idGrupo = null;
 
   var mostrarHorario = function (horario) {
-
-
     grupoHorarioId = horario.id;
     grupoHorarioNombre = horario.nombre;
     $("#schedule").empty();
     var dias = horario.diasDeLaSemana;
     var horas = horario.horas;
     $("#schedule").append("<thead></thead><tbody></tbody>");
-    $("#schedule")
-      .find("thead")
-      .append("<tr><th scope='col'>Horas/Días</th></tr>");
+    $("#schedule").find("thead").append("<tr><th scope='col'>Horas/Días</th></tr>");
     for (var i = 0; i < dias.length; i++) {
-      $("#schedule")
-        .find("thead > tr")
-        .append(
-          "<th id=" +
-          dias[i].nombre +
-          " scope='col'>" +
-          dias[i].nombre +
-          "</th>"
-        );
+      $("#schedule").find("thead > tr").append("<th id=" + dias[i].nombre + " scope='col'>" + dias[i].nombre + "</th>");
     }
     for (var i = 0; i < horas.length; i++) {
-      $("#schedule")
-        .find("tbody")
-        .append("<tr></tr>");
+      $("#schedule").find("tbody").append("<tr></tr>");
       $("#schedule")
         .find("tbody > tr:last")
         .append(
@@ -66,7 +52,6 @@ var homeGrupo = (function () {
   };
 
   var mostrarActividadesHorario = function (actividades) {
-
     for (var i = 0; i < actividades.length; i++) {
       $(
         "#" +
@@ -74,7 +59,7 @@ var homeGrupo = (function () {
           actividades[i].hora_ini.substring(0, 5) + "-" + actividades[i].dia
         )
       ).append(
-        "<div class='single-event drag t1'><a type='button' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" +
+        "<div class='single-event drag t1'><a type='button' class='btn btn-sm btn-secondary btnNav' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" +
         actividades[i].id +
         "><em class='event-name'>" +
         actividades[i].nombre +
@@ -183,7 +168,7 @@ var homeGrupo = (function () {
   };
 
   return {
-    iniHorario: function () {
+    initHorario: function () {
       apiGrupo.getHorarioGrupo(Cookies.get("grupoId"), mostrarHorario);
       appStomp.initGrupo(Cookies.get("grupoId"));
     },

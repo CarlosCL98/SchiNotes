@@ -9,7 +9,7 @@ var chatGrupal = (function () {
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
         //subscribe to /topic/horario.{idHorario} when connections succeed
-        stompClient.connect({}, function (frame) {
+        stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/chatGrupal.' + idGrupoChat, function (eventbody) {
                 mostrarMensaje(eventbody.body);
@@ -21,7 +21,9 @@ var chatGrupal = (function () {
                 modificarConectados(eventbody.body);
             });
             actualizarConectados();
-        });
+        }, function (error) {
+            console.info("error" + error);
+        }, "cayumjwz");
     };
 
     var actualizarConectados = function () {
@@ -64,7 +66,7 @@ var chatGrupal = (function () {
                 stompClient.disconnect();
             }
             setConnected(false);
-            console.log("Disconnected");
+            console.log("Grupo Desconectado");
         },
         enviarMensaje: function () {
             var mensaje = $("#inputMensajeChat").val();

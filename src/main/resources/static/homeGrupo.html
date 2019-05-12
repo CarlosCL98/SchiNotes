@@ -51,7 +51,7 @@
   </script>
 </head>
 
-<body class="bg" onload="homeGrupo.iniHorario()">
+<body class="bg" onload="homeGrupo.initHorario()" onbeforeunload="appStomp.disconnectGroup()">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">
@@ -87,8 +87,9 @@
               <a class="nav-link active" href="home.html"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
             </li class="nav-item">
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividadGrupo" onclick="homeGrupo.agregaropcionesHorariosActividades()"><i
-                  class="fas fa-edit"></i>&nbsp;Crear actividad</a>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividadGrupo"
+                onclick="homeGrupo.agregaropcionesHorariosActividades()"><i class="fas fa-edit"></i>&nbsp;Crear
+                actividad</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="chatGrupal.html"><i class="fas fa-comments"></i>&nbsp;Entrar a chat</a>
@@ -124,7 +125,7 @@
                         <textarea id="actividadDescripcion" type="text" class="form-control"
                           placeholder="Ingrese La descripcion de la actividad"></textarea>
                       </div>
-                    </div>                    
+                    </div>
                     <div class="dropdown">
                       <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -156,35 +157,35 @@
                       <label id="labelHorasFin"></label>
                       <div id="crearActividadGrupoAlert" class="row">
                       </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()" data-toggle="modal"
-                      data-target="#modalCargandoHomeGrupo"><i class="fas fa-calendar-alt"></i> Crear
-                      </button>
-                      <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                        aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
-                      </button>
-                    </div>
                   </form>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()" data-toggle="modal"
+                    data-target="#modalCargandoHomeGrupo"><i class="fas fa-calendar-alt"></i> Crear
+                  </button>
+                  <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </nav>
-      <!-- Main contenido al lado del slidebar-->
-      <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
-        <div id="drag" class="table-responsive">
-          <table id="schedule" class="table table-light table-striped table-border">
-            <thead>
-              <tr></tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div> <!-- Tabla del horario grupal -->
-      </main>
     </div>
+    </nav>
+    <!-- Main contenido al lado del slidebar-->
+    <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
+      <div id="drag" class="table-responsive">
+        <table id="schedule" class="table table-light table-striped table-border">
+          <thead>
+            <tr></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div> <!-- Tabla del horario grupal -->
+    </main>
+  </div>
   </div>
   <!-- Modal de cargando -->
   <div class="modal fade" id="modalCargandoHomeGrupo" tabindex="-1" role="dialog" aria-hidden="true">

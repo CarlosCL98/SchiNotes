@@ -8,12 +8,14 @@ var appStomp = (function () {
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
         //subscribe to /topic/horario.{idGrupo} when connections succeed
-        stompClient.connect({}, function (frame) {
+        stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/horario.' + idHorario, function (eventbody) {
                 apiHorario.getHorarioById(Cookies.get("username"), idHorario, home.recargarHorario);
             });
-        });
+        }, function (error) {
+            console.info("error" + error);
+        }, "cayumjwz");
     };
 
     var connectAndSubscribeGrupo = function (idGrupo) {
@@ -21,12 +23,14 @@ var appStomp = (function () {
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
         //subscribe to /topic/horario.{idGrupo} when connections succeed
-        stompClient.connect({}, function (frame) {
+        stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/horarioGrupo.' + idGrupo, function (eventbody) {
                 apiGrupo.getHorarioGrupo(idGrupo, homeGrupo.recargarHorario);
             });
-        });
+        }, function (error) {
+            console.info("error" + error);
+        }, "cayumjwz");
     };
 
     var enviarCambios = function (actividad) {
@@ -54,11 +58,19 @@ var appStomp = (function () {
         cambiarHorarioGrupoConActividades: function (actividad) {
             enviarCambiosGrupo(actividad);
         },
-        disconnect: function () {
+        disconnectHorario: function () {
             if (stompClient !== null) {
                 stompClient.disconnect();
             }
             setConnected(false);
+            console.log("Horario Desconectado");
+        },
+        disconnectGroup: function () {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
+            setConnected(false);
+            console.log("Grupo Desconectado");
         }
     };
 })();
