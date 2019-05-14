@@ -194,16 +194,34 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class='col'>
-              <div class='row'>
-                <div id='listaAmigos' class="list-group">
-                </div>
+          <form class="table">
+            <div class='row'>
+              <div class='col single-event'>
+                <div id='listaAmigos' class="list-group"></div>
               </div>
-            </div>
-            <div class='col'>
-              <div class='row'>
-                <input type="button">
+              <div class='col'>
+                <div class='single-event drag t1'>
+                  <button >ver perfil</button>
+                  <div id="perfilAmigo" class="card" style="width: 18rem;">
+                    <div class="card-header">
+                      <img class="card-img-top" src="images/avatar.png" alt="FotoPerfil" style="width:50%">
+                    </div>
+                    <div class="card-body">
+                      <h5 id="nombrePerfilAmigo" class="card-title"> </h5>
+                      <h6 id="nicknamePerfilAmigo" class="card-subtitle mb-2 text-muted"> </h6>
+                      <p id="interesesPerfilAmigo" class="card-text"> </p>
+                    </div>
+                    <div class="card-footer">
+                      <div class="social-networks">
+                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+
               </div>
             </div>
           </form>

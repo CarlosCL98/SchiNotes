@@ -1,8 +1,9 @@
 var perfil = (function () {
 
     var usuarioParaAgregar = null;
-
+    var misAmigos=null;
     var mostrarPerfil = function (usuario) {
+        misAmigos=usuario.misAmigos;
         $("#tituloPerfil").text("Perfil de " + usuario.nombre);
         $("#nombrePerfil").text("" + usuario.nombre + " " + usuario.apellido + " ");
         if (usuario.intereses === null) {
@@ -14,9 +15,28 @@ var perfil = (function () {
         $("").text("correo: " + usuario.cuentaCorreo.correo);
         $("#numeroDeAmigos").append(usuario.misAmigos.length);
         for (let i = 0; i < usuario.misAmigos.length; i++) {
-            $("#listaAmigos").append("<button type='button' class='list-group-item list-group-item-action'>" + usuario.misAmigos[i].cuentaCorreo.nickname + "</button>");
+            $("#listaAmigos").append("<a type='button' data-amigo-id='"+usuario.misAmigos[i].cuentaCorreo.nickname+"' class='list-group-item list-group-item-action'>" + usuario.misAmigos[i].cuentaCorreo.nickname + "</a>");
         }
+        $(".single-event").on("click", "a", function (event) {
+            
+            actualizarPerfilAmigo(event.target.dataset.amigoId, actualizarPerfilAmigo);
+        });
     };
+
+    var actualizarPerfilAmigo = function(amigo){
+        console.log(misAmigos)
+        for (let i = 0; i < misAmigos.length; i++) {
+            if(misAmigos[i].cuentaCorreo.nickname === amigo){
+                $("#nombrePerfilAmigo").text(misAmigos[i].cuentaCorreo.correo);
+                $("#nicknamePerfilAmigo").text(misAmigos[i].cuentaCorreo.nickname);
+                if (misAmigos[i].intereses === null) {
+                    $("#interesesPerfilAmigo").text("Intereses: no se han descrito aún.");
+                } else {
+                    $("#interesesPerfilAmigo").text("Intereses: " + misAmigos[i].intereses);
+                }
+            }
+        }
+    }
 
     var refrescarBusquedaPersonas = function (param) {
         var usuarioCorreo;
@@ -91,7 +111,7 @@ var perfil = (function () {
             apiGrupo.getGrupos(usuario, agregarOpcionesGrupos);
         },
         agregarNotificaciones:function(){
-          apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
+            apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
         }
     };
 
