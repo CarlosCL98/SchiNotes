@@ -159,4 +159,12 @@ public class ActividadDAOImpl implements ActividadDAO {
         return actividades;
     }
 
+    @Override
+    public void eliminarActividad(int idHorario, int idActividad) throws SchiNotesException {
+        String sql1 = "DELETE FROM actividad_por_horario where horario_id = ? AND actividad_id = ?";
+        jdbcTemplate.update(sql1, new Object[] { idHorario, idActividad });
+        String sql2 = "DELETE FROM actividad where id = ?";
+        jdbcTemplate.update(sql2, new Object[] { idActividad });
+    }
+
 }

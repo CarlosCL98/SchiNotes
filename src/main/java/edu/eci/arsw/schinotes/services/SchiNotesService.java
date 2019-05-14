@@ -70,4 +70,7 @@ public interface SchiNotesService {
     public void agregarNotificacion(String correoUsuario, Notificacion notificacion) throws SchiNotesException;
 
     public List<Notificacion> consultarNotificaciones(String correo) throws SchiNotesException;
+
+    public void eliminarActividad(int idHorario, int idActividad) throws SchiNotesException
+    ;
 }

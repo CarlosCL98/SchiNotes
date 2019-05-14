@@ -248,4 +248,9 @@ public class SchiNotesServiceImpl implements SchiNotesService {
         return usuarioDAO.loadNotificaciones(correo);
     }
 
+    @Override
+    public void eliminarActividad(int idHorario, int idActividad) throws SchiNotesException {
+        actividadDAO.eliminarActividad(idHorario,idActividad);
+    }
+
 }

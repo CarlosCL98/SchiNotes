@@ -66,5 +66,14 @@ public interface ActividadDAO {
      * @return una lista con las actividades
      * @throws SchiNotesException
      */
-	public List<Actividad> loadActividadesByGroup(int grupoId, String nombreHorario) throws SchiNotesException;
+    public List<Actividad> loadActividadesByGroup(int grupoId, String nombreHorario) throws SchiNotesException;
+    
+    /**
+     * 
+     * @param correo
+     * @param idHorario
+     * @param idActividad
+     * @throws SchiNotesException
+     */
+    public void eliminarActividad(int idHorario,int idActividad) throws SchiNotesException;
 }

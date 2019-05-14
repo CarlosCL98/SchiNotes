@@ -362,6 +362,17 @@ public class SchiNotesController {
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
         }
+    }
+
+    @RequestMapping(value = "/horarios/{idHorario}/actividades/{idActividad}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> recursoEleminarActividad(@PathVariable int idHorario, @PathVariable int idActividad) {
+        try {
+
+            schiNotesService.eliminarActividad(idHorario,idActividad);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
+        }
     }   
 
 
