@@ -96,6 +96,15 @@ var apiActividad = (function () {
                     });
                 }, 500);
             }
+        },
+        deleteActividad: function(idHorario,idActividad,nombreHorario,callback){
+            $.ajax({
+                url: "/schinotes/horarios/"+idHorario+"/actividades/"+idActividad,
+                type: 'DELETE',
+            }).done(function() {
+                alert("se elimino la actividad")
+            });
+            callback(nombreHorario)
         }
     };
 
