@@ -1,5 +1,36 @@
 # SchiNotes
 
+**Estudiantes**
+
+* Daniel Alberto Rosales Castro
+* Carlos Andrés Medina Rivas
+
+**Institución**
+
+```text
+Escuela Colombiana de Ingeniería Julio Garavito
+```
+
+**Programa**
+
+```text
+Ingeniería de Sistemas
+```
+
+**Materia**
+
+```text
+Arquitectura de Software (ARSW)
+```
+
+**Profesor**
+
+```text
+David Armando Saavedra Orjuela
+```
+
+**Descripción**
+
 _**SchiNotes**_ es una herramienta colaborativa que permite organizar las actividades, tareas \(actividades más urgentes\) e ideas entre un grupo de personas de tal manera que sea posible sincronizar en tiempo real sus horarios, independientemente de la cantidad de áreas o grupos de interés en los que puedan estar dichas personas.
 
 La herramienta realiza un cruce entre horarios del grupo de personas, para determinar los espacios libres en común y así poder distribuir el trabajo en equipo de una manera más eficiente logrando aprovechar el tiempo.
@@ -33,4 +64,21 @@ Si quieres ver nuestro progreso, puedes entrar al siguiente link y conocer el bu
 También puedes entrar a nuestro Taiga:
 
 > [Taiga SchiNotes](https://tree.taiga.io/project/carloscl98-schinotes/timeline)
+
+## Tecnologías Usadas
+
+* Heroku
+* CircleCI
+* Codacy
+* Java
+* Spring Boot
+* HTML
+* CSS
+* JavaScript
+* Bootstrap
+* JQuery
+* RabbitMQ -&gt; CloudAMQP
+* PostgreSQL
+* STOMP
+* GitHub
 

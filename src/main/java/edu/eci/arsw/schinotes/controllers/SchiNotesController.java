@@ -373,7 +373,18 @@ public class SchiNotesController {
         } catch (SchiNotesException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
         }
-    }   
+    }
+    
+    @RequestMapping(value = "/usuarios/{correo}/amigos/{idAmigo}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> recursoEleminarAmigo(@PathVariable String correo, @PathVariable int idAmigo) {
+        try {
+
+            schiNotesService.eliminarAmigo(correo,idAmigo);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (SchiNotesException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
+        }
+    }  
 
 
     private static String randomAlphaNumeric(int count) {

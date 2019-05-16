@@ -2,7 +2,9 @@ var perfil = (function () {
 
     var usuarioParaAgregar = null;
     var misAmigos=null;
+    var activeUser=null; 
     var mostrarPerfil = function (usuario) {
+        activeUser=usuario;
         misAmigos=usuario.misAmigos;
         $("#tituloPerfil").text("Perfil de " + usuario.nombre);
         $("#nombrePerfil").text("" + usuario.nombre + " " + usuario.apellido + " ");
@@ -14,6 +16,18 @@ var perfil = (function () {
         $("#nicknamePerfil").text("Nickname: " + usuario.cuentaCorreo.nickname);
         $("").text("correo: " + usuario.cuentaCorreo.correo);
         $("#numeroDeAmigos").append(usuario.misAmigos.length);
+        actualizarListaAmigos(usuario);
+    };
+
+    var actualizarListaAmigos = function(usuario){
+        activeUser=usuario;
+        console.log(usuario);
+        
+        $("#listaAmigos").empty();
+        $("#nombrePerfilAmigo").text("");
+        $("#nicknamePerfilAmigo").text("");
+        $("#interesesPerfilAmigo").text("");
+        
         for (let i = 0; i < usuario.misAmigos.length; i++) {
             $("#listaAmigos").append("<a type='button' data-amigo-id='"+usuario.misAmigos[i].cuentaCorreo.nickname+"' class='list-group-item list-group-item-action'>" + usuario.misAmigos[i].cuentaCorreo.nickname + "</a>");
         }
@@ -21,7 +35,7 @@ var perfil = (function () {
             
             actualizarPerfilAmigo(event.target.dataset.amigoId, actualizarPerfilAmigo);
         });
-    };
+    }
 
     var actualizarPerfilAmigo = function(amigo){
         console.log(misAmigos)
@@ -34,6 +48,7 @@ var perfil = (function () {
                 } else {
                     $("#interesesPerfilAmigo").text("Intereses: " + misAmigos[i].intereses);
                 }
+                $("#botonEliminarAmigo").attr("data-amigo-id",misAmigos[i].identificacion);
             }
         }
     }
@@ -94,6 +109,11 @@ var perfil = (function () {
         }
       };
 
+    var actualizarUsuario = function(data){
+        var correo = Cookies.get('username');
+        apiUsuario.getUsuario(correo, actualizarListaAmigos);
+    }
+
     return {
         consultarMiPerfil: function () {
             var correo = Cookies.get('username');
@@ -112,6 +132,10 @@ var perfil = (function () {
         },
         agregarNotificaciones:function(){
             apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
+        },
+        eliminarAmigo:function(data){
+            console.log(data);
+            apiUsuario.deleteAmigo(Cookies.get("username"),data.dataset.amigoId,activeUser,actualizarListaAmigos);
         }
     };
 

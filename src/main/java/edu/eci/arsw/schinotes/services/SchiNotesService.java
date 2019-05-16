@@ -71,6 +71,7 @@ public interface SchiNotesService {
 
     public List<Notificacion> consultarNotificaciones(String correo) throws SchiNotesException;
 
-    public void eliminarActividad(int idHorario, int idActividad) throws SchiNotesException
-    ;
+    public void eliminarActividad(int idHorario, int idActividad) throws SchiNotesException;
+
+    public void eliminarAmigo(String correo,int idAmigo) throws SchiNotesException;
 }

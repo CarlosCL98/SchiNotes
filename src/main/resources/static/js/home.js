@@ -245,8 +245,8 @@ var home = (function () {
             apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
         },
         eliminarActividad:function(data){
-            
-            apiActividad.deleteActividad(data.dataset.horarioId,data.dataset.actividadId,activeHorario,cambiarHorario);
+            console.log(data);
+            //apiActividad.deleteActividad(data.dataset.horarioId,data.dataset.actividadId,activeHorario,cambiarHorario);
         }
     };
 
