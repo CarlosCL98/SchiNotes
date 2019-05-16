@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
- * @author carloscl
+ * @author Daniel Rosales
+ * @author Carlos Medina
  */
 @ResponseStatus(HttpStatus.FOUND)
 public class FoundException extends Exception {

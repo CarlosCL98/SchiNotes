@@ -1,6 +1,7 @@
 package edu.eci.arsw.schinotes.dao;
 
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
+import edu.eci.arsw.schinotes.model.Notificacion;
 import edu.eci.arsw.schinotes.model.Usuario;
 
 import java.util.List;
@@ -41,5 +42,7 @@ public interface UsuarioDAO {
     public List<Usuario> deleteAmigos (String correo) throws SchiNotesException;
 
     public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException;
+    public void saveNotificaciones(Notificacion notificacion) throws SchiNotesException;
 
+    public List<Notificacion> loadNotificaciones(String correo) throws SchiNotesException;
 }

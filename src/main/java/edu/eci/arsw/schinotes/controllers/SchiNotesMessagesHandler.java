@@ -11,6 +11,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import edu.eci.arsw.schinotes.model.Actividad;
+import edu.eci.arsw.schinotes.model.Notificacion;
 
 /**
  * 
@@ -30,6 +31,18 @@ public class SchiNotesMessagesHandler {
     @MessageMapping("/horario.{idHorario}")
     public void handlePointEventHorario(Actividad actividad, @DestinationVariable int idHorario) throws Exception {
         msgt.convertAndSend("/topic/horario." + idHorario, actividad);
+    }
+
+    @MessageMapping("/horarioGrupo.{idGrupo}")
+    public void handlePointEventHorarioGrupo(Actividad actividad, @DestinationVariable int idGrupo) throws Exception {
+        msgt.convertAndSend("/topic/horarioGrupo." + idGrupo, actividad);
+    }
+
+    @MessageMapping("/notificacion.{idGrupo}")
+    public void handlePointEventNotificacion(Notificacion notificacion, @DestinationVariable int idGrupo) throws Exception {
+        System.out.println("entre al messageHandler");
+        System.out.println(notificacion.getDescripcion());
+        msgt.convertAndSend("/topic/grupo." + idGrupo, notificacion);
     }
 
     @MessageMapping("/conectado.{idGrupo}")

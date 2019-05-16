@@ -1,13 +1,13 @@
 a {
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
 label {
-    color: rgba(120, 144, 156, 1.0) !important;
+    color: rgba(120, 144, 156, 1.0);
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus {
-    outline: none !important;
+    outline: none;
     box-shadow: 0 0px 0px rgba(120, 144, 156, 1.0) inset, 0 0 0px rgba(120, 144, 156, 0.8);
 }
 
@@ -29,13 +29,13 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 }
 
 .balon1, .balon2 {
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .balon1 a {
     background: #84c33e;
-    color: #fff !important;
+    color: #fff;
     border-radius: 20px 20px 3px 20px;
     display: block;
     max-width: 75%;
@@ -54,7 +54,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 
 .balon2 a {
     background: #f1f1f1;
-    color: #000 !important;
+    color: #000;
     border-radius: 20px 20px 20px 3px;
     display: block;
     max-width: 75%;

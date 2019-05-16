@@ -14,6 +14,7 @@
   <link href="css/app.css" type="text/css" rel="stylesheet" />
   <link href="css/footer.css" type="text/css" rel="stylesheet" />
   <link href="css/sidebar.css" type="text/css" rel="stylesheet" />
+  <link href="css/notification.css" type="text/css" rel="stylesheet" />
   <!--<link href="css/reset.css" type="text/css" rel="stylesheet" />
   <link href="css/style.css" type="text/css" rel="stylesheet" />-->
 
@@ -51,7 +52,7 @@
   </script>
 </head>
 
-<body class="bg" onload="homeGrupo.mostrarHorario()">
+<body class="bg" onload="homeGrupo.initHorario(),homeGrupo.agregarNotificaciones()" onbeforeunload="appStomp.disconnectGroup()">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">
@@ -60,6 +61,29 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
       </ul>
+      <div >
+        <div class="notifications">
+            <i class="fa fa-bell" style="color: black"></i>
+            <span id="notificationNum" class="num"></span>
+            <ul id="notificationsList" class='ul_noti'>
+                <!--<li class="icon">
+                    
+                </li>
+                <li class="icon">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <span class="text">Someone Like Your Photo</span>
+                </li>
+                <li class="icon">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <span class="text">Someone Dislike Your Post</span>
+                </li>
+                <li class="icon">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <span class="text">Someone Comment on Your Post</span>
+                </li>-->
+            </ul>
+        </div>
+      </div>
       <span class="narbar-text">
         <div class="dropdown mx-3">
           <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#" id="dropdownOpcionesUsuario"
@@ -87,8 +111,9 @@
               <a class="nav-link active" href="home.html"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
             </li class="nav-item">
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividad"><i
-                  class="fas fa-edit"></i>&nbsp;Crear actividad</a>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividadGrupo"
+                onclick="homeGrupo.agregaropcionesHorariosActividades()"><i class="fas fa-edit"></i>&nbsp;Crear
+                actividad</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="chatGrupal.html"><i class="fas fa-comments"></i>&nbsp;Entrar a chat</a>
@@ -99,7 +124,7 @@
             </li>
           </ul>
           <!-- Modal para la creacion de una actividad-->
-          <div class="modal fade" id="modalCrearActividad" tabindex="-1" role="dialog"
+          <div class="modal fade" id="modalCrearActividadGrupo" tabindex="-1" role="dialog"
             aria-labelledby="modalLabelHorario" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -124,16 +149,6 @@
                         <textarea id="actividadDescripcion" type="text" class="form-control"
                           placeholder="Ingrese La descripcion de la actividad"></textarea>
                       </div>
-                    </div>
-                    <div class="dropdown">
-                      <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" onclick="home.consultarMisHorariosParaActividades()">
-                        <i class="fas fa-calendar-alt"></i> Seleccione su horario
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                        id="opcionesHorarioCrearActividad">
-                      </div>
-                      <label id="labelHorario"></label>
                     </div>
                     <div class="dropdown">
                       <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
@@ -164,34 +179,51 @@
                         id="opcionesHorarioCrearActividadHorasFin">
                       </div>
                       <label id="labelHorasFin"></label>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="btn btn-secondary btnNav" onclick="home.agregarActividad()"><i
-                          class="fas fa-calendar-alt"></i> Crear
-                      </button>
-                      <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                        aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
-                      </button>
-                    </div>
+                      <div id="crearActividadGrupoAlert" class="row">
+                      </div>
                   </form>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()" data-toggle="modal"
+                    data-target="#modalCargandoHomeGrupo"><i class="fas fa-calendar-alt"></i> Crear
+                  </button>
+                  <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </nav>
-      <!-- Main contenido al lado del slidebar-->
-      <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
-        <div id="drag" class="table-responsive">
-          <table id="schedule" class="table table-light table-striped table-border">
-            <thead>
-              <tr></tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div> <!-- Tabla del horario grupal -->
-      </main>
+    </div>
+    </nav>
+    <!-- Main contenido al lado del slidebar-->
+    <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
+      <div id="drag" class="table-responsive">
+        <table id="schedule" class="table table-light table-striped table-border">
+          <thead>
+            <tr></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div> <!-- Tabla del horario grupal -->
+    </main>
+  </div>
+  </div>
+  <!-- Modal de cargando -->
+  <div class="modal fade" id="modalCargandoHomeGrupo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-success" role="status"></div>
+              <span>&nbsp;Creando...</span>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Scroll to Top Button-->

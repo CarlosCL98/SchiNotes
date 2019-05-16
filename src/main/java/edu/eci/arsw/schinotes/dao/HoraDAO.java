@@ -1,7 +1,6 @@
 package edu.eci.arsw.schinotes.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Hora;

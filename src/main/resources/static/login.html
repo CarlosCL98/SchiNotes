@@ -1,155 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<head th:insert="fragments.html :: headerfiles">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <title>SchiNotes Inicio de Sesión</title>
-  <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
-  <!-- Custom fonts for this template-->
-  <link href="/webjars/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-  <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <link href="css/app.css" type="text/css" rel="stylesheet" />
-  <link href="css/footer.css" type="text/css" rel="stylesheet" />
-  <link href="css/form.css" type="text/css" rel="stylesheet" />
-  <link href="css/navbar.css" type="text/css" rel="stylesheet" />
+    <title>SchiNotes Inicio de Sesión</title>
+    <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
+    <!-- Custom fonts for this template-->
+    <link href="/webjars/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="css/app.css" type="text/css" rel="stylesheet" />
+    <link href="css/footer.css" type="text/css" rel="stylesheet" />
+    <link href="css/form.css" type="text/css" rel="stylesheet" />
+    <link href="css/navbar.css" type="text/css" rel="stylesheet" />
 
-  <script src="/webjars/jquery/jquery.min.js"></script>
-  <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-  <script src="js/login.js"></script>
-  <script src="js/apiUsuario.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/apiUsuario.js"></script>
+    <script src="js/appFunctions.js"></script>
 </head>
 
-<body class="bg">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.html">
-      <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top" alt="">
-    </a>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-      </ul>
-      <span class="navbar-text">
+<body class="bg" onbeforeunload="appFunctions.crearCookie()">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">
+            <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top" alt="Logo navbar de la aplicacion">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <span class="navbar-text">
         <button class="btn btn-secondary btnNav" type="button" onclick="window.location.href='login.html'">
           <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
         </button>
       </span>
-      <span class="navbar-text">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span class="navbar-text">
+            <span class="navbar-text">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span class="navbar-text">
         <button class="btn btn-secondary btnNav" type="button" onclick="window.location.href='register.html'">
           <i class="fas fa-user-plus"></i> Registrarse
         </button>
       </span>
-    </div>
-  </nav>
-  <!-- Contenido -->
-  <div class="container">
-    <div class="card card-login my-auto mx-auto mt-5" style="max-width: 30rem;">
-      <div class="card-header">Iniciar Sesión</div>
-      <div class="card-body">
-        <div class="imgcontainer">
-          <img src="images/avatar.png" alt="Avatar" class="avatar">
         </div>
-        <form>
-          <div class="form-group">
-            <div class="form-label-group">
-              <label for="UsuarioInput"><i class="fas fa-at"></i> Correo</label>
-              <input type="email" id="UsuarioInput" class="form-control" placeholder="Email address" required="required"
-                autofocus="autofocus">
-              <div id="loginAlert1" class="row">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="form-label-group">
-              <label for="ContraseñaInput"><i class="fas fa-key"></i> Contraseña</label>
-              <input type="password" id="ContraseñaInput" class="form-control" placeholder="Password"
-                required="required">
-              <div id="loginAlert2" class="row">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me">
-                Recordar Contraseña
-              </label>
-            </div>
-          </div>
-          <input type="button" class="btn btn-secondary btnNav btn-block" data-toggle="modal" value="Iniciar Sesión"
-            onclick="login.autenticarUsuario()" data-target="#modalCargandoLogin">
-          <div id="loginAlert3" class="row">
-          </div>
-        </form>
-        <div class="text-center">
-          <a class="d-block small mt-3" href="register.html">Registrar una cuenta</a>
-          <a class="d-block small" href="forgot-password.html">¿Olvidó su contraseña?</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal de cargando -->
-  <div class="modal fade" id="modalCargandoLogin" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <form>
-            <div class="d-flex justify-content-center">
-              <div class="spinner-border text-success" role="status"></div>
-              <span>&nbsp;Verificando Cuenta...</span>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Footer -->
-  <footer id="myFooter">
+    </nav>
+    <!-- Contenido -->
     <div class="container">
-      <div class="row">
-        <div class="col-sm-3">
-          <h2 class="logo"><a href="#"><img src="images/tituloFooter.png"></a></h2>
+        <div class="card card-login my-auto mx-auto mt-5" style="max-width: 30rem;">
+            <div class="card-header">Iniciar Sesión</div>
+            <div class="card-body">
+                <div class="imgcontainer">
+                    <img src="images/avatar.png" alt="Avatar" class="avatar">
+                </div>
+                <form name="f" th:action="@{/login.html}" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <label for="UsuarioInput"><i class="fas fa-at"></i> Correo</label>
+                                <input type="email" name="username" id="UsuarioInput" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
+                                <div id="loginAlert1" class="row">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <label for="ContraseñaInput"><i class="fas fa-key"></i> Contraseña</label>
+                                <input type="password" name="password" id="ContraseñaInput" class="form-control" placeholder="Password" required="required">
+                                <div id="loginAlert2" class="row">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                  <input type="checkbox" value="remember-me">
+                  Recordar Contraseña
+                </label>
+                            </div>
+                        </div>
+                        <input id="btnInicioSesion" type="submit" class="btn btn-secondary btnNav btn-block" data-toggle="modal" value="Iniciar Sesión" onclick="login.autenticarUsuario()" data-target="#modalCargandoLogin">
+                        <div id="loginAlert3" class="row">
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="text-center">
+                    <a class="d-block small mt-3" href="register.html">Registrar una cuenta</a>
+                    <a class="d-block small" href="forgot-password.html">¿Olvidó su contraseña?</a>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-2">
-          <h5>Empieza</h5>
-          <ul>
-            <li><a href="login.html">- Inicio</a></li>
-            <li><a href="register.html">- Registrate</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-2">
-          <h5>Conócenos</h5>
-          <ul>
-            <li><a href="#">- Información de los desarrolladores</a></li>
-            <li><a href="#">- Contáctanos</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-2">
-          <h5>Ayuda</h5>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-3">
-          <div class="social-networks">
-            <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
-          </div>
-          <button type="button" class="btn btn-secondary btnNav">Contact us</button>
-        </div>
-      </div>
     </div>
-    <div class="footer-copyright">
-      <p>Daniel Rosales & Carlos Medina</p>
-      <p>&copy; Copyright 2019</p>
+    <!-- Modal de cargando -->
+    <div class="modal fade" id="modalCargandoLogin" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form>
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border text-success" role="status"></div>
+                            <span>&nbsp;Verificando Cuenta...</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </footer>
+    <!-- Footer -->
+    <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h2 class="logo">
+                        <a href="#"><img src="images/tituloFooter.png" alt="Logo del footer de schinotes"></a>
+                    </h2>
+                </div>
+                <div class="col-sm-2">
+                    <h5>Empieza</h5>
+                    <ul>
+                        <li><a href="login.html">- Inicio</a></li>
+                        <li><a href="register.html">- Registrate</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <h5>Conócenos</h5>
+                    <ul>
+                        <li><a href="#">- Información de los desarrolladores</a></li>
+                        <li><a href="#">- Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <h5>Ayuda</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <div class="social-networks">
+                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="google"><i class="fab fa-google-plus"></i></a>
+                    </div>
+                    <button type="button" class="btn btn-secondary btnNav">Contact us</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>Daniel Rosales & Carlos Medina</p>
+            <p>&copy; Copyright 2019</p>
+        </div>
+    </footer>
 </body>
 
 </html>

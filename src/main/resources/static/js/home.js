@@ -33,12 +33,11 @@ var home = (function () {
 
     var mostrarActividadesHorario = function (actividades) {
         for (var i = 0; i < actividades.length; i++) {
-            $("#" + $.escapeSelector((actividades[i].hora_ini).substring(0, 5) + "-" + actividades[i].dia)).append("<div class='single-event drag t1'><button class='btn btn-sm btn-secondary' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></button></div>");
+            $("#" + $.escapeSelector((actividades[i].hora_ini).substring(0, 5) + "-" + actividades[i].dia)).append("<div class='single-event drag t1'><a type='button' class='btn btn-sm btn-secondary btnNav' data-toggle='modal' data-target='#modalActividad' data-actividad-id=" + actividades[i].id + "><em class='event-name'>" + actividades[i].nombre + "</em></a></div>");
         }
         crearModalActividades();
         appFunctions.hacerDraggable();
-        $(".single-event").on("click", "button", function (event) {
-            console.log(event.target);
+        $(".single-event").on("click", "a", function (event) {
             apiActividad.getActividadById(event.target.dataset.actividadId, mostrarDescripcionActividad);
         });
     };
@@ -72,7 +71,7 @@ var home = (function () {
     };
 
     var cambiarHorario = function (nombre) {
-        apiHorario.getHorarioByName(Cookies.get('username'), nombre, mostrarHorario);
+        apiHorario.getHorarioByName(Cookies.get("username"), nombre, mostrarHorario);
     };
 
     var agregaropcionesHorariosActividades = function (data) {
@@ -85,7 +84,7 @@ var home = (function () {
             var idHorario = event.target.dataset.horarioId;
             actividadHorarioId = idHorario;
             actividadHorario = nombreHorario;
-            apiHorario.getHorarioByName(Cookies.get('username'), nombreHorario, cambiarOpcionesCreacionActividad);
+            apiHorario.getHorarioByName(Cookies.get("username"), nombreHorario, cambiarOpcionesCreacionActividad);
             $("#labelHorario").text("Horario seleccionado: " + nombreHorario);
         });
     };
@@ -170,15 +169,25 @@ var home = (function () {
         return infoCompleta;
     };
 
+    var mostrarNotificaciones = function(data){
+        console.log(data);
+        $("#notificationNum").append(data.length);
+        for (var i = 0; i < data.length; i++) {
+            $("#notificationsList").append("<li class='icon'></li>");
+            $("#notificationsList").find("li:last").append("<span class='icon'><i class='fa fa-user'></i></span>");
+            $("#notificationsList").find("li:last").append("<span class='text'>"+data[i].descripcion+"</span>");
+        }
+    };
+
     return {
         agregarHorario: function () {
             var data = {
                 id: "1",
-                nombre: $('#horarioNombre').val(),
-                intervaloHoras: $('#intervaloHoras').val(),
-                numeroDias: $('#horarioNumDias').val()
+                nombre: $("#horarioNombre").val(),
+                intervaloHoras: $("#intervaloHoras").val(),
+                numeroDias: $("#horarioNumDias").val()
             }
-            apiHorario.postHorario(data, Cookies.get('username'), verficarDatosCrearHorario);
+            apiHorario.postHorario(data, Cookies.get("username"), verficarDatosCrearHorario);
         },
         consultarMisHorarios: function () {
             var usuario = Cookies.get('username');
@@ -221,6 +230,9 @@ var home = (function () {
         },
         uniserAlGrupo: function () {
             apiGrupo.postAgregarIntegrante(Cookies.get("username"), grupoHorarioNombre, idGrupo);
+        },
+        agregarNotificaciones:function(){
+            apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
         }
     };
 

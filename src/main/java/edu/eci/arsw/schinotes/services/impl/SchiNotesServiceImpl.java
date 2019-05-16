@@ -12,12 +12,14 @@ import edu.eci.arsw.schinotes.model.DiaDeLaSemana;
 import edu.eci.arsw.schinotes.model.Grupo;
 import edu.eci.arsw.schinotes.model.Hora;
 import edu.eci.arsw.schinotes.model.Horario;
+import edu.eci.arsw.schinotes.model.Notificacion;
 import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.services.SchiNotesService;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import edu.eci.arsw.schinotes.dao.HoraDAO;
 import edu.eci.arsw.schinotes.dao.HorarioDAO;
@@ -27,6 +29,9 @@ import edu.eci.arsw.schinotes.dao.HorarioDAO;
  */
 @Service
 public class SchiNotesServiceImpl implements SchiNotesService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UsuarioDAO usuarioDAO;
@@ -66,6 +71,8 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public void crearCuenta(Cuenta cuenta) throws SchiNotesException {
+        //Cifrar la contraseña
+        cuenta.setContrasena(passwordEncoder.encode(cuenta.getContrasena()));
         cuentaDAO.saveCuenta(cuenta);
     }
 
@@ -233,6 +240,23 @@ public class SchiNotesServiceImpl implements SchiNotesService {
     @Override
     public List<Actividad> consultarActividadesPorGrupo(int grupoId, String nombreHorario) throws SchiNotesException {
         return actividadDAO.loadActividadesByGroup(grupoId, nombreHorario);
+    }
+
+    @Override
+    public void agregarNotificacion(String correoUsuario, Notificacion notificacion) throws SchiNotesException {
+        Usuario usuario = this.consultarUsuarioPorCorreo(correoUsuario);
+        notificacion.setUsuario(usuario);
+        usuarioDAO.saveNotificaciones(notificacion);
+    }
+
+    @Override
+    public List<Notificacion> consultarNotificaciones(String correo) throws SchiNotesException {
+        return usuarioDAO.loadNotificaciones(correo);
+    }
+
+    @Override
+    public void eliminarActividad(int idHorario, int idActividad) throws SchiNotesException {
+        actividadDAO.eliminarActividad(idHorario, idActividad);
     }
 
 }

@@ -4,6 +4,7 @@ import edu.eci.arsw.schinotes.model.Usuario;
 import edu.eci.arsw.schinotes.dao.UsuarioDAO;
 import edu.eci.arsw.schinotes.exceptions.SchiNotesException;
 import edu.eci.arsw.schinotes.model.Cuenta;
+import edu.eci.arsw.schinotes.model.Notificacion;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -185,5 +186,45 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         return usuarios;
     }
+
+    @Override
+    public void saveNotificaciones(Notificacion notificacion) throws SchiNotesException {       
+
+        String sql1 = "SELECT CASE WHEN MAX(n.id) is NULL THEN 0 ELSE MAX(n.id) END FROM notificacion n";
+        int id = jdbcTemplate.queryForObject(sql1, Integer.class);
+        String sql2 = "INSERT INTO notificacion (id,descripcion,usuario_identificacion) VALUES (?,?,?)";
+        jdbcTemplate.update(sql2, new Object[] { id + 1, notificacion.getDescripcion(),notificacion.getUsuario().getIdentificacion()});
+    }
+
+    @Override
+    public List<Notificacion> loadNotificaciones(String correo) throws SchiNotesException {
+        String sql = "SELECT * FROM notificacion n,cuenta cu,usuario u WHERE cu.correo = ? AND u.cuenta_correo = cu.correo AND u.identificacion = n.usuario_identificacion";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[] { correo });
+        List<Notificacion> notificaciones = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            Notificacion notificacion = new Notificacion();
+            int id = (int) row.get("id");
+            notificacion.setId(id);
+            notificacion.setDescripcion((String) row.get("descripcion"));
+            Usuario usuario = new Usuario();
+            int identificacion = (int) row.get("identificacion");
+            usuario.setIdentificacion(identificacion);
+            usuario.setNombre((String) row.get("nombre"));
+            usuario.setApellido((String) row.get("apellido"));
+            usuario.setFoto((Byte[]) row.get("foto"));
+            usuario.setIntereses((String) row.get("intereses"));
+            Cuenta cuenta = new Cuenta();
+            cuenta.setCorreo((String) row.get("correo"));
+            cuenta.setContrasena((String) row.get("contrasena"));
+            cuenta.setNickname((String) row.get("nickname"));
+            usuario.setCuentaCorreo(cuenta);
+            usuario.setMisAmigos(loadMisAmigos(identificacion));
+            notificacion.setUsuario(usuario);
+            notificaciones.add(notificacion);
+        }
+        
+        return notificaciones;
+    }
+    
 
 }
