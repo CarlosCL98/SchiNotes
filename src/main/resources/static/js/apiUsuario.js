@@ -118,6 +118,28 @@ var apiUsuario = (function () {
             $.get("/schinotes/usuarios/"+correo+"/notificaciones", function(data){
                 callback(data);
             });
+        },
+        deleteAmigo: function(correo,idAmigo,activeUser,callback){
+            console.log("/schinotes/usuarios/"+correo+"/amigos/"+idAmigo);
+            var newUser=null;
+            
+
+            $.ajax({
+                url: "/schinotes/usuarios/"+correo+"/amigos/"+idAmigo,
+                type: 'DELETE',
+            }).done(function() {
+                console.log("se elimino la actividad")
+                $.get("/schinotes/usuarios/" + correo, function (data) {
+                    newUser=data;
+                    console.log("nuevoUsuario");
+                    console.log(newUser);
+                    callback(newUser);
+                });
+                
+            }).fail(function() {
+                console.log("no se elimino la actividad")
+            });
+            
         }
     };
 

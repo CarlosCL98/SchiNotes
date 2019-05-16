@@ -138,10 +138,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return usuarios;
     }
 
-    @Override
-    public List<Usuario> deleteAmigos(String correo) throws SchiNotesException {
-        return null;
-    }
 
     @Override
     public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException {
@@ -224,6 +220,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         
         return notificaciones;
+    }
+
+
+    @Override
+    public void deleteAmigo(int idUsuario, int idAmigo) throws SchiNotesException {
+        String sql1 = "DELETE FROM amigo where usuario_identificacion = ? AND usuario_2_identificacion = ?";
+        jdbcTemplate.update(sql1, new Object[] { idUsuario, idAmigo });
     }
     
 
