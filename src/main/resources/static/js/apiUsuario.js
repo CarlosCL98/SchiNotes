@@ -19,7 +19,7 @@ var apiUsuario = (function () {
                     }, 500);
                     setTimeout(function () {
                         $(location).attr("href", "../comprobarCuenta.html");
-                    }, 2500);
+                    }, 2000);
                 }).fail(function (fallo) {
                     setTimeout(function () {
                         $("#modalCargandoRegistrar").modal("hide");
@@ -41,7 +41,6 @@ var apiUsuario = (function () {
             callback2();
         },
         postNotificacion: function (nombreUsuario, datosNotificacion, callback) {
-
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -51,16 +50,12 @@ var apiUsuario = (function () {
                 setTimeout(function () {
                     $("#modalCargandoHome").modal("hide");
                 }, 500);
-
             }).fail(function () {
                 setTimeout(function () {
                     $("#modalCargandoHome").modal("hide");
-
                 }, 500);
-                alert("El grupo no se pudo crear. Intentelo nuevamente.");
             });
             callback(datosNotificacion);
-
         },
         getUsuario: function (correo, callback) {
             $.get("/schinotes/usuarios/" + correo, function (data) {
@@ -101,7 +96,7 @@ var apiUsuario = (function () {
                 }, 500);
                 setTimeout(function () {
                     $(location).attr("href", "../perfil.html");
-                }, 2500);
+                }, 2000);
             }).fail(function () {
                 setTimeout(function () {
                     $("#modalCargandoPerfil").modal("hide");
@@ -151,6 +146,10 @@ var apiUsuario = (function () {
                     newUser = data;
                     callback(newUser);
                 });
+                setTimeout(function () {
+                    $("#modalVerAmigos").modal("hide");
+                    $(location).attr("href", "../perfil.html");
+                }, 2000);                
             }).fail(function () {
                 setTimeout(function () {
                     $("#modalCargandoPerfil").modal("hide");

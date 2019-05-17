@@ -44,12 +44,11 @@ var home = (function () {
     };
 
     var crearModalActividades = function () {
-        $("#mainContent").append('<div class="modal fade" id="modalActividad" tabindex="-1" role="dialog" aria-labelledby="modalLabelActividad" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="modalLabelActividad">Actividad: </h5><button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><form><div class="row"><div class="col-md-12"><span id="descripcion-actividad"></span></div><div class="col-md-12"><span id="fecha-creacion-actividad"></span></div><div class="col-md-12"><span id="hora-ini-actividad"></span></div><div class="col-md-12"><span id="hora-fin-actividad"></span></div></div><div class="single-event"><button id="buttonDeleteActividad" class="btn btn-secondary btnNav" type="button" data-actividad-id="" data-horario-id="" onClick="home.eliminarActividad(this)" class="close" data-dismiss="modal" aria-label="Eliminar actividad"><i class="fas fa-window-close"></i>&nbsp;Eliminiar Actividad</button></div></form></div><div class="modal-footer"><button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><i class="fas fa-window-close"></i>&nbsp;Cerrar</button></div></div></div></div>');
+        $("#mainContent").append('<div class="modal fade" id="modalActividad" tabindex="-1" role="dialog" aria-labelledby="modalLabelActividad" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="modalLabelActividad">Actividad: </h5><button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><form><div class="row"><div class="col-md-12"><span id="descripcion-actividad"></span></div><div class="col-md-12"><span id="fecha-creacion-actividad"></span></div><div class="col-md-12"><span id="hora-ini-actividad"></span></div><div class="col-md-12"><span id="hora-fin-actividad"></span></div></div><div id="eliminarActividadAlert" class="row"></div><div class="single-event"><button id="buttonDeleteActividad" class="btn btn-secondary btnNav" type="button" data-actividad-id="" data-horario-id="" onClick="home.eliminarActividad(this)" data-toggle="modal" data-target="#modalCargandoHome" aria-label="Eliminar actividad"><i class="fas fa-window-close"></i>&nbsp;Eliminiar Actividad</button></div></form></div><div class="modal-footer"><button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><i class="fas fa-window-close"></i>&nbsp;Cerrar</button></div></div></div></div>');
         $(".single-event").on("click", "button", function (event) {
             apiActividad.getActividadById(event.target.dataset.actividadId, mostrarDescripcionActividad);
         });
     };
-
 
     var mostrarDescripcionActividad = function (actividad) {
         $("#modalLabelActividad").empty();
@@ -236,7 +235,7 @@ var home = (function () {
         consultarGrupos: function () {
             apiGrupo.getAllGrupos(agregarOpcionesGruposUnirseGrupo);
         },
-        uniserAlGrupo: function () {
+        unirseAlGrupo: function () {
             apiGrupo.postAgregarIntegrante(Cookies.get("username"), grupoHorarioNombre, idGrupo);
         },
         agregarNotificaciones: function () {

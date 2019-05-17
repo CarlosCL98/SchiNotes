@@ -97,14 +97,33 @@ var apiActividad = (function () {
                 }, 500);
             }
         },
-        deleteActividad: function(idHorario,idActividad,nombreHorario,callback){
+        deleteActividad: function (idHorario, idActividad, nombreHorario, callback) {
             $.ajax({
-                url: "/schinotes/horarios/"+idHorario+"/actividades/"+idActividad,
+                url: "/schinotes/horarios/" + idHorario + "/actividades/" + idActividad,
                 type: 'DELETE',
-            }).done(function() {
-                alert("se elimino la actividad")
+            }).done(function () {
+                setTimeout(function () {
+                    $("#modalCargandoHome").modal("hide");
+                    $("#eliminarActividadAlert").append("<div id='alertEliminarActividad' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>La Actividad se eliminó exitosamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertEliminarActividad").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
+                setTimeout(function () {
+                    $("#alertEliminarActividad").remove();
+                    $("#modalActividad").modal("hide");
+                    callback2(data);
+                }, 2000);
+            }).fail(function () {
+                setTimeout(function () {
+                    $("#modalCargandoHome").modal("hide");
+                    $("#eliminarActividadAlert").append("<div id='alertNoEliminarActividad' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>La Actividad no se eliminó. Inténtelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertNoEliminarActividad").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
             });
-            callback(nombreHorario)
+            callback(nombreHorario);
         }
     };
 

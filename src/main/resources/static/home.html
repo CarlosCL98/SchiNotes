@@ -378,11 +378,13 @@
                             </div>
                             <label id="labelHorarioParaGrupo"></label>
                         </div>
+                        <div id="unirseAGrupoAlert" class="row">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary btnNav" onclick="home.uniserAlGrupo()"><i
-                            class="fas fa-plus-square"></i>
+                    <button type="button" class="btn btn-secondary btnNav" onclick="home.unirseAlGrupo()"><i
+                            class="fas fa-plus-square" data-toggle="modal" data-target="#modalCargandoHome"></i>
                         Unirse</button>
                     <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
                         aria-label="Cerrar"><i class="fas fa-window-close"></i>
@@ -399,7 +401,7 @@
                     <form>
                         <div class="d-flex justify-content-center">
                             <div class="spinner-border text-success" role="status"></div>
-                            <span>&nbsp;Creando...</span>
+                            <span>&nbsp;Cargando...</span>
                         </div>
                     </form>
                 </div>
