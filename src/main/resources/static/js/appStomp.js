@@ -43,8 +43,6 @@ var appStomp = (function () {
         stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
             console.log("Connected: " + frame);
             stompClient.subscribe("/topic/notificacion." + idGrupo, function (eventbody) {
-                console.log("entre al suscribe");
-                console.log(JSON.parse(eventbody.body));
                 apiUsuario.postNotificacion(Cookies.get("username"),JSON.parse(eventbody.body),homeGrupo.actualizarNotificaciones);
             });
         }, function (error) {

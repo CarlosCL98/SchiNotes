@@ -35,7 +35,10 @@
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <!-- Script para el botón que permite ir al inicio -->
     <script>
-        window.onscroll = function () { scrollFunction() };
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
         function scrollFunction() {
             if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
                 document.getElementById("btnGoTop").style.display = "block";
@@ -53,7 +56,7 @@
             <div class="sidebar-heading">
                 <a class="navbar-brand" href="home.html">
                     <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top"
-                        alt="">
+                        alt="tituloFooter">
                 </a>
             </div>
             <div class="list-group list-group-flush">
@@ -91,14 +94,13 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav mr-auto">
                     </ul>
-                    <div>
-                        <div class="notifications">
+                    <span class="navbar-text">
+                        <a href="#" type="button" class="notification btn btn-secondary btnNav" data-toggle="modal"
+                            data-target="#modalNotificaciones">
                             <i class="fa fa-bell" style="color: black"></i>
                             <span id="notificationNum" class="num"></span>
-                            <ul id="notificationsList" class='ul_noti'>
-                            </ul>
-                        </div>
-                    </div>
+                        </a>
+                    </span>
                     <span class="navbar-text">
                         <div class="dropdown mx-3">
                             <button class="dropdown-toggle btn btn-secondary btnNav" href="#"
@@ -129,12 +131,42 @@
                         <tbody>
                         </tbody>
                     </table>
-                </div> <!-- Tabla del horario -->
+                </div>
+                <!-- Tabla del horario -->
             </main>
         </div>
         <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
+    <!-- Modal de las notificaciones -->
+    <div class="modal fade" id="modalNotificaciones" tabindex="-1" role="dialog"
+        aria-labelledby="modalLabelNotificaciones" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabelNotificaciones">Notificaciones</h5>
+                    <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <div class="col-md-11">
+                                <ul id="notificationsList" style="line-height: 25px;">
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+                        aria-label="Cerrar"><i class="fas fa-window-close"></i>
+                        Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Modal para la creación de un horario -->
     <div class="modal fade" id="modalCrearHorario" tabindex="-1" role="dialog" aria-labelledby="modalLabelHorario"
         aria-hidden="true">
@@ -384,7 +416,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    <h2 class="logo"><a href="#"><img src="images/tituloFooter.png"></a></h2>
+                    <h2 class="logo">
+                        <a href="#"><img src="images/tituloFooter.png" alt="tituloNavBar"></a>
+                    </h2>
                 </div>
                 <div class="col-sm-2">
                     <h5>Empieza</h5>
@@ -396,7 +430,8 @@
                 <div class="col-sm-2">
                     <h5>Conócenos</h5>
                     <ul style="list-style-type:circle;">
-                        <li><a href="https://schinotes.gitbook.io/schinotes/" target="_blank">Sobre nuestro proyecto</a>
+                        <li><a href="https://schinotes.gitbook.io/schinotes/" target="_blank" rel="noreferrer">Sobre
+                                nuestro proyecto</a>
                         </li>
                         <li><a href="#">Contáctanos</a></li>
                     </ul>

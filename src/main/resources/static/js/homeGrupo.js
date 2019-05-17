@@ -1,4 +1,5 @@
 var homeGrupo = (function () {
+
   var actividadHorarioId = null;
   var actividadHorario = null;
   var actividadDia = null;
@@ -145,18 +146,10 @@ var homeGrupo = (function () {
     $("#hora-ini-actividad").empty();
     $("#hora-fin-actividad").empty();
     $("#modalLabelActividad").text("Actividad: " + actividad.nombre);
-    $("#descripcion-actividad").append(
-      "<h5>Descripción</h5><p>" + actividad.descripcion + "</p>"
-    );
-    $("#fecha-creacion-actividad").append(
-      "<h5>Fecha Creación</h5><p>" + actividad.fecha + "</p>"
-    );
-    $("#hora-ini-actividad").append(
-      "<h5>Hora Inicio</h5><p>" + actividad.hora_ini.substring(0, 5) + "</p>"
-    );
-    $("#hora-fin-actividad").append(
-      "<h5>Hora Fin</h5><p>" + actividad.hora_fin.substring(0, 5) + "</p>"
-    );
+    $("#descripcion-actividad").append("<h5>Descripción</h5><p>" + actividad.descripcion + "</p>");
+    $("#fecha-creacion-actividad").append("<h5>Fecha Creación</h5><p>" + actividad.fecha + "</p>");
+    $("#hora-ini-actividad").append("<h5>Hora Inicio</h5><p>" + actividad.hora_ini.substring(0, 5) + "</p>");
+    $("#hora-fin-actividad").append("<h5>Hora Fin</h5><p>" + actividad.hora_fin.substring(0, 5) + "</p>");
   };
 
   var verficarDatosCrearActividadGrupo = function (data) {
@@ -167,15 +160,15 @@ var homeGrupo = (function () {
     return infoCompleta;
   };
 
-  var mostrarNotificaciones = function(data){
-    console.log(data);
-    $("#notificationNum").empty;
-    $("#notificationsList").empty;
+  var mostrarNotificaciones = function (data) {
+    $("#notificationNum").empty();
+    $("#notificationsList").empty();
     $("#notificationNum").append(data.length);
     for (var i = 0; i < data.length; i++) {
-        $("#notificationsList").append("<li class='icon'></li>");
-        $("#notificationsList").find("li:last").append("<span class='icon'><i class='fa fa-user'></i></span>");
-        $("#notificationsList").find("li:last").append("<span class='text'>"+data[i].descripcion+"</span>");
+      $("#notificationsList").append("<li class='icon' style='list-style-type: none'></li>");
+      $("#notificationsList").find("li:last").append("<span class='icon'><i class='fa fa-user'></i></span>");
+      $("#notificationsList").find("li:last").append("<span class='text'>&nbsp;" + data[i].descripcion + "</span><br/>");
+      $("#notificationsList").find("li:last").append("<span class='text'>------------------------------------------------------------</span>");
     }
   };
 
@@ -205,11 +198,11 @@ var homeGrupo = (function () {
 
       var dataNotificacion = {
         id: "1",
-        descripcion: "Se ha creado la actividad'"+$("#actividadDescripcion").val()+"'en tu grupo "+Cookies.get("grupoNombre")
+        descripcion: "Se ha creado la actividad'" + $("#actividadDescripcion").val() + "'en tu grupo " + Cookies.get("grupoNombre")
       };
 
       apiActividad.postActividadGrupo(dataActividad, dataActividad.horario_id, verficarDatosCrearActividadGrupo, appStomp.cambiarHorarioGrupoConActividades);
-      apiUsuario.postNotificacion(Cookies.get("username"),dataNotificacion,appStomp.actualizarNotificaciones);
+      apiUsuario.postNotificacion(Cookies.get("username"), dataNotificacion, appStomp.actualizarNotificaciones);
     },
     agregaropcionesHorariosActividades: function () {
       actividadHorarioId = grupoHorarioId;
@@ -222,11 +215,12 @@ var homeGrupo = (function () {
     recargarHorario: function (horario) {
       cambiarHorario(Cookies.get("grupoId"));
     },
-    agregarNotificaciones:function(){
-      apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
+    agregarNotificaciones: function () {
+      apiUsuario.getNotificaciones(Cookies.get("username"), mostrarNotificaciones);
     },
-    actualizarNotificaciones:function(notificacion){
-      apiUsuario.getNotificaciones(Cookies.get("username"),mostrarNotificaciones);
+    actualizarNotificaciones: function (notificacion) {
+      apiUsuario.getNotificaciones(Cookies.get("username"), mostrarNotificaciones);
     }
   };
+  
 })();

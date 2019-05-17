@@ -2,11 +2,9 @@
     transform: translateX(-100%);
     width: 50px;
     height: 50px;
-    background-color: #84c33e;
     border-radius: 50px;
     box-sizing: border-box;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }
 
 .notifications:hover {
@@ -14,20 +12,9 @@
     height: 60px;
     text-align: left;
     padding: 0 15px;
-    background: #ff2c;
     transform: translateY(-10%);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-}
-
-.notifications:hover .fa {
-    color: #fff;
-}
-
-.notifications .fa {
-    color: #cecece;
-    line-height: 60px;
-    font-size: 30px;
 }
 
 .notifications .num {
@@ -38,7 +25,7 @@
     height: 25px;
     border-radius: 50%;
     background: gray;
-    color: #fff;
+    color: black;
     line-height: 25px;
     font-family: sans-serif;
     text-align: center;
@@ -47,13 +34,9 @@
 .notifications:hover .num {
     position: relative;
     background: transparent;
-    color: #fff;
+    color: black;
     font-size: 24px;
     top: -4px;
-}
-
-.notifications:hover .num:after {
-    content: ' Notification';
 }
 
 .ul_noti {
@@ -68,7 +51,7 @@
     box-sizing: border-box;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    display: none;
+    display: none;    
 }
 
 .notifications:hover ul {
