@@ -57,7 +57,6 @@ var apiActividad = (function () {
             }
         },
         postActividadGrupo: function (data, idHorario, callback, callback2) {
-            console.log(data);
             var infoCompleta = callback(data);
             if (infoCompleta) {
                 $.ajax({
@@ -66,6 +65,12 @@ var apiActividad = (function () {
                     url: "/schinotes/grupos/horarios/" + idHorario + "/actividades",
                     data: JSON.stringify(data)
                 }).done(function () {
+                    var dataNotificacion = {
+                        id: "1",
+                        descripcion: "Se ha creado la actividad '" + $("#actividadDescripcion").val() + "' en tu grupo '" + Cookies.get("grupoNombre") + "'"
+                    };
+                    appStomp.actualizarNotificaciones(dataNotificacion);
+                    //apiUsuario.postNotificacion(Cookies.get("username"), dataNotificacion, appStomp.actualizarNotificaciones);
                     setTimeout(function () {
                         $("#modalCargandoHomeGrupo").modal("hide");
                         $("#crearActividadGrupoAlert").append("<div id='alertActividadGrupoCreada' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>La Actividad se creo exitosamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");

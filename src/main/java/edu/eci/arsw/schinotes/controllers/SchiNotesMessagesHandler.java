@@ -40,9 +40,7 @@ public class SchiNotesMessagesHandler {
 
     @MessageMapping("/notificacion.{idGrupo}")
     public void handlePointEventNotificacion(Notificacion notificacion, @DestinationVariable String idGrupo) throws Exception {
-        System.out.println("entre al messageHandler");
-        System.out.println(notificacion.getDescripcion());
-        msgt.convertAndSend("/topic/grupo." + idGrupo, notificacion);
+        msgt.convertAndSend("/topic/notificacion." + idGrupo, notificacion);
     }
 
     @MessageMapping("/conectado.{idGrupo}")

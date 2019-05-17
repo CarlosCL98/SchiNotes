@@ -195,14 +195,7 @@ var homeGrupo = (function () {
         hora_ini: actividadHoraInicio,
         hora_fin: actividadHoraFin
       };
-
-      var dataNotificacion = {
-        id: "1",
-        descripcion: "Se ha creado la actividad'" + $("#actividadDescripcion").val() + "'en tu grupo " + Cookies.get("grupoNombre")
-      };
-
       apiActividad.postActividadGrupo(dataActividad, dataActividad.horario_id, verficarDatosCrearActividadGrupo, appStomp.cambiarHorarioGrupoConActividades);
-      apiUsuario.postNotificacion(Cookies.get("username"), dataNotificacion, appStomp.actualizarNotificaciones);
     },
     agregaropcionesHorariosActividades: function () {
       actividadHorarioId = grupoHorarioId;

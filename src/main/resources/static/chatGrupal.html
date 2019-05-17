@@ -43,6 +43,16 @@
     <script src="js/chatGrupal.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.1/emojionearea.min.css">
+    <script>
+        $(document).ready(function () {
+            $("#inputMensajeChat").emojioneArea({
+                pickerPosition: "right",
+                tonesStyle: "bullet"
+            });
+        });
+    </script>
 </head>
 
 <body class="bg" onload="chatGrupal.init(),homeGrupo.agregarNotificaciones()" onbeforeunload="chatGrupal.disconnect()">
@@ -127,18 +137,19 @@
                                             <small id="conectadosChat"> Conectados: 0 </small>
                                         </h6>
                                     </div>
-                                    <div class="card bg-sohbet border-0 m-0 p-0" style="height: 100vh;">
+                                    <div class="card bg-sohbet border-0 m-0 p-0" style="height: 45vh;">
                                         <div id="chatGrupal"
                                             class="card border-0 m-0 p-0 position-relative bg-transparent"
-                                            style="overflow-y: auto; height: 100vh;">
+                                            style="overflow-y: auto; height: 50vh;">
                                         </div>
                                     </div>
                                     <div
                                         class="w-100 card-footer p-0 bg-light border border-bottom-0 border-left-0 border-right-0">
                                         <div class="row m-0 p-0">
                                             <div class="col-9 m-0 p-1">
-                                                <input id="inputMensajeChat" class="mw-100 border rounded form-control"
-                                                    type="text" placeholder="Escribe un mensaje...">
+                                                <textarea id="inputMensajeChat"
+                                                    class="mw-100 border rounded form-control" type="text"
+                                                    placeholder="Escribe un mensaje..."></textarea>
                                             </div>
                                             <div class="col-3 m-0 p-1">
                                                 <button class="btn btn-secondary btnNav rounded border w-100"

@@ -53,6 +53,8 @@ var chatGrupal = (function () {
             $("#chatGrupal").append("<div class='balon2 p-2 m-0 position-relative' data-is='" + usuario + "\n" + cadenaFecha + "'><a class='float-left sohbet2'> " + mensaje + " </a></div>");
         }
         $("#inputMensajeChat").val("");
+        var element = $("#inputMensajeChat").emojioneArea();
+        element[0].emojioneArea.setText("");
     };
 
     return {

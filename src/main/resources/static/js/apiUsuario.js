@@ -47,6 +47,7 @@ var apiUsuario = (function () {
                 url: "/schinotes/usuarios/" + nombreUsuario + "/notificaciones",
                 data: JSON.stringify(datosNotificacion)
             }).done(function () {
+                callback(datosNotificacion);
                 setTimeout(function () {
                     $("#modalCargandoHome").modal("hide");
                 }, 500);
@@ -55,7 +56,6 @@ var apiUsuario = (function () {
                     $("#modalCargandoHome").modal("hide");
                 }, 500);
             });
-            callback(datosNotificacion);
         },
         getUsuario: function (correo, callback) {
             $.get("/schinotes/usuarios/" + correo, function (data) {
@@ -149,7 +149,7 @@ var apiUsuario = (function () {
                 setTimeout(function () {
                     $("#modalVerAmigos").modal("hide");
                     $(location).attr("href", "../perfil.html");
-                }, 2000);                
+                }, 2000);
             }).fail(function () {
                 setTimeout(function () {
                     $("#modalCargandoPerfil").modal("hide");
