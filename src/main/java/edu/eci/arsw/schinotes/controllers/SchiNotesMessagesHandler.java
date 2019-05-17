@@ -26,27 +26,27 @@ public class SchiNotesMessagesHandler {
 
     // El primer entero corresponde al id del grupo, y el siguiente a una lista con
     // los usuarios conectados a un chat.
-    private ConcurrentHashMap<Integer, List<String>> conectadosAlChat = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, List<String>> conectadosAlChat = new ConcurrentHashMap<>();
 
     @MessageMapping("/horario.{idHorario}")
-    public void handlePointEventHorario(Actividad actividad, @DestinationVariable int idHorario) throws Exception {
+    public void handlePointEventHorario(Actividad actividad, @DestinationVariable String idHorario) throws Exception {
         msgt.convertAndSend("/topic/horario." + idHorario, actividad);
     }
 
     @MessageMapping("/horarioGrupo.{idGrupo}")
-    public void handlePointEventHorarioGrupo(Actividad actividad, @DestinationVariable int idGrupo) throws Exception {
+    public void handlePointEventHorarioGrupo(Actividad actividad, @DestinationVariable String idGrupo) throws Exception {
         msgt.convertAndSend("/topic/horarioGrupo." + idGrupo, actividad);
     }
 
     @MessageMapping("/notificacion.{idGrupo}")
-    public void handlePointEventNotificacion(Notificacion notificacion, @DestinationVariable int idGrupo) throws Exception {
+    public void handlePointEventNotificacion(Notificacion notificacion, @DestinationVariable String idGrupo) throws Exception {
         System.out.println("entre al messageHandler");
         System.out.println(notificacion.getDescripcion());
         msgt.convertAndSend("/topic/grupo." + idGrupo, notificacion);
     }
 
     @MessageMapping("/conectado.{idGrupo}")
-    public void handlePointEventConectar(String correoUsuarioConectado, @DestinationVariable int idGrupo)
+    public void handlePointEventConectar(String correoUsuarioConectado, @DestinationVariable String idGrupo)
             throws Exception {
         if (conectadosAlChat.containsKey(idGrupo)) {
             List<String> usuariosConectados = conectadosAlChat.get(idGrupo);
@@ -69,7 +69,7 @@ public class SchiNotesMessagesHandler {
     }
 
     @MessageMapping("/desconectar.{idGrupo}")
-    public void handlePointEventDesconectar(String correoUsuarioDesconectado, @DestinationVariable int idGrupo)
+    public void handlePointEventDesconectar(String correoUsuarioDesconectado, @DestinationVariable String idGrupo)
             throws Exception {
         if (conectadosAlChat.containsKey(idGrupo)) {
             List<String> usuariosConectados = conectadosAlChat.get(idGrupo);

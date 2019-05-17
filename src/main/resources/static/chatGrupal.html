@@ -16,7 +16,7 @@
     <link href="css/app.css" type="text/css" rel="stylesheet" />
     <link href="css/footer.css" type="text/css" rel="stylesheet" />
     <link href="css/sidebar.css" type="text/css" rel="stylesheet" />
-    <link href="css/navbar.css" type="text/css" rel="stylesheet" />
+    <link href="css/notification.css" type="text/css" rel="stylesheet" />
     <link href="css/chatGrupal.css" type="text/css" rel="stylesheet" />
 
     <script src="/webjars/jquery/jquery.min.js"></script>
@@ -26,38 +26,83 @@
         crossorigin="anonymous"></script>
     <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="js/homeGrupo.js"></script>
+    <script src="js/appFunctions.js"></script>
     <script src="js/chatGrupal.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 </head>
 
 <body class="bg" onload="chatGrupal.init()" onbeforeunload="chatGrupal.disconnect()">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">
-            <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top" alt="">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-            </ul>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark border-dark" id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <a class="navbar-brand" href="home.html">
+                    <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top"
+                        alt="">
+                </a>
+            </div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action bg-dark" href="home.html"><i
+                        class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
+                <a class="list-group-item list-group-item-action bg-dark" href="#" data-toggle="modal"
+                    data-target="#modalCrearActividadGrupo" onclick="homeGrupo.agregaropcionesHorariosActividades()"><i
+                        class="fas fa-edit"></i>&nbsp;Crear
+                    actividad</a>
+                <a class="list-group-item list-group-item-action bg-dark" href="chatGrupal.html"><i
+                        class="fas fa-comments"></i>&nbsp;Entrar a chat</a>
+                <a class="list-group-item list-group-item-action bg-dark" href="#"
+                    onclick="homeGrupo.salirseDelGrupo()"><i class="fas fa-sign-out-alt"></i>&nbsp;Salirse del grupo</a>
+            </div>
         </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="homeGrupo.html"><i
-                                    class="fas fa-reply"></i>&nbsp;&nbsp;Regresar</a>
-                        </li class="nav-item">
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="row">
+                    <button class="btn btn-secondary btnNav" id="menu-toggle"><i class="fas fa-list-alt"></i></button>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
                     </ul>
+                    <div>
+                        <div class="notifications">
+                            <i class="fa fa-bell" style="color: black"></i>
+                            <span id="notificationNum" class="num"></span>
+                            <ul id="notificationsList" class='ul_noti'>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="narbar-text">
+                        <div class="dropdown mx-3">
+                            <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#"
+                                id="dropdownOpcionesUsuario" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"><i class="fas fa-users"></i>
+                            </button>
+                            <div id="opcionesUsuario" class="dropdown-menu" aria-labelledby="dropdownOpcionesUsuario">
+                                <a class='dropdown-item' href="#">Información (Proximamente)</a>
+                            </div>
+                        </div>
+                    </span>
+                    <span class="navbar-text">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="navbar-text">
+                        <button class="btn btn-secondary btnNav" type="button" onclick="appFunctions.cerrarSesion()">
+                            <i class="fas fa-sign-out-alt"></i>&nbsp;Cerrar Sesión
+                        </button>
+                    </span>
                 </div>
             </nav>
-            <main role="main">
-                <div class="jumbotron m-0 p-0 bg-transparent">
-                    <div class="row"
-                        style="margin-top: 5rem; margin-left: 10rem; margin-bottom: 5rem; margin-right: 10rem; width: 40rem">
+            <!-- Contenido -->
+            <!-- Main contenido al lado del slidebar-->
+            <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-12 px-3">
+                <div class="jumbotron p-0 m-0 bg-transparent">
+                    <div class="row" style="margin-top: 1rem; margin-left: 10rem; margin-bottom: 1rem; margin-right: 10rem; width: 40rem;">
                         <div class="col-12 p-0 m-0" style="right: 0px;">
                             <div class="card border-0 rounded"
                                 style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 6px 10px 0 rgba(0, 0, 0, 0.01);">
@@ -92,10 +137,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <!-- Chat grupal -->
             </main>
         </div>
+        <!-- /#page-content-wrapper -->
     </div>
+    <!-- /#wrapper -->
     <!-- Footer -->
     <footer id="myFooter">
         <div class="container">
@@ -105,21 +152,22 @@
                 </div>
                 <div class="col-sm-2">
                     <h5>Empieza</h5>
-                    <ul>
-                        <li><a href="login.html">- Inicio</a></li>
-                        <li><a href="register.html">- Registrate</a></li>
+                    <ul style="list-style-type:circle;">
+                        <li><a href="login.html">Inicio</a></li>
+                        <li><a href="register.html">Registrate</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
                     <h5>Conócenos</h5>
-                    <ul>
-                        <li><a href="#">- Información de los desarrolladores</a></li>
-                        <li><a href="#">- Contáctanos</a></li>
+                    <ul style="list-style-type:circle;">
+                        <li><a href="https://schinotes.gitbook.io/schinotes/" target="_blank">Sobre nuestro proyecto</a>
+                        </li>
+                        <li><a href="#">Contáctanos</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2">
                     <h5>Ayuda</h5>
-                    <ul>
+                    <ul style="list-style-type:circle;">
                         <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
@@ -138,6 +186,12 @@
             <p>&copy; Copyright 2019</p>
         </div>
     </footer>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 </body>
 
 </html>

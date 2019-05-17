@@ -16,7 +16,7 @@ var homeGrupo = (function () {
     $("#schedule").empty();
     var dias = horario.diasDeLaSemana;
     var horas = horario.horas;
-    $("#schedule").append("<thead></thead><tbody></tbody>");
+    $("#schedule").append("<thead class='thead-dark'></thead><tbody></tbody>");
     $("#schedule").find("thead").append("<tr><th scope='col'>Horas/Días</th></tr>");
     for (var i = 0; i < dias.length; i++) {
       $("#schedule").find("thead > tr").append("<th id=" + dias[i].nombre + " scope='col'>" + dias[i].nombre + "</th>");

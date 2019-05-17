@@ -33,6 +33,7 @@ var chatGrupal = (function () {
     var modificarConectados = function (param) {
         var conectado = JSON.parse(param);
         conectados = conectado;
+        console.log("ME CONECTÉ Y AHORA HAY: "+conectados);
         $("#conectadosChat").text("Conectados: " + conectados);
     };
 
