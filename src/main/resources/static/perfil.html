@@ -179,10 +179,13 @@
                 </tbody>
               </table>
             </div>
+            <div id="agregarAmigoAlert" class="row">
+            </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary btnNav" onclick="perfil.agregarAmigo()"><i class="fas fa-calendar-alt"></i>
+          <button class="btn btn-secondary btnNav" onclick="perfil.agregarAmigo()" data-toggle="modal"
+            data-target="#modalCargandoPerfil"><i class="fas fa-calendar-alt"></i>
             Agregar Amigo</button>
           <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
             aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
@@ -227,16 +230,33 @@
                       </div>
                     </div>
                   </div>
-                  <a class="button" id="botonEliminarAmigo" data-amigo-id=""
-                    onclick="perfil.eliminarAmigo(this)">Eliminar</button>
+                  <a class="button" id="botonEliminarAmigo" data-amigo-id="" onclick="perfil.eliminarAmigo(this)"
+                    data-toggle="modal" data-target="#modalCargandoPerfil">Eliminar</button>
                 </div>
               </div>
+            </div>
+            <div id="eliminarAmigoAlert" class="row">
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
             aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de cargando -->
+  <div class="modal fade" id="modalCargandoPerfil" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-success" role="status"></div>
+              <span>&nbsp;Realizando operación...</span>
+            </div>
+          </form>
         </div>
       </div>
     </div>

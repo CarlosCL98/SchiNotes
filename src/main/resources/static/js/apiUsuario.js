@@ -92,9 +92,24 @@ var apiUsuario = (function () {
                 url: "/schinotes/usuarios/" + correo + "/amigos",
                 data: JSON.stringify(data)
             }).done(function () {
-                alert("Amigo añadido exitosamente");
+                setTimeout(function () {
+                    $("#modalCargandoPerfil").modal("hide");
+                    $("#agregarAmigoAlert").append("<div id='alertAmigoAgregado' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>Amigo añadido exitosamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertAmigoAgregado").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
+                setTimeout(function () {
+                    $(location).attr("href", "../perfil.html");
+                }, 2500);
             }).fail(function () {
-                alert("El amigo no pudo ser añadido. Inténtelo nuevamente.");
+                setTimeout(function () {
+                    $("#modalCargandoPerfil").modal("hide");
+                    $("#agregarAmigoAlert").append("<div id='alertNoAgregoAmigo' class='col-md-12'><div class='alert alert-danger alert-dismissible fade show' role='alert'>El amigo no pudo ser añadido. Inténtelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertNoAgregoAmigo").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
             });
         },
         getCodigoComprobacion: function (correoUsuario, codigo, callback) {
@@ -125,11 +140,25 @@ var apiUsuario = (function () {
                 url: "/schinotes/usuarios/" + correo + "/amigos/" + idAmigo,
                 type: 'DELETE',
             }).done(function () {
+                setTimeout(function () {
+                    $("#modalCargandoPerfil").modal("hide");
+                    $("#eliminarAmigoAlert").append("<div id='alertAmigoEliminado' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>Amigo eliminado exitosamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertAmigoEliminado").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
                 $.get("/schinotes/usuarios/" + correo, function (data) {
                     newUser = data;
                     callback(newUser);
                 });
             }).fail(function () {
+                setTimeout(function () {
+                    $("#modalCargandoPerfil").modal("hide");
+                    $("#eliminarAmigoAlert").append("<div id='alertAmigoNoEliminado' class='col-md-12'><div class='alert alert-danger alert-dismissible fade show' role='alert'>El amigo no pudo ser eliminado. Inténtelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertAmigoNoEliminado").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
             });
         }
     };
