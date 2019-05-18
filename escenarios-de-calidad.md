@@ -79,7 +79,7 @@ En la siguiente tabla, se encuentran todos los atributos de calidad con su detal
 
 1. **Fuente:** Usuario registrado en la aplicación.
 2. **Estímulo:** Ingreso al home de la aplicacion de su respectivo usuario.
-3. **Entorno:** Herramienta colaborativa finalizada y operativa, con un internet de aproximadamente 6MB/s, en un computador con 10GB de memoria RAM, espacio en disco de 500GB, realizando la creación de un horario de lunes a domingo y con intervalos de a media hora \(30 min\).
+3. **Entorno:** Herramienta colaborativa finalizada y operativa, con un internet de aproximadamente 6MB/s, en un computador con 10GB de memoria RAM, espacio en disco de 500GB.
 4. **Artefacto:** Módulo de login de usuario.
 5. **Respuesta:** La herramienta entrara al home de la aplicacion del respectivo usuario satisfactoriamente.
 6. **Métrica:** el horario se crea en menos de 5 segundos.
