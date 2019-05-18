@@ -90,9 +90,9 @@ Realizamos un reporte con LightHouse, permitiéndonos ver el rendimiento, la acc
 
 ### Pruebas de funcionalidad
 
-[pruebas](https://drive.google.com/file/d/1QdKtHJnR4SNJZV14Z1f6bKe7y0RuZXZl/view?usp=sharing)
+[Pruebas](https://drive.google.com/file/d/1QdKtHJnR4SNJZV14Z1f6bKe7y0RuZXZl/view?usp=sharing)
 
 ### Informe de las pruebas de funcionalidad
 
-[informe](https://drive.google.com/file/d/1RbLqk5MhAp-peGEpe2mWx77yxgAuStVB/view?usp=sharing)
+Informe de los [Test Cases](https://docs.google.com/spreadsheets/d/1gjCdQO4u21L8UwSfjjzVDP1ziAj7m82K3IDXHnkV9lc/edit?usp=sharing)
 
