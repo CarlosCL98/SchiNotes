@@ -67,10 +67,22 @@ En la siguiente tabla, se encuentran todos los atributos de calidad con su detal
 
 1. **Fuente:** Usuario.
 2. **Estímulo:** Llenar los campos necesarios para crear un horario con el número máximo de días de la semana permitido y un valor de la hora de menos de 100.
-3. **Entorno:** Herramienta colaborativa finalizada y operativa, con un internet de 20 MB/s, en un computador con 10GB de memoria RAM, espacio en disco de 500MB, realizando la creación de un horario de lunes a domingo y con intervalos de a media hora \(30 min\).
+3. **Entorno:** Herramienta colaborativa finalizada y operativa, con un internet de 20 MB/s, en un computador con 10GB de memoria RAM, espacio en disco de 500GB, realizando la creación de un horario de lunes a domingo y con intervalos de a media hora \(30 min\).
 4. **Artefacto:** Módulo de creación de horario.
 5. **Respuesta:** La herramienta mostrará al usuario un mensaje de que su horario fue creado exitosamente y él podrá comprobar al seleccionar su horario.
 6. **Métrica:** el horario se crea en menos de 10 segundos.
+7. **Atributo de calidad afectado:** AT07
+
+**Escenario de Latencia:**
+
+“Un usuario entra al home de la aplicación.”
+
+1. **Fuente:** Usuario registrado en la aplicación.
+2. **Estímulo:** Ingreso al home de la aplicacion de su respectivo usuario.
+3. **Entorno:** Herramienta colaborativa finalizada y operativa, con un internet de aproximadamente 6MB/s, en un computador con 10GB de memoria RAM, espacio en disco de 500GB, realizando la creación de un horario de lunes a domingo y con intervalos de a media hora \(30 min\).
+4. **Artefacto:** Módulo de login de usuario.
+5. **Respuesta:** La herramienta entrara al home de la aplicacion del respectivo usuario satisfactoriamente.
+6. **Métrica:** el horario se crea en menos de 5 segundos.
 7. **Atributo de calidad afectado:** AT07
 
 **Escenario de Latencia:**
@@ -104,7 +116,7 @@ En la siguiente tabla, se encuentran todos los atributos de calidad con su detal
 “Un usuario que no se encuentra registrado, intenta acceder a la página home de la aplicación.”
 
 1. **Fuente:** Usuario sin registro en la herramienta.
-2. **Estímulo:** Ingresar a [http://schinotes.herokuapp.com/home.html](http://schinotes.herokuapp.com/home.html) sin haberse registrado.
+2. **Estímulo:** Ingresar al home de la aplicación sin haberse registrado.
 3. **Entorno:** Aplicación ya operativa**.**
 4. **Artefacto:** Página home de la aplicación.
 5. **Respuesta:** El usuario debe ser redireccionado a la página de login, evitando que entre a realizar operaciones que sólo un usuario registrado podría hacer.
