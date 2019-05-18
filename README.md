@@ -82,3 +82,9 @@ También puedes entrar a nuestro Taiga:
 * STOMP
 * GitHub
 
+## Reporte
+
+Realizamos un reporte con LightHouse, permitiéndonos ver el rendimiento, la accesibilidad, buenas prácticas, SEO, entre otros aspectos. Para verlo, haz click en:
+
+[Reporte Light House](https://carloscl98.github.io/SchiNotes/docs/ReporteLightHouse.html)
+
