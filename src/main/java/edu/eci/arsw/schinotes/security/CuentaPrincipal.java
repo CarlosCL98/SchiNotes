@@ -49,7 +49,7 @@ public class CuentaPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.getVerificada();
     }
 
     public Cuenta getUser() {

@@ -4,18 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
   <title>SchiNotes Registro</title>
+
   <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
-  <!-- Custom fonts for this template-->
   <link href="/webjars/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
   <link href="css/app.css" type="text/css" rel="stylesheet" />
   <link href="css/footer.css" type="text/css" rel="stylesheet" />
-  <link href="css/form.css" type="text/css" rel="stylesheet" />
-  <link href="css/navbar.css" type="text/css" rel="stylesheet" />
 
   <script src="/webjars/jquery/jquery.min.js"></script>
   <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -28,8 +24,12 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">
-      <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top" alt="">
+      <img src="images/tituloNavBar.webp" width="auto" height="auto" class="d-inline-block align-top" alt="">
     </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
       </ul>
@@ -92,25 +92,26 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-3">
-          <h2 class="logo"><a href="#"><img src="images/tituloFooter.png"></a></h2>
+          <h2 class="logo"><a href="#"><img src="images/tituloFooter.webp" alt=""></a></h2>
         </div>
         <div class="col-sm-2">
           <h5>Empieza</h5>
-          <ul>
-            <li><a href="login.html">- Inicio</a></li>
-            <li><a href="register.html">- Registrate</a></li>
+          <ul style="list-style-type:circle;">
+            <li><a href="login.html">Inicio</a></li>
+            <li><a href="register.html">Registrate</a></li>
           </ul>
         </div>
         <div class="col-sm-2">
           <h5>Conócenos</h5>
-          <ul>
-            <li><a href="#">- Información de los desarrolladores</a></li>
-            <li><a href="#">- Contáctanos</a></li>
+          <ul style="list-style-type:circle;">
+            <li><a href="https://schinotes.gitbook.io/schinotes/" target="_blank" rel="noreferrer">Sobre nuestro proyecto</a>
+            </li>
+            <li><a href="#">Contáctanos</a></li>
           </ul>
         </div>
         <div class="col-sm-2">
           <h5>Ayuda</h5>
-          <ul>
+          <ul style="list-style-type:circle;">
             <li><a href="#">FAQ</a></li>
           </ul>
         </div>

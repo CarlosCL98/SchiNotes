@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
   <title>SchiNotes Perfil</title>
+
   <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
   <link href="/webjars/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -29,127 +29,57 @@
 
 <body class="bg" onload="perfil.consultarMiPerfil(),perfil.agregarNotificaciones()">
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.html">
-      <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top" alt="">
-    </a>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-      </ul>
-      <div >
-        <div class="notifications">
-            <i class="fa fa-bell" style="color: black"></i>
-            <span id="notificationNum" class="num"></span>
-            <ul id="notificationsList" class='ul_noti'>
-                <!--<li class="icon">
-                    
-                </li>
-                <li class="icon">
-                    <span class="icon"><i class="fa fa-user"></i></span>
-                    <span class="text">Someone Like Your Photo</span>
-                </li>
-                <li class="icon">
-                    <span class="icon"><i class="fa fa-user"></i></span>
-                    <span class="text">Someone Dislike Your Post</span>
-                </li>
-                <li class="icon">
-                    <span class="icon"><i class="fa fa-user"></i></span>
-                    <span class="text">Someone Comment on Your Post</span>
-                </li>-->
-            </ul>
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-dark border-dark" id="sidebar-wrapper">
+      <div class="sidebar-heading">
+        <a class="navbar-brand" href="perfil.html">
+          <img src="images/tituloNavBar.webp" width="auto" height="auto" class="d-inline-block align-top" alt="">
+        </a>
+      </div>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action bg-dark" href="home.html"><i
+            class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
+        <a class="list-group-item list-group-item-action bg-dark" href="#" data-toggle="modal"
+          data-target="#modalAgregarAmigo"><i class="fas fa-user-friends"></i>&nbsp;Agregar amigo</a>
+        <a class="list-group-item list-group-item-action bg-dark dropdown-toggle" href="#" id="dropdownGruposUsuario"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="perfil.consultarMisGrupos()"><i
+            class="fas fa-users-cog"></i>&nbsp;&nbsp;Mis grupos
+        </a>
+        <div id="deployGruposButton" class="dropdown-menu" aria-labelledby="dropdownGruposUsuario">
         </div>
       </div>
-      <span class="narbar-text">
-        <div class="dropdown mx-3">
-          <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#" id="dropdownOpcionesUsuario"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-fw"></i>
-          </button>
-          <div id="opcionesUsuario" class="dropdown-menu" aria-labelledby="dropdownOpcionesUsuario">
-            <a class='dropdown-item' href='perfil.html'>Mi perfil</a>
-          </div>
-        </div>
-      </span>
-      <span class="navbar-text">
-        <button class="btn btn-secondary btnNav mx-0" type="button" onclick="appFunctions.cerrarSesion()">
-          <i class="fas fa-sign-out-alt"></i>&nbsp;Cerrar Sesión
-        </button>
-      </span>
     </div>
-  </nav>
-  <!-- Contenido -->
-  <div class="container-fluid">
-    <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="home.html"><i class="fas fa-reply"></i>&nbsp;&nbsp;Regresar</a>
-            </li class="nav-item">
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalAgregarAmigo"><i
-                  class="fas fa-user-friends"></i>&nbsp;Agregar amigo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownGruposUsuario" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" onclick="perfil.consultarMisGrupos()"><i
-                  class="fas fa-users-cog"></i>&nbsp;&nbsp;Mis grupos
-              </a>
-              <div id="deployGruposButton" class="dropdown-menu" aria-labelledby="dropdownGruposUsuario">
-              </div>
-            </li>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="row">
+          <button class="btn btn-secondary btnNav" id="menu-toggle"><i class="fas fa-list-alt"></i></button>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
           </ul>
-          <!-- Modal para agregar a un amigo -->
-          <div class="modal fade" id="modalAgregarAmigo" tabindex="-1" role="dialog" aria-labelledby="modalLabelAmigo"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalLabelAmigo">Agregar un amigo</h5>
-                  <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="form-group row">
-                      <div class="col-md-9">
-                        <input id="inputBuscarPersonas" type="text" class="form-control"
-                          placeholder="Ingrese un correo"></input>
-                      </div>
-                      <div class="col-md-3">
-                        <button type="button" class="btn btn-secondary btnNav m-0 waves-effect" aria-label="Default"
-                          onclick="perfil.buscarUsuarios()"><i class="fas fa-search"></i> Buscar</button>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <table id="tablaResultadoBusqueda" class="table table-hover table-dark table-curved"
-                        style="width: 100%">
-                        <thead class="thead-light">
-                          <tr>
-                            <th scope="col" style="width: 35px"><i class="grin-alt"></i>#</th>
-                            <th scope="col" style="width: 250px">Correo</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th colspan="5">No se ha realizado una búsqueda.</th>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-secondary btnNav" onclick="perfil.agregarAmigo()"><i
-                      class="fas fa-calendar-alt"></i> Agregar Amigo</button>
-                  <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <span class="navbar-text">
+            <a href="#" type="button" class="notification btn btn-secondary btnNav mx-3" data-toggle="modal"
+              data-target="#modalNotificaciones">
+              <i class="fa fa-bell" style="color: black"></i>
+              <span id="notificationNum" class="num"></span>
+            </a>
+          </span>
+          <span class="navbar-text">
+            <button class="btn btn-secondary btnNav" type="button" onclick="appFunctions.cerrarSesion()">
+              <i class="fas fa-sign-out-alt"></i>&nbsp;Cerrar Sesión
+            </button>
+          </span>
         </div>
       </nav>
+      <!-- Contenido -->
       <!-- Main contenido al lado del slidebar-->
       <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
         <div style="padding: 1.5rem; text-align: center; font-size: 40px;">
@@ -157,7 +87,7 @@
         </div>
         <div id="cardPerfil" class="card" style="width: 18rem;">
           <div class="card-header">
-            <img class="card-img-top" src="images/avatar.png" alt="FotoPerfil" style="width:50%">
+            <img class="card-img-top" src="images/avatar.webp" alt="FotoPerfil" style="width:50%">
           </div>
           <div class="card-body">
             <h5 id="nombrePerfil" class="card-title"> </h5>
@@ -179,8 +109,91 @@
         </div>
       </main>
     </div>
+    <!-- /#page-content-wrapper -->
   </div>
-  <!-- Modal de mis amigos -->
+  <!-- /#wrapper -->
+  <!-- Modal de las notificaciones -->
+  <div class="modal fade" id="modalNotificaciones" tabindex="-1" role="dialog"
+    aria-labelledby="modalLabelNotificaciones" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabelNotificaciones">Notificaciones</h5>
+          <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <div class="col-md-11">
+                <ul id="notificationsList" style="line-height: 25px;">
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+            aria-label="Cerrar"><i class="fas fa-window-close"></i>
+            Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal para agregar a un amigo -->
+  <div class="modal fade" id="modalAgregarAmigo" tabindex="-1" role="dialog" aria-labelledby="modalLabelAmigo"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabelAmigo">Agregar un amigo</h5>
+          <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <div class="col-md-9">
+                <input id="inputBuscarPersonas" type="text" class="form-control"
+                  placeholder="Ingrese un correo"></input>
+              </div>
+              <div class="col-md-3">
+                <button type="button" class="btn btn-secondary btnNav m-0 waves-effect" aria-label="Default"
+                  onclick="perfil.buscarUsuarios()"><i class="fas fa-search"></i> Buscar</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <table id="tablaResultadoBusqueda" class="table table-hover table-dark table-curved" style="width: 100%">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" style="width: 35px"><i class="grin-alt"></i>#</th>
+                    <th scope="col" style="width: 250px">Correo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th colspan="5">No se ha realizado una búsqueda.</th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="agregarAmigoAlert" class="row">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btnNav" onclick="perfil.agregarAmigo()" data-toggle="modal"
+            data-target="#modalCargandoPerfil"><i class="fas fa-calendar-alt"></i>
+            Agregar Amigo</button>
+          <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+            aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de Consultar mis Amigos -->
   <div class="modal fade" id="modalVerAmigos" tabindex="-1" role="dialog" aria-labelledby="modalLabelHorario"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -199,10 +212,9 @@
               </div>
               <div class='col'>
                 <div class='single-event drag t1'>
-                  <button >ver perfil</button>
                   <div id="perfilAmigo" class="card" style="width: 18rem;">
                     <div class="card-header">
-                      <img class="card-img-top" src="images/avatar.png" alt="FotoPerfil" style="width:50%">
+                      <img class="card-img-top" src="images/avatar.webp" alt="FotoPerfil" style="width:50%">
                     </div>
                     <div class="card-body">
                       <h5 id="nombrePerfilAmigo" class="card-title"> </h5>
@@ -218,13 +230,33 @@
                       </div>
                     </div>
                   </div>
-                </div>  
-
+                  <a class="button" id="botonEliminarAmigo" data-amigo-id="" onclick="perfil.eliminarAmigo(this)"
+                    data-toggle="modal" data-target="#modalCargandoPerfil">Eliminar</a>
+                </div>
               </div>
+            </div>
+            <div id="eliminarAmigoAlert" class="row">
             </div>
           </form>
         </div>
         <div class="modal-footer">
+          <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+            aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de cargando -->
+  <div class="modal fade" id="modalCargandoPerfil" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-success" role="status"></div>
+              <span>&nbsp;Realizando operación...</span>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -234,25 +266,27 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-3">
-          <h2 class="logo"><a href="#"><img src="images/tituloFooter.png"></a></h2>
+          <h2 class="logo"><a href="#"><img src="images/tituloFooter.webp" alt=""></a></h2>
         </div>
         <div class="col-sm-2">
           <h5>Empieza</h5>
-          <ul>
-            <li><a href="login.html">- Inicio</a></li>
-            <li><a href="register.html">- Registrate</a></li>
+          <ul style="list-style-type:circle;">
+            <li><a href="login.html">Inicio</a></li>
+            <li><a href="register.html">Registrate</a></li>
           </ul>
         </div>
         <div class="col-sm-2">
           <h5>Conócenos</h5>
-          <ul>
-            <li><a href="#">- Información de los desarrolladores</a></li>
-            <li><a href="#">- Contáctanos</a></li>
+          <ul style="list-style-type:circle;">
+            <li><a href="https://schinotes.gitbook.io/schinotes/" target="_blank" rel="noreferrer">Sobre nuestro
+                proyecto</a>
+            </li>
+            <li><a href="#">Contáctanos</a></li>
           </ul>
         </div>
         <div class="col-sm-2">
           <h5>Ayuda</h5>
-          <ul>
+          <ul style="list-style-type:circle;">
             <li><a href="#">FAQ</a></li>
           </ul>
         </div>
@@ -271,6 +305,12 @@
       <p>&copy; Copyright 2019</p>
     </div>
   </footer>
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
 </body>
 
 </html>

@@ -98,7 +98,7 @@ public class ActividadDAOImpl implements ActividadDAO {
 
     @Override
     public Actividad loadActividadById(int actividadId) throws SchiNotesException {
-        String sql1 = "SELECT a.id,a.nombre,a.descripcion,to_char(a.fecha_creacion,'YYYY-MM-DD') as fecha_creacion,to_char(a.hora_fin, 'HH24:MI:SS') as hora_fin,to_char(a.hora_hora, 'HH24:MI:SS') as hora_hora FROM Actividad a WHERE a.id = ?";
+        String sql1 = "SELECT a.hora_dias_por_horario_horario_id,a.id,a.nombre,a.descripcion,to_char(a.fecha_creacion,'YYYY-MM-DD') as fecha_creacion,to_char(a.hora_fin, 'HH24:MI:SS') as hora_fin,to_char(a.hora_hora, 'HH24:MI:SS') as hora_hora FROM Actividad a WHERE a.id = ?";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql1, new Object[] { actividadId });
         if (rows.isEmpty()) {
             throw new SchiNotesException("La actividad con id '" + actividadId + "' no existe.");
@@ -111,6 +111,7 @@ public class ActividadDAOImpl implements ActividadDAO {
             actividad.setFecha((String) row.get("fecha_creacion"));
             actividad.setHora_ini((String) row.get("hora_hora"));
             actividad.setHora_fin((String) row.get("hora_fin"));
+            actividad.setHorario_id((int) row.get("hora_dias_por_horario_horario_id"));
         }
         return actividad;
     }

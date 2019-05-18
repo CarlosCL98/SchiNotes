@@ -256,7 +256,14 @@ public class SchiNotesServiceImpl implements SchiNotesService {
 
     @Override
     public void eliminarActividad(int idHorario, int idActividad) throws SchiNotesException {
-        actividadDAO.eliminarActividad(idHorario, idActividad);
+        actividadDAO.eliminarActividad(idHorario,idActividad);
+    }
+
+    @Override
+    public void eliminarAmigo(String correo, int idAmigo) throws SchiNotesException {
+        Usuario usuario = this.consultarUsuarioPorCorreo(correo);
+        usuarioDAO.deleteAmigo(usuario.getIdentificacion(), idAmigo);
+
     }
 
 }

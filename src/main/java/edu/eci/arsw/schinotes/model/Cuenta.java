@@ -10,6 +10,7 @@ public class Cuenta {
     private String correo;
     private String contrasena;
     private String nickname;
+    private boolean verificada;
 
     public Cuenta() {
         
@@ -44,10 +45,18 @@ public class Cuenta {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public void setVerificada(boolean verificada) {
+        this.verificada = verificada;
+    }
     
+    public boolean getVerificada() {
+        return verificada;
+    }
+
     @Override
     public String toString() {
-        return "Cuenta{" + "correo=" + this.correo + ", contraseña=" + this.contrasena + ", nickname=" + this.nickname + "}";
+        return "Cuenta{" + "correo=" + this.correo + ", contraseña=" + this.contrasena + ", nickname=" + this.nickname + ", verificada=" + this.verificada + "}";
     }
      
 }

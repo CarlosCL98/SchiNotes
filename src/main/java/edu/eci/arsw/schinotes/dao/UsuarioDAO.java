@@ -39,7 +39,7 @@ public interface UsuarioDAO {
 
     public List<Usuario> getAmigos (int identificacion) throws SchiNotesException;
     public void saveAmigos (int id1,int id2) throws SchiNotesException;
-    public List<Usuario> deleteAmigos (String correo) throws SchiNotesException;
+    public void deleteAmigo (int idUsuario, int idAmigo) throws SchiNotesException;
 
     public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException;
     public void saveNotificaciones(Notificacion notificacion) throws SchiNotesException;

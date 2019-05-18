@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .notifications {
     transform: translateX(-100%);
@@ -101,3 +102,64 @@ ul li:hover .text {
     font-weight:bold;
     color:#ff2c74;
 }*/
+=======
+.notifications {
+    transform: translateX(-100%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.notifications:hover {
+    width: 300px;
+    height: 60px;
+    text-align: left;
+    padding: 0 15px;
+    transform: translateY(-10%);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.notifications .num {
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: gray;
+    color: black;
+    line-height: 25px;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.notifications:hover .num {
+    position: relative;
+    background: transparent;
+    color: black;
+    font-size: 24px;
+    top: -4px;
+}
+
+.ul_noti {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    margin: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    display: none;    
+}
+
+.notifications:hover ul {
+    display: block;
+}
+>>>>>>> origin/master

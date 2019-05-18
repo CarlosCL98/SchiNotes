@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>SchiNotes Grupo</title>
 
-  <title>SchiNotes Home</title>
   <link rel="icon" href="images/tituloIconMini.ico" type="image/x-icon" />
   <link href="/webjars/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -15,8 +15,6 @@
   <link href="css/footer.css" type="text/css" rel="stylesheet" />
   <link href="css/sidebar.css" type="text/css" rel="stylesheet" />
   <link href="css/notification.css" type="text/css" rel="stylesheet" />
-  <!--<link href="css/reset.css" type="text/css" rel="stylesheet" />
-  <link href="css/style.css" type="text/css" rel="stylesheet" />-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
     integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -25,7 +23,6 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-  <script src="js/home.js"></script>
   <script src="js/homeGrupo.js"></script>
   <script src="js/appStomp.js"></script>
   <script src="js/appFunctions.js"></script>
@@ -34,9 +31,6 @@
   <script src="js/apiGrupo.js"></script>
   <script src="js/apiActividad.js"></script>
   <script src="js/drag.js"></script>
-  <!--<script src="js/modernizr.js"></script>
-  <script src="js/main.js"></script>-->
-
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <!-- Script para el botón que permite ir al inicio -->
@@ -52,163 +46,186 @@
   </script>
 </head>
 
-<body class="bg" onload="homeGrupo.initHorario(),homeGrupo.agregarNotificaciones()" onbeforeunload="appStomp.disconnectGroup()">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.html">
-      <img src="images/tituloNavBar.png" width="auto" height="auto" class="d-inline-block align-top" alt="">
-    </a>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-      </ul>
-      <div >
-        <div class="notifications">
-            <i class="fa fa-bell" style="color: black"></i>
-            <span id="notificationNum" class="num"></span>
-            <ul id="notificationsList" class='ul_noti'>
-                <!--<li class="icon">
-                    
-                </li>
-                <li class="icon">
-                    <span class="icon"><i class="fa fa-user"></i></span>
-                    <span class="text">Someone Like Your Photo</span>
-                </li>
-                <li class="icon">
-                    <span class="icon"><i class="fa fa-user"></i></span>
-                    <span class="text">Someone Dislike Your Post</span>
-                </li>
-                <li class="icon">
-                    <span class="icon"><i class="fa fa-user"></i></span>
-                    <span class="text">Someone Comment on Your Post</span>
-                </li>-->
-            </ul>
+<body class="bg" onload="homeGrupo.initHorario(),homeGrupo.agregarNotificaciones()">
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-dark border-dark" id="sidebar-wrapper">
+      <div class="sidebar-heading">
+        <a class="navbar-brand" href="home.html">
+          <img src="images/tituloNavBar.webp" width="auto" height="auto" class="d-inline-block align-top" alt="">
+        </a>
+      </div>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action bg-dark" href="home.html"><i
+            class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
+        <a class="list-group-item list-group-item-action bg-dark" href="#" data-toggle="modal"
+          data-target="#modalCrearActividadGrupo" onclick="homeGrupo.agregaropcionesHorariosActividades()"><i
+            class="fas fa-edit"></i>&nbsp;Crear
+          actividad</a>
+        <a class="list-group-item list-group-item-action bg-dark" href="chatGrupal.html"><i
+            class="fas fa-comments"></i>&nbsp;Entrar a chat</a>
+        <a class="list-group-item list-group-item-action bg-dark" href="#" onclick="homeGrupo.salirseDelGrupo()"><i
+            class="fas fa-sign-out-alt"></i>&nbsp;Salirse del grupo</a>
+        <div id="salirseDeGrupoAlert" class="list-group-item list-group-item-action bg-dark">
         </div>
       </div>
-      <span class="narbar-text">
-        <div class="dropdown mx-3">
-          <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#" id="dropdownOpcionesUsuario"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users"></i>
-          </button>
-          <div id="opcionesUsuario" class="dropdown-menu" aria-labelledby="dropdownOpcionesUsuario">
-            <a class='dropdown-item' href="#">Información del Grupo</a>
-          </div>
-        </div>
-      </span>
-      <span class="navbar-text">
-        <button class="btn btn-secondary btnNav mx-0" type="button" onclick="appFunctions.cerrarSesion()">
-          <i class="fas fa-sign-out-alt"></i>&nbsp;Cerrar Sesión
-        </button>
-      </span>
     </div>
-  </nav>
-  <!-- Contenido -->
-  <div class="container-fluid">
-    <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="home.html"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
-            </li class="nav-item">
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#modalCrearActividadGrupo"
-                onclick="homeGrupo.agregaropcionesHorariosActividades()"><i class="fas fa-edit"></i>&nbsp;Crear
-                actividad</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="chatGrupal.html"><i class="fas fa-comments"></i>&nbsp;Entrar a chat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" onclick="homeGrupo.salirseDelGrupo()"><i
-                  class="fas fa-sign-out-alt"></i>&nbsp;Salirse del grupo</a>
-            </li>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="row">
+          <button class="btn btn-secondary btnNav" id="menu-toggle"><i class="fas fa-list-alt"></i></button>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
           </ul>
-          <!-- Modal para la creacion de una actividad-->
-          <div class="modal fade" id="modalCrearActividadGrupo" tabindex="-1" role="dialog"
-            aria-labelledby="modalLabelHorario" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalLabelHorario">Crear una actividad</h5>
-                  <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="form-group row">
-                      <label for="actividadNombre" class="col-md-2 col-form-label">Nombre</label>
-                      <div class="col-md-10">
-                        <input id="actividadNombre" type="text" class="form-control"
-                          placeholder="Ingrese el nombre de la actividad"></input>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="actividadDescripcion" class="col-md-2 col-form-label">Descripcion</label>
-                      <div class="col-md-10">
-                        <textarea id="actividadDescripcion" type="text" class="form-control"
-                          placeholder="Ingrese La descripcion de la actividad"></textarea>
-                      </div>
-                    </div>
-                    <div class="dropdown">
-                      <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-calendar-day"></i> Seleccione el dia
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonDias"
-                        id="opcionesHorarioCrearActividadDias">
-                      </div>
-                      <label id="labelDias"></label>
-                    </div>
-                    <div class="dropdown">
-                      <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-clock"></i> Seleccione la hora de inicio
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonHoras"
-                        id="opcionesHorarioCrearActividadHorasInicio">
-                      </div>
-                      <label id="labelHorasIni"></label>
-                    </div>
-                    <div class="dropdown">
-                      <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="far fa-clock"></i> Seleccione la hora de finalizar
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonHoras"
-                        id="opcionesHorarioCrearActividadHorasFin">
-                      </div>
-                      <label id="labelHorasFin"></label>
-                      <div id="crearActividadGrupoAlert" class="row">
-                      </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()" data-toggle="modal"
-                    data-target="#modalCargandoHomeGrupo"><i class="fas fa-calendar-alt"></i> Crear
-                  </button>
-                  <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
-                    aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
-                  </button>
-                </div>
+          <span class="navbar-text">
+            <a href="#" type="button" class="notification btn btn-secondary btnNav" data-toggle="modal"
+              data-target="#modalNotificaciones">
+              <i class="fa fa-bell" style="color: black"></i>
+              <span id="notificationNum" class="num"></span>
+            </a>
+          </span>
+          <span class="narbar-text">
+            <div class="dropdown mx-3">
+              <button class="nav-link dropdown-toggle btn btn-secondary btnNav" href="#" id="dropdownOpcionesUsuario"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users"></i>
+              </button>
+              <div id="opcionesUsuario" class="dropdown-menu" aria-labelledby="dropdownOpcionesUsuario">
+                <a class='dropdown-item' href="#">Información (Proximamente)</a>
               </div>
             </div>
-          </div>
+          </span>
+          <span class="navbar-text">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="navbar-text">
+            <button class="btn btn-secondary btnNav" type="button" onclick="appFunctions.cerrarSesion()">
+              <i class="fas fa-sign-out-alt"></i>&nbsp;Cerrar Sesión
+            </button>
+          </span>
         </div>
+      </nav>
+      <!-- Contenido -->
+      <!-- Main contenido al lado del slidebar-->
+      <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-12 px-3">
+        <div id="drag" class="table-responsive">
+          <table id="schedule" class="table table-striped table-light table-bordered">
+            <thead class="thead-dark">
+              <tr></tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div> <!-- Tabla del horario grupal -->
+      </main>
     </div>
-    </nav>
-    <!-- Main contenido al lado del slidebar-->
-    <main id="mainContent" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-3">
-      <div id="drag" class="table-responsive">
-        <table id="schedule" class="table table-light table-striped table-border">
-          <thead>
-            <tr></tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div> <!-- Tabla del horario grupal -->
-    </main>
+    <!-- /#page-content-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+  <!-- Modal de las notificaciones -->
+  <div class="modal fade" id="modalNotificaciones" tabindex="-1" role="dialog"
+    aria-labelledby="modalLabelNotificaciones" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabelNotificaciones">Notificaciones</h5>
+          <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <div class="col-md-11">
+                <ul id="notificationsList" style="line-height: 25px;">
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+            aria-label="Cerrar"><i class="fas fa-window-close"></i>
+            Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal para la creacion de una actividad-->
+  <div class="modal fade" id="modalCrearActividadGrupo" tabindex="-1" role="dialog" aria-labelledby="modalLabelHorario"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabelHorario">Crear una actividad</h5>
+          <button type="button" class="close col-md-2" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <label for="actividadNombre" class="col-md-2 col-form-label">Nombre</label>
+              <div class="col-md-10">
+                <input id="actividadNombre" type="text" class="form-control"
+                  placeholder="Ingrese el nombre de la actividad"></input>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="actividadDescripcion" class="col-md-2 col-form-label">Descripcion</label>
+              <div class="col-md-10">
+                <textarea id="actividadDescripcion" type="text" class="form-control"
+                  placeholder="Ingrese La descripcion de la actividad"></textarea>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-calendar-day"></i> Seleccione el dia
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonDias"
+                id="opcionesHorarioCrearActividadDias">
+              </div>
+              <label id="labelDias"></label>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-clock"></i> Seleccione la hora de inicio
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonHoras"
+                id="opcionesHorarioCrearActividadHorasInicio">
+              </div>
+              <label id="labelHorasIni"></label>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-secondary btnNav dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-clock"></i> Seleccione la hora de finalizar
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonHoras"
+                id="opcionesHorarioCrearActividadHorasFin">
+              </div>
+              <label id="labelHorasFin"></label>
+              <div id="crearActividadGrupoAlert" class="row">
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btnNav" onclick="homeGrupo.agregarActividad()" data-toggle="modal"
+            data-target="#modalCargandoHomeGrupo"><i class="fas fa-calendar-alt"></i> Crear
+          </button>
+          <button class="btn btn-secondary btnNav" type="button" class="close" data-dismiss="modal"
+            aria-label="Cerrar"><i class="fas fa-window-close"></i> Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
   </div>
   <!-- Modal de cargando -->
@@ -235,25 +252,27 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-3">
-          <h2 class="logo"><a href="#"><img src="images/tituloFooter.png"></a></h2>
+          <h2 class="logo"><a href="#"><img src="images/tituloFooter.webp" alt=""></a></h2>
         </div>
         <div class="col-sm-2">
           <h5>Empieza</h5>
-          <ul>
-            <li><a href="login.html">- Inicio</a></li>
-            <li><a href="register.html">- Registrate</a></li>
+          <ul style="list-style-type:circle;">
+            <li><a href="login.html">Inicio</a></li>
+            <li><a href="register.html">Registrate</a></li>
           </ul>
         </div>
         <div class="col-sm-2">
           <h5>Conócenos</h5>
-          <ul>
-            <li><a href="#">- Información de los desarrolladores</a></li>
-            <li><a href="#">- Contáctanos</a></li>
+          <ul style="list-style-type:circle;">
+            <li><a href="https://schinotes.gitbook.io/schinotes/" target="_blank" rel="noreferrer">Sobre nuestro
+                proyecto</a>
+            </li>
+            <li><a href="#">Contáctanos</a></li>
           </ul>
         </div>
         <div class="col-sm-2">
           <h5>Ayuda</h5>
-          <ul>
+          <ul style="list-style-type:circle;">
             <li><a href="#">FAQ</a></li>
           </ul>
         </div>
@@ -272,6 +291,12 @@
       <p>&copy; Copyright 2019</p>
     </div>
   </footer>
+  <script>
+    $("#menu-toggle").click(function (e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
 </body>
 
 </html>

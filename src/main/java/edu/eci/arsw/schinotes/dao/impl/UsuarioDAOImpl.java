@@ -139,11 +139,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public List<Usuario> deleteAmigos(String correo) throws SchiNotesException {
-        return null;
-    }
-
-    @Override
     public List<Usuario> loadUsuarioIncomplete(String correoPersonas) throws SchiNotesException {
         String sql = "SELECT * FROM usuario u JOIN cuenta cu ON(u.cuenta_correo = cu.correo) WHERE u.cuenta_correo LIKE('%"
                 + correoPersonas + "%');";
@@ -188,12 +183,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     }
 
     @Override
-    public void saveNotificaciones(Notificacion notificacion) throws SchiNotesException {       
+    public void saveNotificaciones(Notificacion notificacion) throws SchiNotesException {
 
         String sql1 = "SELECT CASE WHEN MAX(n.id) is NULL THEN 0 ELSE MAX(n.id) END FROM notificacion n";
         int id = jdbcTemplate.queryForObject(sql1, Integer.class);
         String sql2 = "INSERT INTO notificacion (id,descripcion,usuario_identificacion) VALUES (?,?,?)";
-        jdbcTemplate.update(sql2, new Object[] { id + 1, notificacion.getDescripcion(),notificacion.getUsuario().getIdentificacion()});
+        jdbcTemplate.update(sql2,
+                new Object[] { id + 1, notificacion.getDescripcion(), notificacion.getUsuario().getIdentificacion() });
     }
 
     @Override
@@ -222,9 +218,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             notificacion.setUsuario(usuario);
             notificaciones.add(notificacion);
         }
-        
+
         return notificaciones;
     }
-    
+
+    @Override
+    public void deleteAmigo(int idUsuario, int idAmigo) throws SchiNotesException {
+        String sql1 = "DELETE FROM amigo where usuario_identificacion = ? AND usuario_2_identificacion = ?";
+        jdbcTemplate.update(sql1, new Object[] { idUsuario, idAmigo });
+    }
 
 }

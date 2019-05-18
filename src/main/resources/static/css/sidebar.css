@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .sidebar {
     width: 90px;
     background-color: #212529;
@@ -13,12 +14,19 @@
     padding: 0.75rem 1rem;
     width: 90px;
 }
+=======
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+>>>>>>> origin/master
 
-.sidebar .nav-item .nav-link span {
-    font-size: 0.65rem;
-    display: block;
+body {
+    overflow-x: hidden;
 }
 
+<<<<<<< HEAD
 .sidebar .nav-item .dropdown-menu {
     position: absolute;
     -webkit-transform: none;
@@ -30,16 +38,31 @@
 .sidebar .nav-item .dropdown-menu.dropup {
     bottom: 0;
     top: auto;
+=======
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
 }
 
-.sidebar .nav-item.dropdown .dropdown-toggle::after {
-    display: none;
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+>>>>>>> origin/master
 }
 
-.sidebar .nav-item .nav-link {
-    color: rgb(255, 255, 255);
+#sidebar-wrapper .list-group {
+    width: 15rem;
 }
 
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+<<<<<<< HEAD
 .sidebar .nav-item .nav-link:active, .sidebar .nav-item .nav-link:focus, .sidebar .nav-item .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
 }
@@ -52,10 +75,20 @@
 @media (min-width: 768px) {
     .sidebar {
         width: 225px;
+=======
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+>>>>>>> origin/master
     }
-    .sidebar .nav-item .nav-link {
-        display: block;
+    #page-content-wrapper {
+        min-width: 0;
         width: 100%;
+<<<<<<< HEAD
         text-align: left;
         padding: 1rem;
         width: 225px;
@@ -101,5 +134,14 @@
     }
     .sidebar.toggled .nav-item.dropdown .dropdown-toggle::after {
         display: none;
+=======
     }
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+>>>>>>> origin/master
+    }
+}
+
+.list-group-item {
+    color: white;
 }

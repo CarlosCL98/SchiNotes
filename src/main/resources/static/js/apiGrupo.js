@@ -62,9 +62,24 @@ var apiGrupo = (function () {
                 contentType: "application/json",
                 url: "/schinotes/grupos/" + idGrupo + "/integrantes/" + usuarioCorreo + "/horarios/" + horarioNombre,
             }).done(function () {
-                alert("Se ha unido exitosamente al grupo.");
+                setTimeout(function () {
+                    $("#modalCargandoHome").modal("hide");
+                    $("#unirseAGrupoAlert").append("<div id='alertIntegranteUnido' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>Se ha unido exitosamente al grupo.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertIntegranteUnido").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
+                setTimeout(function () {
+                    $("#modalUnionGrupo").modal("hide");
+                }, 2000);
             }).fail(function () {
-                alert("No fue posible unirse al grupo. Intentelo nuevamente.");
+                setTimeout(function () {
+                    $("#modalCargandoHome").modal("hide");
+                    $("#unirseAGrupoAlert").append("<div id='alertIntegranteUnido' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>No fue posible unirse al grupo. Intentelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertIntegranteUnido").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
             });
         },
         deleteIntegranteDeGrupo: function (usuarioCorreo, idGrupo) {
@@ -72,10 +87,24 @@ var apiGrupo = (function () {
                 type: "DELETE",
                 url: "/schinotes/grupos/" + idGrupo + "/integrantes/" + usuarioCorreo,
             }).done(function () {
-                alert("Ha sido eliminado con éxito.");
-                $(location).attr("href", "../home.html");
+                setTimeout(function () {
+                    $("#modalCargandoHome").modal("hide");
+                    $("#salirseDeGrupoAlert").append("<div id='alertSaliendoGrupo' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>Has salido del grupo.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertSaliendoGrupo").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
+                setTimeout(function () {
+                    $(location).attr("href", "../home.html");
+                }, 2000);
             }).fail(function () {
-                alert("No fue posible eliminarlo del grupo. Inténtelo nuevamente.");
+                setTimeout(function () {
+                    $("#modalCargandoHome").modal("hide");
+                    $("#salirseDeGrupoAlert").append("<div id='alertSaliendoGrupo' class='col-md-12'><div class='alert alert-success alert-dismissible fade show' role='alert'>No pudiste salir del grupo. Inténtelo nuevamente.<button type='button' class='close col-md-2' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div></div>");
+                    $("#alertSaliendoGrupo").on("close.bs.alert", function () {
+                        $(this).remove();
+                    });
+                }, 500);
             });
         }
     };

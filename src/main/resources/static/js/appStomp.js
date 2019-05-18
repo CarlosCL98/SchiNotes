@@ -5,50 +5,39 @@ var appStomp = (function () {
     var idGrupoGlobal = null;
 
     var connectAndSubscribe = function (idHorario) {
-        console.info("Connecting to SchiNotes WebSocket...");
         var socket = new SockJS("/stompendpoint");
         stompClient = Stomp.over(socket);
         //subscribe to /topic/horario.{idGrupo} when connections succeed
         stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
-            console.log("Connected: " + frame);
             stompClient.subscribe("/topic/horario." + idHorario, function (eventbody) {
                 apiHorario.getHorarioById(Cookies.get("username"), idHorario, home.recargarHorario);
             });
         }, function (error) {
-            console.info("error" + error);
         }, "cayumjwz");
     };
 
     var connectAndSubscribeGrupo = function (idGrupo) {
-        console.info("Connecting to SchiNotes WebSocket...");
         var socket = new SockJS("/stompendpoint");
         stompClient = Stomp.over(socket);
         //subscribe to /topic/horario.{idGrupo} when connections succeed
         stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
-            console.log("Connected: " + frame);
-            stompClient.subscribe("/topic/horarioGrupo." + idGrupo, function (eventbody) {                
+            stompClient.subscribe("/topic/horarioGrupo." + idGrupo, function (eventbody) {
                 //apiUsuario.postNotificacion(Cookies.get("username"));
                 apiGrupo.getHorarioGrupo(idGrupo, homeGrupo.recargarHorario);
             });
         }, function (error) {
-            console.info("error" + error);
         }, "cayumjwz");
     };
 
     var connectAndSubscribeNotificacion = function (idGrupo) {
-        console.info("Connecting to SchiNotes WebSocket notifications...");
         var socket = new SockJS("/stompendpoint");
         stompClient = Stomp.over(socket);
         //subscribe to /topic/horario.{idGrupo} when connections succeed
         stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
-            console.log("Connected: " + frame);
             stompClient.subscribe("/topic/notificacion." + idGrupo, function (eventbody) {
-                console.log("entre al suscribe");
-                console.log(JSON.parse(eventbody.body));
-                apiUsuario.postNotificacion(Cookies.get("username"),JSON.parse(eventbody.body),homeGrupo.actualizarNotificaciones);
+                apiUsuario.postNotificacion(Cookies.get("username"), JSON.parse(eventbody.body), homeGrupo.actualizarNotificaciones);
             });
         }, function (error) {
-            console.info("error" + error);
         }, "cayumjwz");
     };
 
@@ -61,7 +50,7 @@ var appStomp = (function () {
     };
 
     var enviarNotificacion = function (notificacion) {
-        stompClient.send("/app/notificacion." + idGrupoGlobal,{},JSON.stringify(notificacion));
+        stompClient.send("/app/notificacion." + idGrupoGlobal, {}, JSON.stringify(notificacion));
     }
 
     return {
@@ -74,7 +63,7 @@ var appStomp = (function () {
             idGrupoGlobal = idGrupo;
             connectAndSubscribeGrupo(idGrupo);
         },
-        initNotificaciones:function (idGrupo){
+        initNotificaciones: function (idGrupo) {
             idGrupoGlobal = idGrupo;
             //websocket connection
             connectAndSubscribeNotificacion(idGrupoGlobal);
@@ -85,7 +74,7 @@ var appStomp = (function () {
         cambiarHorarioGrupoConActividades: function (actividad) {
             enviarCambiosGrupo(actividad);
         },
-        actualizarNotificaciones: function(notificacion){
+        actualizarNotificaciones: function (notificacion) {
             enviarNotificacion(notificacion);
         },
         disconnectHorario: function () {
@@ -93,14 +82,12 @@ var appStomp = (function () {
                 stompClient.disconnect();
             }
             setConnected(false);
-            console.log("Horario Desconectado");
         },
         disconnectGroup: function () {
             if (stompClient !== null) {
                 stompClient.disconnect();
             }
             setConnected(false);
-            console.log("Grupo Desconectado");
         }
     };
 })();
