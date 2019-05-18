@@ -5,12 +5,10 @@ var chatGrupal = (function () {
     var conectados = 0;
 
     var connectAndSubscribe = function (idGrupoChat) {
-        console.info("Connecting to SchiNotes WebSocket...");
         var socket = new SockJS("/stompendpoint");
         stompClient = Stomp.over(socket);
         //subscribe to /topic/horario.{idHorario} when connections succeed
         stompClient.connect("cayumjwz", "GBsaLlE828vd2w8LruiQ7IzSMbnlZwBO", function (frame) {
-            console.log("Connected: " + frame);
             stompClient.subscribe("/topic/chatGrupal." + idGrupoChat, function (eventbody) {
                 mostrarMensaje(eventbody.body);
             });
@@ -22,7 +20,6 @@ var chatGrupal = (function () {
             });
             actualizarConectados();
         }, function (error) {
-            console.info("error" + error);
         }, "cayumjwz");
     };
 
@@ -33,7 +30,6 @@ var chatGrupal = (function () {
     var modificarConectados = function (param) {
         var conectado = JSON.parse(param);
         conectados = conectado;
-        console.log("ME CONECTÉ Y AHORA HAY: "+conectados);
         $("#conectadosChat").text("Conectados: " + conectados);
     };
 
@@ -69,7 +65,6 @@ var chatGrupal = (function () {
                 stompClient.disconnect();
             }
             setConnected(false);
-            console.log("Grupo Desconectado");
         },
         enviarMensaje: function () {
             var mensaje = $("#inputMensajeChat").val();
