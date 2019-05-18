@@ -89,8 +89,10 @@ Realizamos un reporte con LightHouse, permitiéndonos ver el rendimiento, la acc
 [Reporte Light House](https://carloscl98.github.io/SchiNotes/docs/ReporteLightHouse.html)
 
 ### Pruebas de funcionalidad
+
 [pruebas](https://drive.google.com/file/d/1QdKtHJnR4SNJZV14Z1f6bKe7y0RuZXZl/view?usp=sharing)
 
 ### Informe de las pruebas de funcionalidad
+
 [informe](https://drive.google.com/file/d/1RbLqk5MhAp-peGEpe2mWx77yxgAuStVB/view?usp=sharing)
 

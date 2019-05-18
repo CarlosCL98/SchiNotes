@@ -30,7 +30,7 @@ En la siguiente tabla, se encuentran todos los atributos de calidad con su detal
 “Si el usuario intenta acceder a la herramienta pero el servicio se ha denegado por alguna razón el usuario debe ser avisado de este fallo”
 
 1. **Fuente:** Usuario registrado en la herramienta.
-2. **Estímulo:** Interacción en la página realizando diferentes operaciones.
+2. **Estímulo:** Interacción en la página realizando diferentes operaciones, como registrarse, entrar - login, crear un horario, crear una actividad, entre otros.
 3. **Entorno:** Herramienta colaborativa finalizada y operativa.
 4. **Artefacto:** Toda la herramienta ya operativa.
 5. **Respuesta:** Mensajes de alerta con colores dependiendo de la falla, indicándole el error que ha surgido y que lo vuelva a intentar.
@@ -70,7 +70,7 @@ En la siguiente tabla, se encuentran todos los atributos de calidad con su detal
 3. **Entorno:** Herramienta colaborativa finalizada y operativa, con un internet de 20 MB/s, en un computador con 10GB de memoria RAM, espacio en disco de 500GB, realizando la creación de un horario de lunes a domingo y con intervalos de a media hora \(30 min\).
 4. **Artefacto:** Módulo de creación de horario.
 5. **Respuesta:** La herramienta mostrará al usuario un mensaje de que su horario fue creado exitosamente y él podrá comprobar al seleccionar su horario.
-6. **Métrica:** el horario se crea en menos de 10 segundos.
+6. **Métrica:** el horario se crea en menos de 7 segundos.
 7. **Atributo de calidad afectado:** AT07
 
 **Escenario de Latencia:**
@@ -81,18 +81,18 @@ En la siguiente tabla, se encuentran todos los atributos de calidad con su detal
 2. **Estímulo:** Ingreso al home de la aplicacion de su respectivo usuario.
 3. **Entorno:** Herramienta colaborativa finalizada y operativa, con un internet de aproximadamente 6MB/s, en un computador con 10GB de memoria RAM, espacio en disco de 500GB.
 4. **Artefacto:** Módulo de login de usuario.
-5. **Respuesta:** La herramienta entrara al home de la aplicacion del respectivo usuario satisfactoriamente.
-6. **Métrica:** el horario se crea en menos de 5 segundos.
+5. **Respuesta:** La herramienta entrará al home de la aplicación del respectivo usuario satisfactoriamente después de realizar el inicio de sesión.
+6. **Métrica:** el inicio a la aplicación no tardará más de 2 segundos.
 7. **Atributo de calidad afectado:** AT07
 
 **Escenario de Latencia:**
 
 1. **Fuente:** Usuarios.
-2. **Estímulo:** Ingresan a la página de index \(página principal\) de la aplicación sin necesidad de tener aún un registro.
+2. **Estímulo:** Ingresar a la página de index \(página principal\) de la aplicación sin necesidad de tener aún un registro.
 3. **Entorno:** Herramienta colaborativa finalizada y operativa, a la que acceden 100 usuarios, usuario por 20 segundos.
 4. **Artefacto:** Página principal de la herramienta.
 5. **Respuesta:** La herramienta mostrará al usuario un mensaje de que su horario fue creado exitosamente y él podrá comprobar al seleccionar su horario.
-6. **Métrica:** el horario se crea en menos de 7 segundos.
+6. **Métrica:** la herramienta logrará responder a todas las peticiones al mismo tiempo durante 2 minutos.
 7. **Atributo de calidad afectado:** AT07
 
 ![](.gitbook/assets/latencia100usuarios%20%281%29.PNG)
